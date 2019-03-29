@@ -1,0 +1,138 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Banka | Create New Admin</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      media="screen"
+      href="./css-folder/main.css"
+    />
+    <link
+      rel="shortcut icon"
+      href="../../public/bicon.ico"
+      type="image/x-icon"
+    />
+    <link rel="apple-touch-icon" href="../../public/bicon.png" />
+    <link rel="icon" sizes="192x192" href="../../public/bicon.png" />
+  </head>
+
+  <body>
+    <label for="mobileShowmenu" class="mobileShowmenu">Show Menu</label>
+    <input type="checkbox" role="button" id="mobileShowmenu" />
+    <div class="sidemenu">
+      <nav>
+        <div class="logo">
+          <h1><span>B</span>anka</h1>
+        </div>
+        <ul>
+          <li>
+            <a href="./dashboard.html">
+              <img
+                src="../../public/dashboard.svg"
+                alt=""
+                class="icon"
+              />Dashboard</a
+            >
+          </li>
+          <li>
+            <a href="./account.html">
+              <img
+                src="../../public/account.svg"
+                alt=""
+                class="icon"
+              />Account</a
+            >
+          </li>
+
+          <li>
+            <a class="active"
+              ><img
+                src="../../public/createicon.svg"
+                alt=""
+                class="icon"
+              />Create Account</a
+            >
+            <ul class="hidden">
+              <li>
+                <a href="./create-staff.html"
+                  ><img
+                    src="../../public/createicon.svg"
+                    alt=""
+                    class="icon"
+                  />Staff Account</a
+                >
+              </li>
+              <li>
+                <a class="active" href="./create-admin.html"
+                  ><img
+                    src="../public/createicon.svg"
+                    alt=""
+                    class="icon"
+                  />Admin Account</a
+                >
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+    </div>
+    <header>
+      <div class="userarea">
+        <div id="logout">
+          <a href="../index.html"><strong>Log Out</strong></a>
+        </div>
+        <div class="userimage">
+          <img src="../public/nenny1.jpg" alt="" />
+        </div>
+        <div class="username">
+          <p>
+            Welcome "<span> <strong>Admin1</strong></span
+            >"
+          </p>
+        </div>
+      </div>
+    </header>
+
+    <div class="content-area">
+      <div class="cards">
+        <div class="card-newAdmin">
+          <h1>Create New Admin</h1>
+          <form action="">
+            <input
+              type="text"
+              name="admin-name"
+              placeholder="Username"
+              class="admin-name"
+            />
+            <input
+              type="email"
+              name="admin-email"
+              placeholder="Email"
+              class="staff-email"
+            />
+            <input
+              type="password"
+              name="admin-password"
+              placeholder="Password"
+              class="admin-name"
+            />
+            <input
+              type="password"
+              name="confirm-admin-password"
+              placeholder="Confirm Password"
+              class="confirm-admin-password"
+            />
+            <button class="create-admin primary-btn">Submit</button>
+          </form>
+        </div>
+      </div>
+    </div>
+    <footer id="main-footer">
+      <p>Copyright &copy; 2019 Banka All Right Reserved</p>
+    </footer>
+    <script src="./js-folder/main.js"></script>
+  </body>
+</html>
