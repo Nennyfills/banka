@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Banka | Profile</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      media="screen"
+      href="./css-folder/main.css"
+    />
+
+    <link rel="shortcut icon" href="../public/bicon.ico" type="image/x-icon" />
+    <link rel="apple-touch-icon" href="../public/bicon.png" />
+    <link rel="icon" sizes="192x192" href="../public/bicon.png" />
+  </head>
+
+  <body>
+    <label for="mobileShowmenu" class="mobileShowmenu">Show Menu</label>
+    <input type="checkbox" role="button" id="mobileShowmenu" />
+    <div class="sidemenu">
+      <nav>
+        <div class="logo">
+          <h1><span>B</span>anka</h1>
+        </div>
+        <a href="./dashboard.html">
+          <img src="../public/dashboard.svg" alt="" class="icon" />Dashboard</a
+        >
+        <a class="active" href="profile.html">
+          <img src="../public/profile.svg" alt="" class="icon" />Profile</a
+        >
+        <a href="./create.html"
+          ><img src="../public/createicon.svg" alt="" class="icon" />Create
+          Account</a
+        >
+        <a href="./transaction.html"
+          ><img src="../public/history.svg" alt="" class="icon" />Transaction
+          History</a
+        >
+      </nav>
+    </div>
+    <header>
+      <div class="userarea">
+        <div id="logout">
+          <a href="../index.html"><strong>Log Out</strong></a>
+        </div>
+        <div class="userimage">
+          <img src="../public/nenny1.jpg" alt="" />
+        </div>
+        <div class="username">
+          <p>
+            Welcome "<span> <strong>Joy</strong></span
+            >"
+          </p>
+        </div>
+      </div>
+    </header>
+
+    <div class="content-area">
+      <div class="heading">
+        <h1>Account Profile</h1>
+      </div>
+      <div class="profile">
+        <!-- <p>Hello <span>Chinenye</span> you have no profile to view</p>
+                <h4><a href="./create.html">Click here to create an account</a></h4> -->
+        <h4 class="profile-acount-design">
+          Account: <span class="profile-account">0980892310</span>
+        </h4>
+        <h4 class="profile-firstName-design">
+          Name: <span class="profile-firstName">Joy</span>
+          <span class="profile-lastName">Dabi</span>
+        </h4>
+        <h4 class="profile-email-design">
+          Email: <span class="profile-email">dabijoy@gmail.com</span>
+        </h4>
+        <h4 class="profile-account-type-design">
+          Type: <span class="account-type">Current Account</span>
+        </h4>
+        <h4 class="profile-birthday-design">
+          Birthday: <span class="account-type">2-12-1985</span>
+        </h4>
+        <h4 class="profile-gender-design">
+          Gender: <span class="account-type">Female</span>
+        </h4>
+        <h3 class="profile-active">Active</h3>
+      </div>
+    </div>
+
+    <footer id="main-footer">
+      <p>Copyright &copy; 2019 Banka All Right Reserved</p>
+    </footer>
+    <script src="./js-folder/main.js"></script>
+  </body>
+</html>
