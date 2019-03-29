@@ -7,6 +7,4 @@ const previewImage = e => {
     }
   };
   reader.readAsDataURL(e.files[0]);
-
-  alert("file uploaded");
 };
