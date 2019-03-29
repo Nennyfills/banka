@@ -6,7 +6,6 @@ const logMeIn = e => {
   console.log(username, password);
 
   if (username === "admin" && password === "admin") {
-    modal.style.display = "block"
     window.location.href = "admin/dashboard.html";
     return false;
   } else if (username === "staff" && password === "staff") {
