@@ -329,7 +329,6 @@ footer {
   background-color: #fff;
   padding: 10px 20px 30px 10px;
   width: 50%;
-  height: 100%;
   margin: 70px;
   border-radius: 100px;
   border-bottom: solid 26px rgb(7, 26, 83);
@@ -404,6 +403,59 @@ footer {
   border-radius: 2px;
   padding: 5px;
   text-align: center;
+}
+/* modal */
+
+.modalDelete {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  overflow: auto;
+  background-color: rgba(24, 21, 21, 0.2);
+}
+.modalDeactivate {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  overflow: auto;
+  background-color: rgba(24, 21, 21, 0.2);
+}
+.modalActivate {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  overflow: auto;
+  background-color: rgba(24, 21, 21, 0.2);
+}
+.modal-content {
+  background-color: #fff;
+  margin: 30px auto;
+  padding: 20px;
+  width: 30%;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.12), 0 2px 4px 0 rgba(0, 0, 0, 0.08);
+}
+.closeBtn {
+  color: #ccc;
+  float: right;
+  font-size: 40px;
+}
+.closeBtn:hover,
+.closeBtn:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
 }
 
 /* button */
