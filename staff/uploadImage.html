@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Banka | Dashboard</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      media="screen"
+      href="./css-folder/main.css"
+    />
+    <link rel="shortcut icon" href="../public/bicon.ico" type="image/x-icon" />
+    <link rel="apple-touch-icon" href="../public/bicon.png" />
+    <link rel="icon" sizes="192x192" href="../public/bicon.png" />
+  </head>
+
+  <body>
+    <label for="mobileShowmenu" class="mobileShowmenu">Show Menu</label>
+    <input type="checkbox" role="button" id="mobileShowmenu" />
+    <div class="sidemenu">
+      <nav>
+        <div class="logo">
+          <h1><span>B</span>anka</h1>
+        </div>
+        <a class="active" href="./dashboard.html">
+          <img src="../public/dashboard.svg" alt="" class="icon" />Dashboard</a
+        >
+        <a href="./accounts.html">
+          <img src="../public/account.svg" alt="" class="icon" />Account</a
+        >
+        <a href="./credit.html"
+          ><img src="../public/credit.svg" alt="" class="icon" />Credit Account
+        </a>
+        <a href="./debit.html"
+          ><img src="../public/debit.svg" alt="" class="icon" /> Debit Account
+        </a>
+      </nav>
+    </div>
+    <header>
+      <div class="userarea">
+        <div id="logout">
+          <a href="../index.html"><strong>Log Out</strong></a>
+        </div>
+        <div class="userimage">
+          <img src="../public/nenny1.jpg" alt="" />
+        </div>
+        <div class="username">
+          <p>
+            Welcome "<span> <strong>Staff1</strong></span
+            >"
+          </p>
+        </div>
+      </div>
+    </header>
+
+    <div class="content-area">
+      <div class="heading">
+        <h1>Upload your photo</h1>
+        <div class="go-back"><a href="./dashboard.html">Go Back</a></div>
+      </div>
+      <div class="cards">
+        <div class="card ">
+          <img src="../public/userImage.png" alt="" id="image" />
+        </div>
+        <div class="upload-button">
+          <input
+            type="file"
+            onchange="previewImage(this)"
+            class="upload-input primary-btn"
+          />
+          <button class="primary-btn" id="saveBtn">Save</button>
+        </div>
+      </div>
+    </div>
+    <footer id="main-footer">
+      <p>Copyright &copy; 2019 Banka All Right Reserved</p>
+    </footer>
+    <script src="./js-folder/main.js"></script>
+  </body>
+</html>
