@@ -101,7 +101,20 @@
             Active: <span></span>
             <strong class="badge-success view-active">Active</strong>
           </h2>
-          <button type="submit" class="primary-btn btn-float-left delete-btn">
+          <button
+            type="submit"
+            class="primary-btn btn-float-left delete-btn"
+            onclick="openModal()"
+          >
+            Delete
+          </button>
+        </div>
+      </div>
+      <div id="simpleModalDelete" class="modalDelete">
+        <div class="modal-content">
+          <span class="closeBtn" onclick="closeModal()">&times;</span>
+          <p id="content">Are you sure you want to delete</p>
+          <button class="primary-btn" id="deleteModal" onclick="deleteBtn()">
             Delete
           </button>
         </div>

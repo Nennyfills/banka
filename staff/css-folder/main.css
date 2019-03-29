@@ -1,7 +1,6 @@
 * {
   box-sizing: border-box;
 }
-
 body {
   font-family: "Gill Sans", "Gill Sans MT", "Calibri", "Trebuchet MS",
     sans-serif;
@@ -256,18 +255,18 @@ footer {
   width: 100%;
   margin-bottom: 2rem;
 }
-.go-back{
+.go-back {
   background-color: #302d43;
   width: 7%;
   padding: 7px;
   border-radius: 20px;
 }
-.go-back a{
+.go-back a {
   text-decoration: none;
   color: rgb(216, 209, 209);
 }
 
-.go-back:hover{
+.go-back:hover {
   background-color: #92a5de;
 }
 
@@ -318,9 +317,10 @@ footer {
 .debit-date-time,
 .debit-amount,
 .debit-account-number,
-.debit-name,.debit-description-name {
+.debit-name,
+.debit-description-name {
   margin-bottom: 1.3rem;
-  width: 50%;
+  width: 80%;
   border-radius: 2px;
   background: #3a3838;
   border: solid 1px #555;
@@ -330,7 +330,7 @@ footer {
 }
 .card-creditor .primary-btn,
 .card-debitor .primary-btn {
-  width: 50%;
+  width: 100%;
   display: inline-block;
 }
 .card-creditor,
@@ -338,17 +338,17 @@ footer {
 input[type="number"]::-webkit-outer-spin-button {
   -webkit-appearance: none;
 }
-.upload-input{
+.upload-input {
   margin-bottom: 1rem;
 }
-.cards .primary-btn{
-  width:27%;
+.cards .primary-btn {
+  width: 27%;
 }
 .card #image {
-margin: 1rem;
-height: 200px;
-border-radius: 40px;
-} 
+  margin: 1rem;
+  height: 200px;
+  border-radius: 40px;
+}
 
 /* badge */
 .badge-success {
@@ -359,6 +359,36 @@ border-radius: 40px;
   border-radius: 2px;
   padding: 5px;
   text-align: center;
+}
+/* modal */
+.modalDelete {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  overflow: auto;
+  background-color: rgba(24, 21, 21, 0.2);
+}
+.modal-content {
+  background-color: #fff;
+  margin: 30px auto;
+  padding: 20px;
+  width: 30%;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.12), 0 2px 4px 0 rgba(0, 0, 0, 0.08);
+}
+.closeBtn {
+  color: #ccc;
+  float: right;
+  font-size: 40px;
+}
+.closeBtn:hover,
+.closeBtn:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
 }
 
 /* button */
@@ -399,8 +429,12 @@ border-radius: 40px;
   background: #fff;
   color: #92a5de;
 }
+.secondary-btn a{
+  text-decoration: none;
+}
 .secondary-btn a:hover {
   color: #92a5de;
+  text-decoration: none;
 }
 
 /* handle moble view */
