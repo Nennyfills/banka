@@ -7,4 +7,4 @@ const previewImage = e => {
     }
   };
   reader.readAsDataURL(e.files[0]);
-};
+}
