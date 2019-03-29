@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Banka | Acount</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" type="text/css" media="screen" href="./css-folder/main.css" />
+    <link rel="shortcut icon" href="../public/bicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" href="../public/bicon.png">
+    <link rel="icon" sizes="192x192" href="../public/bicon.png">
+</head>
+
+<body>
+    <label for="mobileShowmenu" class="mobileShowmenu">Show Menu</label>
+    <input type="checkbox" role="button" id="mobileShowmenu" />
+    <div class="sidemenu">
+        <nav>
+            <div class="logo">
+                <h1><span>B</span>anka</h1>
+            </div>
+            <a href="./dashboard.html">
+                <img src="../public/dashboard.svg" alt="" class="icon" />Dashboard</a>
+            <a class="active" href="./accounts.html">
+                <img src="../public/account.svg" alt="" class="icon" />Account</a>
+            <a href="./credit.html"><img src="../public/credit.svg" alt="" class="icon" />Credit
+                Account
+            </a>
+            <a href="./debit.html"><img src="../public/debit.svg" alt="" class="icon" /> Debit
+                Account
+            </a>
+        </nav>
+    </div>
+    <header>
+        <div class="userarea">
+            <div id="logout">
+                <a href="../index.html"><strong>Log Out</strong></a>
+            </div>
+            <div class="userimage">
+                <img src="../public/nenny1.jpg" alt="" />
+            </div>
+            <div class="username">
+                <p>
+                    Welcome "<span> <strong>Staff1</strong></span>"
+                </p>
+            </div>
+        </div>
+    </header>
+
+    <div class="content-area">
+        <div class="heading">
+            <h1>Accounts</h1>
+        </div>
+        <div class="cards">
+            <div class="card-account">
+                <table>
+                    <thead>
+                        <th>
+                            ID
+                        </th>
+                        <th>Name</th>
+                        <th>Account</th>
+                        <th>Email</th>
+                        <th>Cell Number</th>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>001</td>
+                            <td>Ike Peter Joe</td>
+                            <td>0965537892</td>
+                            <td>peterike@gmail.com</td>
+                            <td>08069786543</td>
+                            <td class="secondary-btn"><a href="./view.html">View</a></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <footer id="main-footer">
+        <p>Copyright &copy; 2019 Banka All Right Reserved</p>
+    </footer>
+    <script src="./js-folder/main.js"></script>
+</body>
+
+</html>
