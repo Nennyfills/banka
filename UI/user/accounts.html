@@ -59,32 +59,34 @@
       <div class="heading">
         <h1>Accounts</h1>
       </div>
-    <div class=" searchItem">
+    <form action="">
+      <div class=" searchItem">
         <input type="text" name="Search" class="searchField" id="transactionSearch" />
-        <button type="submit" class="getSearchButton">
-            <i class="fas fa-search-plus"></i>
-        </button>
-    </div>
+        <input type="Submit" name="Submit" id="get-search-button" class="getSearchButton">
+      </div>
+    </form>
     <div class="transation">
-        <table class="card-table">
-            <thead>
-              <th>
+        <table class="table-content">
+            <thead class="accounts">
+              <tr class="account-tr">
+                <th class="account-th">
                 ID
               </th>
-              <th>Name</th>
-              <th>Account</th>
-              <th>Email</th>
-              <th>Cell Number</th>
+              <th class="account-th">Name</th>
+              <th class="account-th">Account</th>
+              <th class="account-th">Email</th>
+              <th class="account-th">Cell Number</th>
+              <th>Veiw Accounts</th></tr>
             </thead>
-            <tbody>
-              <tr>
-                <td>001</td>
-                <td>Ike Peter Joe</td>
-                <td>0965537892</td>
-                <td>peterike@gmail.com</td>
-                <td>08069786543</td>
-                <td class="primary-btn"><a href="./view.html">View</a></td>
-              </tr>
+            <tbody class="accounts-tbody">
+              <tr class="account-tr">
+                <td class="account-td">001</td>
+                <td class="account-td">Ike Peter Joe</td>
+                <td class="account-td">0965537892</td>
+                <td class="account-td">peterike@gmail.com</td>
+                <td class="account-td">08069786543</td>
+                <td class="account-td"><a href="./view.html">View</a></td>
+              </tr >
             </tbody>
           </table>
         </div>
