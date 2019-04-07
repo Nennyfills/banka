@@ -692,8 +692,7 @@ input[type="checkbox"]:checked ~ .sidemenu {
 
   .userimg {
     padding-right: 2rem !important;
-  }
-  .username-styles {
+  }  .username-styles {
     padding-top: 1rem;
   }
 
