@@ -3,8 +3,14 @@
   <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <title>Banka | Debit</title>
+    <title>Banka | Credit</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+      integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf"
+      crossorigin="anonymous"
+    />
     <link
       rel="stylesheet"
       type="text/css"
@@ -24,17 +30,17 @@
         <div class="logo">
           <h1><span>B</span>anka</h1>
         </div>
-        <a href="./dashboard.html">
-          <img src="../public/dashboard.svg" alt="" class="icon" />Dashboard</a
+        <a href="./dashboard-admin.html">
+          <i class="fas fa-tachometer-alt"></i>Dashboard</a
         >
         <a href="./accounts.html">
-          <img src="../public/account.svg" alt="" class="icon" />Account</a
+          <i class="far fa-user-circle"></i>Account</a
         >
-        <a href="./credit.html"
-          ><img src="../public/credit.svg" alt="" class="icon" />Credit Account
+        <a class="active" href="./credit.html"
+          ><i class="fas fa-minus-circle"></i>Credit Account
         </a>
-        <a class="active" href="debit.html"
-          ><img src="../public/debit.svg" alt="" class="icon" /> Debit Account
+        <a href="./debit.html"
+          ><i class="fas fa-plus-circle"></i> Debit Account
         </a>
       </nav>
     </div>
@@ -48,7 +54,7 @@
         </div>
         <div class="username">
           <p>
-            Welcome "<span> <strong>Staff1</strong></span
+            Welcome "<span id="username"> <strong>Staff1</strong></span
             >"
           </p>
         </div>
@@ -57,56 +63,54 @@
 
     <div class="content-area">
       <div class="heading">
-        <h1>Debit Accounts</h1>
+        <h1>Credit Accounts</h1>
       </div>
       <div class="cards">
-        <div class="card-debitor">
-          <form action="">
+        <div class="card-form-design">
+          <form action="./dashboard.html">
             <input
               type="text"
-              name="debit-name"
+              name="credit-name"
               placeholder="Name"
-              class="debit-name"
+              class="credit-name"
+              required
             />
             <input
               type="number"
-              name="debit-account-number"
+              name="credit-account-number"
               placeholder="Account Number"
-              class="debit-account-number"
+              class="credit-account-number"
+              required
             />
             <input
               type="number"
-              name="debit-amount"
+              name="credit-amount"
               placeholder=" Amount"
-              class="debit-amount"
+              class="credit-amount"
+              required
             />
             <input
               type="text"
-              name="debitor-name"
-              placeholder="Debitor's Name"
-              class="debitor-name"
+              name="depositor-name"
+              placeholder="Depositor Name"
+              class="depositor-name"
+              required
             />
             <input
               type="text"
-              name="debit-description"
-              placeholder="Description"
-              class="debit-description-name"
+              name="creditor-name"
+              placeholder="Creditor's Name"
+              class="creditor-name"
+              required
             />
-            <input
-              type="datetime-local"
-              name="debit-date-time"
-              placeholder="Date"
-              class="debit-date-time"
-            />
-            <button type="submit" class="primary-btn">Debit</button>
+            <button type="submit" class="primary-btn">Credit</button>
           </form>
         </div>
       </div>
+      <footer id="main-footer">
+        <p>Copyright &copy; 2019 Banka All Right Reserved</p>
+      </footer>
     </div>
-
-    <footer id="main-footer">
-      <p>Copyright &copy; 2019 Banka All Right Reserved</p>
-    </footer>
     <script src="./js-folder/main.js"></script>
   </body>
 </html>
