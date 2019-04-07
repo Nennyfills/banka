@@ -7,19 +7,24 @@ const previewImage = e => {
     }
   };
   reader.readAsDataURL(e.files[0]);
-
-  alert("file uploaded");
 };
 
-const openModal = () => {
-  let modal = document.getElementById("simpleModalDelete");
+const openModal = current => {
+  let modal = document.getElementById(current);
   modal.style.display = "block";
 };
 
-const closeModal = () => {
-  let modal = document.getElementById("simpleModalDelete");
+const closeModal = current => {
+  let modal = document.getElementById(current);
   modal.style.display = "none";
 };
+
 const deleteBtn = () => {
-  window.location.href = "accounts.html";
+  window.location.href = "account.html";
+};
+const activateBtn = () => {
+  window.location.href = "account.html";
+};
+const deactivateBtn = () => {
+  window.location.href = "account.html";
 };

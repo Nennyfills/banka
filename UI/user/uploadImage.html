@@ -6,6 +6,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <title>Banka | Dashboard</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" 
+    integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf"
+    crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" media="screen" href="./css-folder/main.css" />
 
     <link rel="shortcut icon" href="../public/bicon.ico" type="image/x-icon" />
@@ -21,14 +24,9 @@
             <div class="logo">
                 <h1><span>B</span>anka</h1>
             </div>
-            <a class="active" href="./dashboard.html">
-                <img src="../public/dashboard.svg" alt="" class="icon" />Dashboard</a>
-            <a href="./profile.html">
-                <img src="../public/profile.svg" alt="" class="icon" />Profile</a>
-            <a href="./create.html"><img src="../public/createicon.svg" alt="" class="icon" />Create
-                Account</a>
-            <a href="./transaction.html"><img src="../public/history.svg" alt="" class="icon" />Transation
-                History</a>
+            <a id="side_dashboard">
+            <i class="fas fa-tachometer-alt"></i>Dashboard</a>
+        
         </nav>
     </div>
     <header>
@@ -52,7 +50,6 @@
             <h1>Upload your photo</h1>
         </div>
         <div class="cards">
-            <div class="go-back"><a href="./dashboard.html">Go Back</a></div>
             <div class="card ">
                 <img src="../public/userImage.png" alt="" id="image">
             </div>
