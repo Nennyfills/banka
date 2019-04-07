@@ -340,18 +340,19 @@ header .username {
 }
 
 /* search button */
-form{
-  width: 60%; 
-  margin:49px auto;;
+form {
+  width: 50%;
+  margin: 19px auto;
 }
-.searchItem input[type=text]{
-  width: 80%;
+.searchItem input[type="text"] {
+  width: 50%;
   border: none;
   padding: 15px;
   font-size: 18px;
-  font-family: 'Courier New', Courier, monospace;
+  font-family: "Courier New", Courier, monospace;
   border-radius: 5px;
 }
+
 .searchItem input[type=submit]{
   border: none;
   padding: 15px;
@@ -359,10 +360,10 @@ form{
   font-family: 'Courier New', Courier, monospace;
   background-color:#201d38;
   color: white;
-    border-radius: 5px;
+  border-radius: 5px;
   cursor: pointer;
   position: absolute;
-}
+} 
 
 /* credit and debit design */
 
@@ -486,21 +487,26 @@ input[type="number"]::-webkit-outer-spin-button {
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.12), 0 2px 4px 0 rgba(0, 0, 0, 0.08);
 }
 
+.table-content,
 table {
   width: 80%;
-  margin:auto;
+  margin: auto;
   border-collapse: collapse;
 }
-tr:nth-of-type(odd) {
+tr:nth-of-type(odd),
+.account-tr:nth-of-type(odd) {
   background: #eee;
 }
-th {
-  background:  rgb(7, 26, 83);
+th,
+.account-th {
+  background: rgb(7, 26, 83);
   color: white;
   font-weight: bold;
 }
 td,
-th {
+th,
+.account-td,
+.account-th {
   padding: 6px;
   border: 1px solid #ccc;
   text-align: left;
@@ -648,7 +654,7 @@ input[type="checkbox"]:checked ~ .sidemenu {
   display: none;
 }
 
-@media screen and (max-width: 766px) {
+ @media screen and (max-width: 766px) {
   .sidemenu {
     position: static;
     display: none;
@@ -663,8 +669,9 @@ input[type="checkbox"]:checked ~ .sidemenu {
     margin: 6px;
     width: auto;
   }
-  .username-styles {
-    padding-top: 900rem !important;
+  
+  .username-styles { 
+    padding-top: 0.4rem !important;
   }
   .card-profile .userimg img {
     height: 100px;
@@ -672,7 +679,7 @@ input[type="checkbox"]:checked ~ .sidemenu {
   }
   .transation {
     border-right: 0;
-  }
+  } 
   .content-area .cards .card {
     margin-right: 5px;
   }
@@ -687,7 +694,7 @@ input[type="checkbox"]:checked ~ .sidemenu {
     padding-right: 2rem !important;
   }
   .username-styles {
-    padding-top: 9rem;
+    padding-top: 1rem;
   }
 
   .mobileShowmenu {
@@ -714,41 +721,44 @@ input[type="checkbox"]:checked ~ .sidemenu {
 }
 @media only screen and (max-width: 760px),
   (min-device-width: 768px) and (max-device-width: 1024px) {
-    
-form{
-  margin:auto;
-}
-.searchItem input[type=text]{
-  width: 80%;
-  padding: 10px;
-  border-radius: 5px;
-}
-.searchItem input[type=submit]{
-  width: 80%;
-  padding: 15px ;
+  form {
+    margin: auto;
+  }
+  .searchItem input[type="text"] {
+    width: 80%;
+    padding: 10px;
     border-radius: 5px;
-    margin:5px 0 20px 0;
-  position: static;
-}
+  }
+  .searchItem input[type="submit"] {
+    width: 80%;
+    padding: 15px;
+    border-radius: 5px;
+    margin: 5px 0 20px 0;
+    position: static;
+  }
   table,
   thead,
   tbody,
   th,
   td,
-  tr {
+  tr,
+  .table-content .accounts .account-td .account-th .account-td .account-tr {
     display: block;
   }
 
+  .accounts,
   thead tr {
     position: absolute;
     top: -9999px;
     left: -9999px;
   }
 
+  .account-tr,
   tr {
     border: 1px solid #ccc;
   }
 
+  .account-td,
   td {
     border: none;
     border-bottom: 1px solid #eee;
@@ -756,6 +766,7 @@ form{
     padding-left: 50%;
   }
 
+  .account-td:before,
   td:before {
     position: absolute;
     top: 6px;
@@ -785,5 +796,23 @@ form{
   }
   td:nth-of-type(7):before {
     content: " New Balance";
+  }
+  .account-td:nth-of-type(1):before {
+    content: "ID";
+  }
+  .account-td:nth-of-type(2):before {
+    content: "Name";
+  }
+  .account-td:nth-of-type(3):before {
+    content: "Account";
+  }
+  .account-td:nth-of-type(4):before {
+    content: "Email";
+  }
+  .account-td:nth-of-type(5):before {
+    content: " Cell Number";
+  }
+  .account-td:nth-of-type(6):before {
+    content: "view Accounts";
   }
 }
