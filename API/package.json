@@ -1,0 +1,29 @@
+{
+  "name": "api",
+  "version": "1.0.0",
+  "description": "Easy optimization of data",
+  "main": "server.js",
+  "scripts": {
+    "test-init": "jasmine init",
+    "test": "babel-node spec/run.js",
+    "start": "",
+    "dev": "nodemon --exec babel-node server.js"
+  },
+  "author": "Dike Chinenye <nennydike@gmail.com>",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "express": "^4.16.4"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.4.3",
+    "@babel/core": "^7.4.3",
+    "@babel/node": "^7.2.2",
+    "@babel/preset-env": "^7.4.3",
+    "eslint": "^5.16.0",
+    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-plugin-import": "^2.16.0",
+    "jasmine": "^3.4.0",
+    "nodemon": "^1.18.10"
+  }
+}
