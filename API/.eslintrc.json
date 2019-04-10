@@ -1,7 +1,7 @@
 {
   "env": {
     "browser": true,
-    "es6": true
+    "es6": true    
   },
   "extends": "airbnb-base",
   "globals": {
@@ -13,11 +13,21 @@
     "sourceType": "module"
   },
   "rules": {
-    "quotes": ["error", "single"],
-    " no-duplicate-imports": "error",
-    "no-var": "error",
-    "no-useless-constructor": "error",
-   "newline-before-return": "error",
-  "lines-around-directive":["error", "always"]
+    "quotes": [
+      2,
+      "double"
+    ],
+    " no-duplicate-imports": "0",
+    "no-var":2,
+    "no-useless-constructor": 2,
+    "newline-before-return": 0,
+    "lines-around-directive": [
+      0,
+      "always"
+    ],
+    "inline-break-line": 0,
+    "no-multi-assign":0,
+    "linebreak-style": 0
+   
   }
 }
