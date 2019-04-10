@@ -1,5 +1,6 @@
 /* eslint-disable no-param-reassign */
 import moment from "moment";
+import { log } from "util";
 import {
   database,
   userdb,
@@ -8,9 +9,8 @@ import {
   accountdb,
   transactionsId,
 } from "./database";
-import { log } from "util";
 
-export default class dbControllers {
+export default class DbControllers {
   constructor() {
     this.PERMISSION = {
       ADMIN: "ADMIN",
@@ -26,36 +26,42 @@ export default class dbControllers {
   }
 
   static saveData(data) {
-    data.id = Math.floor(Math.random() * 598) + 509;
     data.createdAt = moment().format();
-    console.log(data);
     database[data.type].push(data);
     return data;
-    // console.log(database, this.data.type);
+  }
+
+  static saveByKey(data) {
+    data.createdAt = moment().format();
+    database[data.key].push(data);
+    return data;
   }
 
   static getAllUsers() {
-    return JSON.stringify(userdb);
+    this.db = [...userdb];
+    return this.db;
   }
 
   static getAllAccounts() {
-    return JSON.stringify(accountdb);
+    this.db = [...accountdb];
+    return this.db;
   }
 
   static getAllTransactions() {
-    return JSON.stringify(transactionsId);
+    this.db = [...transactionsId];
+    return this.db;
   }
 
   static generateAccountNumber() {
-    this.uniqueNumber = "300";
-    this.randomDigit = Math.floor(Math.random() * 806598) + 806509;
-    return `${this.uniqueNumber} ${this.randomDigit}`;
+    this.uniqueNumber = 300;
+    this.randomDigit = Math.ceil(Math.random() * 8879789);
+    return Number(`${this.uniqueNumber}${this.randomDigit}`);
   }
 
-  static generateId(data) {
-    this.uniqueNumber = "100000";
-    this.arrayLength = database[data.type].length + 1;
-    this.id = `${this.uniqueNumber}${this.arrayLength}`;
+  static generateId() {
+    this.uniqueNumber = 10000;
+    this.arrayLength = Math.ceil(Math.random() * 907832789);
+    this.id = Number(`${this.uniqueNumber}${this.arrayLength}`);
     return this.id;
   }
 }
