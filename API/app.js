@@ -10,5 +10,5 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use("/", router);
 
-const server = app.listen(8000, () => console.log("Server on port 8000"));
+const server = app.listen(3500, () => console.log("Server on port 3500"));
 module.exports = server;
