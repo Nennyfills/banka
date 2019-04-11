@@ -2,13 +2,13 @@ import express from "express";
 import bodyParser from "body-parser";
 import router from "./server/routers";
 
-const app = express();
+const server = express();
 
 
-app.use(express.json());
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json());
-app.use("/", router);
+server.use(express.json());
+server.use(bodyParser.urlencoded({ extended: true }));
+server.use(bodyParser.json());
+server.use("/", router);
 
-const server = app.listen(3500, () => console.log("Server on port 3500"));
-module.exports = server;
+const app = server.listen(1500, () => console.log("Server on port 1500"));
+module.exports = app;

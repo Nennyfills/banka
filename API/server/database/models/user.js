@@ -1,3 +1,4 @@
+import { isUndefined, callbackify } from "util";
 import DbControllers from "../dbControllers";
 
 
@@ -8,17 +9,28 @@ exports.create = (user, cb) => {
 };
 
 exports.createAccount = (data, callbk) => {
+  const requiredField = ["firstName", "surName", "type", "accountBalance", "email", "phoneNumber"];
+  const requiredError = requiredField.filter(key => data[key] === undefined).map(value => `${value} is required`);
+  if (requiredError.length !== 0) {
+    callbk(requiredError, null);
+    return;
+  }
+  // console.log(data);
+
   const newAccount = DbControllers.saveByKey(data);
-  console.log(data);
-  
   const balance = newAccount.accountBalance;
-  console.log(balance);
-  
   const {
     // eslint-disable-next-line max-len
     createdAt, active, gender, accountBalance, accountId, key, ...editedAccount
   } = newAccount;
   editedAccount.openingBalance = parseFloat(balance);
-  console.log(editedAccount);
   callbk(null, editedAccount);
+};
+
+exports.findAcount = (data, callbk) => {
+  const accounts = DbControllers.getAllAccounts();
+  const account = accounts.find(acc => acc.accountNumber === data);
+  if (!account) { callbk(data, null); }
+
+  callbk(null, data);
 };

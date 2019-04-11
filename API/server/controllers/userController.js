@@ -67,8 +67,6 @@ class UserController {
       gender,
       dob,
     } = req.body;
-    console.log(email);
-
     User.createAccount(
       {
         key: "ACCOUNT",
@@ -86,10 +84,14 @@ class UserController {
       },
       (err, data) => {
         if (err) {
+          console.log(err);
+          
           res.status(400).json({
             status: 400,
-            error: "Account not sucessfully created",
+            message: "Account  not sucessfully created",
+            error: err,
           });
+          return;
         }
         // stop early
         res.status(201).json({
@@ -99,6 +101,29 @@ class UserController {
         });
       },
     );
+  }
+
+  static profile(req, res) {
+    const userAccount = parseInt(req.params.account);
+
+    User.findAcount(userAccount, (err, data) => {
+      if (err) {
+        res.status(400).json({
+          status: 400,
+          message: "Invalid account",
+          error: err,
+        });
+        return;
+      }
+      // stop early
+      res.status(200).json({
+        status: 200,
+        message: "Request was successfully",
+        data: {
+          data,
+        },
+      });
+    });
   }
 }
 

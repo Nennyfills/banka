@@ -38,18 +38,15 @@ export default class DbControllers {
   }
 
   static getAllUsers() {
-    this.db = [...userdb];
-    return this.db;
+    return JSON.stringify(userdb);
   }
 
   static getAllAccounts() {
-    this.db = [...accountdb];
-    return this.db;
+    return JSON.parse(JSON.stringify(accountdb));
   }
 
   static getAllTransactions() {
-    this.db = [...transactionsId];
-    return this.db;
+    // return JSON.parse(JSON.stringify(transactiondb));
   }
 
   static generateAccountNumber() {
