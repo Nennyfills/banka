@@ -1,8 +1,6 @@
 /* eslint-disable no-template-curly-in-string */
 /* eslint-disable no-undef */
-// import Request from "request";
 import request from "request";
-// import expect from "expect";
 import app from "../app";
 
 

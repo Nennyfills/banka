@@ -106,7 +106,7 @@ const DATABASE = {
       type: "current",
       dob: "04 / 02 / 1991",
       gender: "female",
-      active: true,
+      status: "active",
     },
     {
       id: 1000006,
@@ -119,7 +119,7 @@ const DATABASE = {
       type: "current",
       dob: "04 / 02 / 1991",
       gender: "male",
-      active: true,
+      status: "active",
     },
   ],
   TRANSACTION: [
