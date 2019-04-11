@@ -190,8 +190,8 @@ const userdb = [...DATABASE.USER];
 const admindb = [...DATABASE.ADMIN];
 const staff = [...DATABASE.STAFF];
 const accountdb = [...DATABASE.ACCOUNT];
-const transactionsId = [...DATABASE.TRANSACTION];
+const transactionsdb = [...DATABASE.TRANSACTION];
 
 module.exports = {
-  database, userdb, admindb, staff, accountdb, transactionsId,
+  database, userdb, admindb, staff, accountdb, transactionsdb,
 };

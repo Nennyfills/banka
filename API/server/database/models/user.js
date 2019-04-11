@@ -1,4 +1,3 @@
-import { isUndefined, callbackify } from "util";
 import DbControllers from "../dbControllers";
 
 
@@ -30,7 +29,15 @@ exports.createAccount = (data, callbk) => {
 exports.findAcount = (data, callbk) => {
   const accounts = DbControllers.getAllAccounts();
   const account = accounts.find(acc => acc.accountNumber === data);
-  if (!account) { callbk(data, null); }
+  if (!account) { callbk(data, null); return; }
 
-  callbk(null, data);
+  callbk(null, account);
+};
+
+exports.findTransaction = (data, callbk) => {
+  const accounts = DbControllers.getAllTransactions();
+  const account = accounts.find(acc => acc.accountNumber === data);
+  if (!account) { callbk(data, null); return; }
+
+  callbk(null, accounts);
 };

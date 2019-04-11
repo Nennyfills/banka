@@ -5,9 +5,9 @@ import {
   database,
   userdb,
   admindb,
+  transactionsdb,
   staff,
   accountdb,
-  transactionsId,
 } from "./database";
 
 export default class DbControllers {
@@ -38,7 +38,7 @@ export default class DbControllers {
   }
 
   static getAllUsers() {
-    return JSON.stringify(userdb);
+    return JSON.parse(JSON.stringify(userdb));
   }
 
   static getAllAccounts() {
@@ -46,7 +46,8 @@ export default class DbControllers {
   }
 
   static getAllTransactions() {
-    // return JSON.parse(JSON.stringify(transactiondb));
+    return JSON.parse(JSON.stringify(transactionsdb));
+
   }
 
   static generateAccountNumber() {
