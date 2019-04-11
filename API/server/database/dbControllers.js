@@ -26,6 +26,7 @@ export default class DbControllers {
   }
 
   static saveData(data) {
+    data.status = "active";
     data.createdAt = moment().format();
     database[data.type].push(data);
     return data;
@@ -47,7 +48,6 @@ export default class DbControllers {
 
   static getAllTransactions() {
     return JSON.parse(JSON.stringify(transactionsdb));
-
   }
 
   static generateAccountNumber() {
@@ -61,5 +61,12 @@ export default class DbControllers {
     this.arrayLength = Math.ceil(Math.random() * 907832789);
     this.id = Number(`${this.uniqueNumber}${this.arrayLength}`);
     return this.id;
+  }
+
+  static updataDb(data) {
+    const indexOfAccount = database.ACCOUNT.findIndex(acc => acc.id === data.id);
+
+    if (indexOfAccount === -1) { return; }
+    database.ACCOUNT[indexOfAccount] = data;
   }
 }

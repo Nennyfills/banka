@@ -20,7 +20,7 @@ exports.createAccount = (data, callbk) => {
   const balance = newAccount.accountBalance;
   const {
     // eslint-disable-next-line max-len
-    createdAt, active, gender, accountBalance, accountId, key, ...editedAccount
+    createdAt, gender, accountBalance, accountId, key, ...editedAccount
   } = newAccount;
   editedAccount.openingBalance = parseFloat(balance);
   callbk(null, editedAccount);
