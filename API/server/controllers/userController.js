@@ -80,7 +80,6 @@ class UserController {
         type,
         gender,
         dob,
-        active: true,
       },
       (err, data) => {
         if (err) {
