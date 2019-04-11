@@ -70,7 +70,6 @@ describe("Testing User controller", () => {
       it("should not create a new account when the parameters are not given", (done) => {
         request.post(endpoint, payload, (err, res, body) => {
           expect(res.statusCode).toBe(400);
-          console.log(body);
           expect(body.data).toBeUndefined();
           done();
         });
@@ -78,14 +77,57 @@ describe("Testing User controller", () => {
     });
   });
 
-  describe("view profile", () => {
+  describe("Profile", () => {
     const endpoint = "http://localhost:1500/api/v1/user/3008989876/profile";
     const payload = {
       json: true,
     };
-    it("should ", (done) => {
+    it("should view a user profile with right acount number", (done) => {
       request.get(endpoint, payload, (err, res, body) => {
         expect(res.statusCode).toBe(200);
+        // expect(body.data).toBe(payload.body.accountNumber);
+        // console.log(body.data);
+        done();
+      });
+    });
+  });
+  describe("Profile", () => {
+    const endpoint = "http://localhost:1500/api/v1/user/300898987/profile";
+    const payload = {
+      json: true,
+    };
+    it("should not view a user profile with wrong acount number", (done) => {
+      request.get(endpoint, payload, (err, res, body) => {
+        expect(res.statusCode).toBe(400);
+        // expect(body.data).toBe(payload.body.accountNumber);
+        // console.log(body.data);
+        done();
+      });
+    });
+  });
+  describe("Transaction", () => {
+    const endpoint = "http://localhost:1500/api/v1/user/3008989876/profile";
+    const payload = {
+      json: true,
+      // data: data,
+    };
+    it("should view a user transaction with right acount number", (done) => {
+      request.get(endpoint, payload, (err, res, body) => {
+        expect(res.statusCode).toBe(200);
+        // expect(body.data.data).toBe(payload.body.data);
+        // console.log(body.data);
+        done();
+      });
+    });
+  });
+  describe("Transaction", () => {
+    const endpoint = "http://localhost:1500/api/v1/user/300898987/profile";
+    const payload = {
+      json: true,
+    };
+    it("should not view a user transaction with wrong acount number", (done) => {
+      request.get(endpoint, payload, (err, res, body) => {
+        expect(res.statusCode).toBe(400);
         // expect(body.data).toBe(payload.body.accountNumber);
         // console.log(body.data);
         done();

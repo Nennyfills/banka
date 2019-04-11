@@ -84,8 +84,6 @@ class UserController {
       },
       (err, data) => {
         if (err) {
-          console.log(err);
-          
           res.status(400).json({
             status: 400,
             message: "Account  not sucessfully created",
@@ -119,9 +117,29 @@ class UserController {
       res.status(200).json({
         status: 200,
         message: "Request was successfully",
-        data: {
-          data,
-        },
+        data,
+      });
+    });
+  }
+
+  static transaction(req, res) {
+    const userAccount = parseInt(req.params.account);
+    console.log(userAccount);
+
+    User.findTransaction(userAccount, (err, data) => {
+      if (err) {
+        res.status(400).json({
+          status: 400,
+          message: "Invalid account",
+          error: err,
+        });
+        return;
+      }
+      // stop early
+      res.status(200).json({
+        status: 200,
+        message: "Request was successfully",
+        data,
       });
     });
   }
