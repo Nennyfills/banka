@@ -7,25 +7,6 @@ import DefaultUserController from "../controllers/defaultControllers";
 
 const router = Router();
 
-router.get("/", (req, res) => {
-  res.send("Home Page");
-});
-router.get("*", (req, res) => {
-  res.send("API banka invalid url ");
-});
-router.post("*", (req, res) => {
-  res.send("API banka invalid url ");
-});
-router.delete("*", (req, res) => {
-  res.send("API banka invalid url ");
-});
-router.put("*", (req, res) => {
-  res.send("API banka invalid url ");
-});
-router.patch("*", (req, res) => {
-  res.send("API banka invalid url ");
-});
-
 
 router.post("/api/v1/auth/signup", UserController.signup);
 router.post("/api/v1/auth/login", DefaultUserController.login);
