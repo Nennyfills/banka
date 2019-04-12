@@ -3,6 +3,8 @@ import DbControllers from "../dbControllers";
 
 exports.create = (user, cb) => {
   const newuser = DbControllers.saveData(user);
+  console.log(user.password);
+  
   delete newuser.password;
   cb(null, newuser);
 };
