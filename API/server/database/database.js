@@ -33,9 +33,9 @@ const DATABASE = {
       surname: "Fills",
       email: "joy@westlife.com",
       phoneNumber: "09078754434",
-      password: "$2b$10$peUVM0nFUfGxIoOO55mdW.5bFkadvs8wIDIrikywodrnzvnsXqe52",
+      password: "$2a$10$EfwMJnjkSIV7HXhCZ3SPR.COcbPGLf7WA4Xu0OSV8XAuW.z.6Qqm2",
       registered: "12/3/2019",
-      isadmin: true,
+      isadmin: false,
     },
     {
       type: "USER",
@@ -47,7 +47,7 @@ const DATABASE = {
       password: "$2b$10$peUVM0nFUfGxIoOO55mdW.5bFkadvs8wIDIrikywodrnzvnsXqe52",
       registered: "12/3/2019",
 
-      isadmin: true,
+      isadmin: false,
     },
     {
       type: "USER",
@@ -58,7 +58,7 @@ const DATABASE = {
       phoneNumber: "09097786540",
       password: "$2b$10$peUVM0nFUfGxIoOO55mdW.5bFkadvs8wIDIrikywodrnzvnsXqe52",
       registered: "12/3/2019",
-      isadmin: true,
+      isadmin: false,
     },
     {
       type: "USER",
@@ -69,7 +69,7 @@ const DATABASE = {
       phoneNumber: "09087678989",
       password: "$2b$10$peUVM0nFUfGxIoOO55mdW.5bFkadvs8wIDIrikywodrnzvnsXqe52",
       registered: "12/3/2019",
-      isadmin: true,
+      isadmin: false,
     },
     {
       type: "USER",

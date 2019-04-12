@@ -47,6 +47,14 @@ export default class DbControllers {
     return JSON.parse(JSON.stringify(accountdb));
   }
 
+  static getAllAdmin() {
+    return JSON.parse(JSON.stringify(admindb));
+  }
+
+  static getAllStaff() {
+    return JSON.parse(JSON.stringify(staff));
+  }
+
   static getAllTransactions() {
     return JSON.parse(JSON.stringify(transactionsdb));
   }
