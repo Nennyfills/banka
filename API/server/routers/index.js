@@ -9,18 +9,18 @@ import DefaultUserController from "../controllers/defaultControllers";
 
 const router = Router();
 
-router.post("/api/v1/user/signup", UserController.signup);
-router.post("/api/v1/user/login", DefaultUserController.login);
-router.post("/api/v1/user/account/create", UserController.create);
-router.get("/api/v1/user/:accountnumber/profile", UserController.profile);
-router.get("/api/v1/user/:accountnumber/transaction", UserController.transaction);
-router.put("/api/v1/user/:accountnumber/deactivate", AdminController.deactivate);
-router.put("/api/v1/user/:accountnumber/activate", AdminController.activate);
-router.post("/api/v1/user/transactions/credit", StaffController.credit);
-router.post("/api/v1/user/transactions/debit", StaffController.debit);
-// router.post("/api/v1/user/:accountnumber/delete", CommonActivities.delete);
-// router.get("/api/v1/user/accounts", CommonActivities.view);
-// router.get("/api/v1/user/accounts/:accountnumber",CommonActivities);
+router.post("/api/v1/auth/signup", UserController.signup);
+router.post("/api/v1/auth/login", DefaultUserController.login);
+router.post("/api/v1/account", UserController.create);
+router.get("/api/v1/:accountnumber/profile", UserController.profile);
+router.get("/api/v1/:accountnumber/transaction", UserController.transaction);
+router.patch("/api/v1/:accountnumber", AdminController.deactivate);
+router.patch("/api/v1/:accountnumber", AdminController.activate);
+router.post("/api/v1/:accountnumber/credit", StaffController.credit);
+router.post("/api/v1/:accountnumber/debit", StaffController.debit);
+// router.post("/api/v1/accounts/:accountnumber", CommonActivities.delete);
+// router.get("/api/v1/accounts", CommonActivities.view);
+// router.get("/api/v1/accounts/:accountnumber",CommonActivities);
 
 
 export default router;

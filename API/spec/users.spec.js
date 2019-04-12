@@ -1,5 +1,4 @@
-/* eslint-disable no-template-curly-in-string */
-/* eslint-disable no-undef */
+import { expect, describe, it } from "jasmine";
 import request from "request";
 import app from "../app";
 
@@ -7,7 +6,7 @@ import app from "../app";
 describe("Testing User controller", () => {
   app;
   describe("Testing signup", () => {
-    const endpoint = "http://localhost:1500/api/v1/user/signup";
+    const endpoint = "http://localhost:1500/api/v1/auth/signup";
     const payload = {
       json: true,
       body: {
@@ -33,7 +32,7 @@ describe("Testing User controller", () => {
 
   describe("create account", () => {
     describe("if parameters are correct", () => {
-      const endpoint = "http://localhost:1500/api/v1/user/account/create";
+      const endpoint = "http://localhost:1500/api/v1/account/";
       const payload = {
         json: true,
         body: {
@@ -61,7 +60,7 @@ describe("Testing User controller", () => {
       });
     });
     describe("shold not create account if all parameters are not giving", () => {
-      const endpoint = "http://localhost:1500/api/v1/user/account/create";
+      const endpoint = "http://localhost:1500/api/v1/account";
      const payload = {
         json: true,
       };
@@ -76,7 +75,7 @@ describe("Testing User controller", () => {
   });
 
   describe("Profile", () => {
-    const endpoint = "http://localhost:1500/api/v1/user/3008989876/profile";
+    const endpoint = `http://localhost:1500/api/v1/${3008989876}/profile`;
     const payload = {
       json: true,
     };
@@ -90,7 +89,7 @@ describe("Testing User controller", () => {
     });
   });
   describe("Profile", () => {
-    const endpoint = "http://localhost:1500/api/v1/user/300898987/profile";
+    const endpoint = `http://localhost:1500/api/v1/${300898987}/profile`;
     const payload = {
       json: true,
     };
@@ -104,7 +103,7 @@ describe("Testing User controller", () => {
     });
   });
   describe("Transaction", () => {
-    const endpoint = "http://localhost:1500/api/v1/user/3008989876/profile";
+    const endpoint = `http://localhost:1500/api/v1/${3008989876}/profile`;
     const payload = {
       json: true,
       // data: data,
@@ -119,7 +118,7 @@ describe("Testing User controller", () => {
     });
   });
   describe("Transaction", () => {
-    const endpoint = "http://localhost:1500/api/v1/user/300898987/profile";
+    const endpoint = `http://localhost:1500/api/v1/${300898987}/profile`;
     const payload = {
       json: true,
     };

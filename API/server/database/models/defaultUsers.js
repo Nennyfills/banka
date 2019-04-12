@@ -1,7 +1,8 @@
 import jwt from "jsonwebtoken";
 import bcrypt from "bcryptjs";
+import env from "dotevn"
 import DbControllers from "../dbControllers";
-
+env.config();
 exports.userLogin = (data, callbck) => {
   const requiredField = ["email", "password"];
   const requiredError = requiredField.filter(key => data[key] === undefined).map(value => `${value} is required`);
@@ -33,7 +34,7 @@ exports.userLogin = (data, callbck) => {
           email: currentUser.email,
           userId: currentUser.id,
         },
-        "privatekey",
+        process.env.SECRET_KEY,
         {
           expiresIn: "1h",
         },

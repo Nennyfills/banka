@@ -1,11 +1,11 @@
+import { expect, describe, it } from "jasmine";
 import request from "request";
 import app from "../app";
-
 
 describe("Testing default controller", () => {
   app;
   describe("Testing login", () => {
-    const endpoint = "http://localhost:1500/api/v1/user/login";
+    const endpoint = "http://localhost:1500/api/v1/auth/login";
     const payload = {
       json: true,
     };
@@ -18,7 +18,7 @@ describe("Testing default controller", () => {
     });
   });
   describe("Testing login", () => {
-    const endpoint = "http://localhost:1500/api/v1/user/login";
+    const endpoint = "http://localhost:1500/api/v1/auth/login";
     const payload = {
     };
     it("should not login a user with wrong email and password", (done) => {
