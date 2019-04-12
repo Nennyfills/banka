@@ -7,31 +7,32 @@ exports.debitUser = (data, callbk) => {
     callbk(requiredError, null);
     return;
   }
-  const accounts = DbControllers.getAllAccounts();
-  console.log(data.accountNumber);
-  const account = accounts.find(acc => acc.accountNumber === parseFloat(data.accountNumber));
-  if (!account) { callbk(data, null); return; }
-  const oldBalance = account.accountBalance;
-  if (oldBalance < data.amount) { callbk("insufficient balance", null); return; }
-    const currentBalance = Number(oldBalance) - Number(data.amount);
 
-  account.accountBalance = currentBalance;
+  const accounts = DbControllers.getAllAccounts();
+  const account = accounts.find(acc => acc.accountNumber === parseFloat(data.accountNumber));
+  console.log(account, "here");
+
+  if (!account) { callbk(data, null); return; }
+
+  const newBalance = account.accountBalance - parseInt(data.amount);
+  account.accountBalance = newBalance;
   DbControllers.updataDb(account);
-  console.log(account);
-    console.log(oldBalance);
-    console.log(currentBalance);
-    
-    
-  
-  const transaction = {
-    key: "TRANSACTION",
-    oldBalance,
-    currentBalance,
-    ...data,
-  };
+
+  const transaction = data;
+  transaction.key = "TRANSACTION";
   DbControllers.saveByKey(transaction);
-  delete transaction.key;
-  callbk(null, transaction);
+
+  const response = {
+    transactionId: transaction.id,
+    accountNumber: transaction.accountNumber,
+    amount: transaction.amount,
+    cashier: transaction.cashier,
+    transactionType: transaction.type,
+    accountBalance: newBalance,
+  };
+
+
+  callbk(null, response);
 };
 
 
@@ -44,18 +45,26 @@ exports.creditUser = (data, callbk) => {
   }
   const accounts = DbControllers.getAllAccounts();
   const account = accounts.find(acc => acc.accountNumber === parseFloat(data.accountNumber));
+
   if (!account) { callbk(data, null); return; }
   const oldBalance = account.accountBalance;
   const newBalance = oldBalance + parseInt(data.amount);
   account.accountBalance = newBalance;
   DbControllers.updataDb(account);
-  const transaction = {
-    key: "TRANSACTION",
-    oldBalance,
-    newBalance,
-    ...data,
-  };
+
+  const transaction = data;
+  transaction.key = "TRANSACTION";
   DbControllers.saveByKey(transaction);
-  delete transaction.key;
-  callbk(null, transaction);
+
+  const response = {
+    transactionId: transaction.id,
+    accountNumber: transaction.accountNumber,
+    amount: transaction.amount,
+    cashier: transaction.cashier,
+    transactionType: transaction.type,
+    accountBalance: newBalance,
+  };
+
+
+  callbk(null, response);
 };
