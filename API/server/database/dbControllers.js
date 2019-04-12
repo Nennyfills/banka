@@ -33,6 +33,7 @@ export default class DbControllers {
   }
 
   static saveByKey(data) {
+    data.accountId = DbControllers.generateId();
     data.createdAt = moment().format();
     database[data.key].push(data);
     return data;

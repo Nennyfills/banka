@@ -6,7 +6,7 @@ import app from "../app";
 describe("Testing Admin controller", () => {
   app;
   describe("Activate", () => {
-    const endpoint = "http://localhost:1500/api/v1/user/3008989879/activate";
+      const endpoint = `http://localhost:1500/api/v1/user/${3008989879}/activate`;
     const payload = {
       json: true,
       body: {
@@ -24,7 +24,7 @@ describe("Testing Admin controller", () => {
     });
   });
   describe("Activate", () => {
-    const endpoint = "http://localhost:1500/api/v1/user/300898987/activate";
+    const endpoint = "http://localhost:1500/api/v1/user/300898987/deactivate";
     const payload = {
       json: true,
     };
@@ -55,7 +55,7 @@ describe("Testing Admin controller", () => {
     });
   });
   describe("Deactivate", () => {
-    const endpoint = `http://localhost:1500/api/v1/user/300899879/deactivate`;
+    const endpoint = "http://localhost:1500/api/v1/user/300899879/deactivate";
     const payload = {
       json: true,
     };
