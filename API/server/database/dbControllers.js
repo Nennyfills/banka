@@ -33,6 +33,7 @@ export default class DbControllers {
   }
 
   static saveByKey(data) {
+    data.accountId = DbControllers.generateId();
     data.createdAt = moment().format();
     database[data.key].push(data);
     return data;
@@ -44,6 +45,14 @@ export default class DbControllers {
 
   static getAllAccounts() {
     return JSON.parse(JSON.stringify(accountdb));
+  }
+
+  static getAllAdmin() {
+    return JSON.parse(JSON.stringify(admindb));
+  }
+
+  static getAllStaff() {
+    return JSON.parse(JSON.stringify(staff));
   }
 
   static getAllTransactions() {
