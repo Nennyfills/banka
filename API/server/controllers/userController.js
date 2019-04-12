@@ -1,7 +1,6 @@
 /* eslint-disable radix */
 import jwt from "jsonwebtoken";
 import bcrypt from "bcryptjs";
-import moment from "moment";
 import User from "../database/models/user";
 import DbControllers from "../database/dbControllers";
 
@@ -70,7 +69,6 @@ class UserController {
     User.createAccount(
       {
         key: "ACCOUNT",
-        accountId: DbControllers.generateId(),
         firstName,
         surName,
         accountNumber: DbControllers.generateAccountNumber(),
@@ -101,7 +99,7 @@ class UserController {
   }
 
   static profile(req, res) {
-    const userAccount = parseInt(req.params.account);
+    const userAccount = parseInt(req.params.accountnumber);
 
     User.findAcount(userAccount, (err, data) => {
       if (err) {
@@ -122,7 +120,7 @@ class UserController {
   }
 
   static transaction(req, res) {
-    const userAccount = parseInt(req.params.account);
+    const userAccount = parseInt(req.params.accountNumber);
     console.log(userAccount);
 
     User.findTransaction(userAccount, (err, data) => {

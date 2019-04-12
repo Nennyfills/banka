@@ -140,7 +140,8 @@ const DATABASE = {
       amount: 3000,
       casher: 1000001,
       transactionsType: "credit",
-      accountBalance: 37000.09,
+      newBalance: 37000.09,
+      oldBalance: 7000,
       createdAt: "2019 - 04 - 04T18: 23: 07.151Z",
     },
     {
