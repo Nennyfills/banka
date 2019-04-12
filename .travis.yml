@@ -1,0 +1,27 @@
+language: node.js
+
+node.js:
+ - stable
+
+install:
+  - npm install
+
+#  env:
+#     global: CC_TEST_REPORTER_ID=Code_Climate_Key
+
+
+    script:
+    - npm test
+
+after_script:
+  - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
+
+cache:
+  directories:
+    - "node_modules"
+
+    after_success:
+    - npm run coverage
+    
+
+
