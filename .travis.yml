@@ -6,14 +6,16 @@ node.js:
 install:
   - npm install
 
-#  env:
-#     global: CC_TEST_REPORTER_ID=Code_Climate_Key
+ env:
+    global: CC_TEST_REPORTER_ID=KEY_TRAVIS
+    -NODE_ENV=test
 
 
     script:
     - npm test
 
 after_script:
+  -yarn global add nyc
   - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
 
 cache:

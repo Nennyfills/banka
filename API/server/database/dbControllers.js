@@ -1,6 +1,5 @@
 /* eslint-disable no-param-reassign */
 import moment from "moment";
-import { log } from "util";
 import {
   database,
   userdb,
@@ -77,5 +76,15 @@ export default class DbControllers {
 
     if (indexOfAccount === -1) { return; }
     database.ACCOUNT[indexOfAccount] = data;
+  }
+
+  static deleteDb(data) {
+    const index = database.ACCOUNT.indexOf(data);
+    console.log(index);
+    
+    database.ACCOUNT.splice(index, 1);
+    // return data;
+    console.log(database.ACCOUNT);
+    
   }
 }
