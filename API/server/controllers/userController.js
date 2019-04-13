@@ -1,11 +1,14 @@
+/* eslint-disable radix */
 import jwt from "jsonwebtoken";
 import bcrypt from "bcryptjs";
+import env from "dotenv"
 import User from "../database/models/user";
-
+import DbControllers from "../database/dbControllers";
+env.config();
 class UserController {
   static signup(req, res) {
     const {
-      email, firstName, surName, password, phoneNumber,
+      email, firstName, surName, password,
     } = req.body;
 
     const hash = bcrypt.hashSync(password, 10);
@@ -13,11 +16,11 @@ class UserController {
       {
         isAdmin: false,
         type: "USER",
+        id: DbControllers.generateId(),
         email,
         firstName,
         surName,
         password: hash,
-        phoneNumber,
       },
       (err, user) => {
         if (err) {
@@ -34,7 +37,7 @@ class UserController {
             isAdmin: false,
 
           },
-          "privatekey",
+          process.env.SECRET_KEY,
           {
             expiresIn: "1h",
           },
@@ -52,15 +55,92 @@ class UserController {
       },
     );
   }
-  // static create(res, req) {
-  //   const {
 
-  //     transactionsId,
-  //     accountNumber,
-  //     amount,
-  //     casher,
-  //     transactionsType,
-  //     accountBalance,
+  static create(req, res) {
+    const {
+      firstName,
+      surName,
+      email,
+      phoneNumber,
+      openingBalance,
+      type,
+      gender,
+      dob,
+    } = req.body;
+    User.createAccount(
+      {
+        key: "ACCOUNT",
+        firstName,
+        surName,
+        accountNumber: DbControllers.generateAccountNumber(),
+        email,
+        phoneNumber,
+        accountBalance: parseFloat(openingBalance),
+        type,
+        gender,
+        dob,
+      },
+      (err, data) => {
+        if (err) {
+          res.status(400).json({
+            status: 400,
+            message: "Account  not sucessfully created",
+            error: err,
+          });
+          return;
+        }
+        // stop early
+        res.status(201).json({
+          status: 201,
+          message: "Account created",
+          data,
+        });
+      },
+    );
+  }
+
+  static profile(req, res) {
+    const userAccount = parseInt(req.params.accountnumber);
+
+    User.findAcount(userAccount, (err, data) => {
+      if (err) {
+        res.status(400).json({
+          status: 400,
+          message: "Invalid account",
+          error: err,
+        });
+        return;
+      }
+      // stop early
+      res.status(200).json({
+        status: 200,
+        message: "Request was successfully",
+        data,
+      });
+    });
+  }
+
+  static transaction(req, res) {
+    const userAccount = parseInt(req.params.accountNumber);
+    console.log(userAccount);
+
+    User.findTransaction(userAccount, (err, data) => {
+      if (err) {
+        res.status(400).json({
+          status: 400,
+          message: "Invalid account",
+          error: err,
+        });
+        return;
+      }
+      // stop early
+      res.status(200).json({
+        status: 200,
+        message: "Request was successfully",
+        data,
+      });
+    });
+  }
 }
 
 export default UserController;

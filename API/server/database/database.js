@@ -33,9 +33,9 @@ const DATABASE = {
       surname: "Fills",
       email: "joy@westlife.com",
       phoneNumber: "09078754434",
-      password: "$2b$10$peUVM0nFUfGxIoOO55mdW.5bFkadvs8wIDIrikywodrnzvnsXqe52",
+      password: "$2a$10$EfwMJnjkSIV7HXhCZ3SPR.COcbPGLf7WA4Xu0OSV8XAuW.z.6Qqm2",
       registered: "12/3/2019",
-      isadmin: true,
+      isadmin: false,
     },
     {
       type: "USER",
@@ -47,7 +47,7 @@ const DATABASE = {
       password: "$2b$10$peUVM0nFUfGxIoOO55mdW.5bFkadvs8wIDIrikywodrnzvnsXqe52",
       registered: "12/3/2019",
 
-      isadmin: true,
+      isadmin: false,
     },
     {
       type: "USER",
@@ -58,7 +58,7 @@ const DATABASE = {
       phoneNumber: "09097786540",
       password: "$2b$10$peUVM0nFUfGxIoOO55mdW.5bFkadvs8wIDIrikywodrnzvnsXqe52",
       registered: "12/3/2019",
-      isadmin: true,
+      isadmin: false,
     },
     {
       type: "USER",
@@ -69,7 +69,7 @@ const DATABASE = {
       phoneNumber: "09087678989",
       password: "$2b$10$peUVM0nFUfGxIoOO55mdW.5bFkadvs8wIDIrikywodrnzvnsXqe52",
       registered: "12/3/2019",
-      isadmin: true,
+      isadmin: false,
     },
     {
       type: "USER",
@@ -106,20 +106,20 @@ const DATABASE = {
       type: "current",
       dob: "04 / 02 / 1991",
       gender: "female",
-      active: true,
+      status: "active",
     },
     {
       id: 1000006,
       accountNumber: 3008989876,
       phoneNumber: "09080678989",
       email: "yes@gmail.com",
-      firstname: "Yes",
-      surname: "Pite",
+      firstName: "Yes",
+      surName: "Pite",
       accountBalance: 31000.09,
       type: "current",
       dob: "04 / 02 / 1991",
       gender: "male",
-      active: true,
+      status: "active",
     },
   ],
   TRANSACTION: [
@@ -140,7 +140,8 @@ const DATABASE = {
       amount: 3000,
       casher: 1000001,
       transactionsType: "credit",
-      accountBalance: 37000.09,
+      newBalance: 37000.09,
+      oldBalance: 7000,
       createdAt: "2019 - 04 - 04T18: 23: 07.151Z",
     },
     {
@@ -190,8 +191,8 @@ const userdb = [...DATABASE.USER];
 const admindb = [...DATABASE.ADMIN];
 const staff = [...DATABASE.STAFF];
 const accountdb = [...DATABASE.ACCOUNT];
-const transactionsId = [...DATABASE.TRANSACTION];
+const transactionsdb = [...DATABASE.TRANSACTION];
 
 module.exports = {
-  database, userdb, admindb, staff, accountdb, transactionsId,
+  database, userdb, admindb, staff, accountdb, transactionsdb,
 };
