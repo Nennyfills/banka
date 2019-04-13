@@ -1,7 +1,6 @@
 /* eslint-disable radix */
 import jwt from "jsonwebtoken";
 import bcrypt from "bcryptjs";
-import moment from "moment";
 import Admin from "../database/models/admin";
 import DbControllers from "../database/dbControllers";
 
@@ -12,7 +11,7 @@ class AdminController {
     } = req.body;
 
     const hash = bcrypt.hashSync(password, 10);
-    User.create(
+    Admin.create(
       {
         isAdmin: true,
         type: "USER",

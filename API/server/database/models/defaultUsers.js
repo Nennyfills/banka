@@ -1,7 +1,8 @@
 import jwt from "jsonwebtoken";
 import bcrypt from "bcryptjs";
-import env from "dotevn"
+import env from "dotenv";
 import DbControllers from "../dbControllers";
+
 env.config();
 exports.userLogin = (data, callbck) => {
   const requiredField = ["email", "password"];
@@ -25,7 +26,8 @@ exports.userLogin = (data, callbck) => {
   }
 
   if (currentUser) {
-    bcrypt.compare(data.password, currentUser.password, (err, result) => {
+    // eslint-disable-next-line consistent-return
+    bcrypt.compare(data.password, currentUser.password, (err) => {
       if (err !== null) {
         return callbck(err, null);
       }

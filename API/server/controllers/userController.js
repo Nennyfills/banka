@@ -1,9 +1,10 @@
 /* eslint-disable radix */
 import jwt from "jsonwebtoken";
 import bcrypt from "bcryptjs";
-import env from "dotenv"
+import env from "dotenv";
 import User from "../database/models/user";
 import DbControllers from "../database/dbControllers";
+
 env.config();
 class UserController {
   static signup(req, res) {

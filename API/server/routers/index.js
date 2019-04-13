@@ -4,6 +4,8 @@ import UserController from "../controllers/userController";
 import AdminController from "../controllers/adminControllers";
 import StaffController from "../controllers/staffControllers";
 import DefaultUserController from "../controllers/defaultControllers";
+import AccountController from "../controllers/accountControllers";
+
 
 const router = Router();
 
@@ -17,8 +19,8 @@ router.patch("/api/v1/:accountnumber", AdminController.deactivate);
 router.patch("/api/v1/:accountnumber", AdminController.activate);
 router.post("/api/v1/:accountnumber/credit", StaffController.credit);
 router.post("/api/v1/:accountnumber/debit", StaffController.debit);
-// router.post("/api/v1/accounts/:accountnumber", CommonActivities.delete);
-// router.get("/api/v1/accounts", CommonActivities.view);
+router.delete("/api/v1/accounts/:accountnumber", AccountController.delete);
+// router.get("/api/v1/accounts/CommonActivities.view);
 // router.get("/api/v1/accounts/:accountnumber",CommonActivities);
 
 

@@ -4,10 +4,10 @@
   "description": "Easy optimization of data",
   "main": "app.js",
   "scripts": {
-    "test-init": "jasmine init",
-    "test": "nodemon --exec babel-node spec/run.js",
-    "start": "nodemon --exec babel-node app.js",
-    "dev": "nodemon --exec babel-node app.js"
+    "test": " node nyc ---reporter=Icov --reporter=text-sumary npm run compile && mocha --require @babel/register",
+    "start": "node --exec babel-node app.js",
+    "dev": "nodemon --exec babel-node app.js",
+    "coveralls": "cat ./coverage/Icov.info | coveralls"
   },
   "engines": {
     "node": "v11.8.0"
@@ -15,8 +15,14 @@
   "author": "Dike Chinenye <nennydike@gmail.com>",
   "license": "ISC",
   "dependencies": {
+    "@babel/cli": "^7.4.3",
+    "@babel/core": "^7.4.3",
+    "@babel/node": "^7.2.2",
+    "@babel/preset-env": "^7.4.3",
+    "@babel/polyfill": "^7.4.3",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.18.3",
+    "cors": "^2.8.5",
     "dotenv": "^7.0.0",
     "express": "^4.16.4",
     "jasmine": "^3.4.0",
@@ -25,13 +31,14 @@
     "request": "^2.88.0"
   },
   "devDependencies": {
-    "@babel/cli": "^7.4.3",
-    "@babel/core": "^7.4.3",
-    "@babel/node": "^7.2.2",
-    "@babel/preset-env": "^7.4.3",
+    "coveralls": "^3.0.3",
     "eslint": "^5.16.0",
     "eslint-config-airbnb-base": "^13.1.0",
     "eslint-plugin-import": "^2.16.0",
-    "nodemon": "^1.18.10"
+    "expect": "^24.7.1",
+    "mocha": "^6.1.3",
+    "nodemon": "^1.18.10",
+    "nyc": "^13.3.0",
+    "supertest": "^4.0.2"
   }
 }
