@@ -80,10 +80,7 @@ export default class DbControllers {
 
   static deleteDb(data) {
     const index = database.ACCOUNT.indexOf(data);
-    console.log(index);
 
     database.ACCOUNT.splice(index, 1);
-    // return data;
-    console.log(database.ACCOUNT);
   }
 }

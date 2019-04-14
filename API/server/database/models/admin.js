@@ -34,32 +34,21 @@ exports.createStaffAdmin = (data, callbk) => {
     surName,
   };
   const newuser = DbControllers.saveData(allData);
-  // console.log(data.password);
 
   delete newuser.password;
   callbk(null, newuser);
 };
 
-exports.deactivateUser = (data, callbk) => {
+exports.toggleAccountStatus = (data, callbk) => {
   const accounts = DbControllers.getAllAccounts();
   const account = accounts.find(acc => acc.accountNumber === data);
   if (!account) { callbk(`${data} was not found`, null); return; }
-  account.status = "Dormant";
-  const {
-    firstName, id, surName, email, phoneNumber, accountBalance, type, dob, gender, ...newAccount
-  } = account;
-  DbControllers.updataDb(account);
-  callbk(null, newAccount);
-};
 
-exports.activateUser = (data, callbk) => {
-  const accounts = DbControllers.getAllAccounts();
-  const account = accounts.find(acc => acc.accountNumber === data);
-  if (!account) { callbk(`${data} was not found`, null); return; }
-  account.status = "Active";
+  account.status = account.status === "active" ? "dormant" : "active";
   const {
-    firstName, id, surName, email, phoneNumber, accountBalance, type, dob, gender, ...newAccount
+    accountNumber, status
   } = account;
+  
   DbControllers.updataDb(account);
-  callbk(null, newAccount);
+  callbk(null, { accountNumber, status });
 };

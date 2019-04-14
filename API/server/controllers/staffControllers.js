@@ -22,7 +22,6 @@ class StaffController {
   }
 
   static credit(req, res) {
-    console.log(req.body)
     Staff.creditUser(req.body, (err, data) => {
       if (err) {
         res.status(404).json({

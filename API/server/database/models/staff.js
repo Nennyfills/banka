@@ -10,8 +10,7 @@ exports.debitUser = (data, callbk) => {
 
   const accounts = DbControllers.getAllAccounts();
   const account = accounts.find(acc => acc.accountNumber === parseFloat(data.accountNumber));
-  console.log(account, "here");
-
+  
   if (!account) { callbk(data, null); return; }
 
   const newBalance = account.accountBalance - parseInt(data.amount);

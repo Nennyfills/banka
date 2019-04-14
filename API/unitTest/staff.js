@@ -28,10 +28,10 @@ describe("Staff controller", () => {
         .send(payload.body)
         .end((err, res, body) => {
           expect(res).to.have.status(200);
-          expect(body.data.accountNumber).toBe(payload.body.accountNumber);
-          expect(body.data.cashier).toBe(payload.body.cashier);
-          expect(body.data.amount).toBe(payload.body.amount);
-          expect(body.data.transactionId).toBe(payload.body.id);
+          expect(body.data.accountNumber).to.equal(payload.body.accountNumber);
+          expect(body.data.cashier).to.equal(payload.body.cashier);
+          expect(body.data.amount).to.equal(payload.body.amount);
+          expect(body.data.transactionId).to.equal(payload.body.id);
         });
     });
   });
@@ -71,10 +71,10 @@ describe("Staff controller", () => {
         .send(payload.body)
         .end((err, res, body) => {
           expect(res).to.have.status(200);
-          expect(body.data.accountNumber).toBe(payload.body.accountNumber);
-          expect(body.data.cashier).toBe(payload.body.cashier);
-          expect(body.data.amount).toBe(payload.body.amount);
-          expect(body.data.accountId).toBe(payload.body.accountId);
+          expect(body.data.accountNumber).to.equal(payload.body.accountNumber);
+          expect(body.data.cashier).to.equal(payload.body.cashier);
+          expect(body.data.amount).to.equal(payload.body.amount);
+          expect(body.data.accountId).to.equal(payload.body.accountId);
         });
     });
   });

@@ -82,8 +82,6 @@ describe("Post /auth/signup", () => {
         .get(endpoint)
         .end((err, res) => {
           expect(res.statusCode).toBe(200);
-          // expect(body.data).toBe(payload.body.accountNumber);
-          // console.log(body.data);
         });
     });
   });

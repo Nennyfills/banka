@@ -2,10 +2,10 @@ import DbControllers from "../dbControllers";
 
 
 exports.DeleteAccount = (data, callback) => {
- 
-  const account = DbControllers.getAllAccounts();
+  
+  const accounts = DbControllers.getAllAccounts();
 
-  const matchedAccount = account.find(accountData => accountData.accountNumber === Number(data));
+  const matchedAccount = accounts.find(accountData => accountData.accountNumber === Number(data));
   if (!matchedAccount) { callback(data, null); return; }
 
   DbControllers.deleteDb(matchedAccount);

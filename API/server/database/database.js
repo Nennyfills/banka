@@ -57,6 +57,16 @@ const DATABASE = {
       createdAt: "2019 - 04 - 04T18: 23: 05.602Z",
     },
     {
+      id: 1000001,
+      accountNumber: 4008989879,
+      ownerId: 1000001,
+      phoneNumber: "09098765438",
+      accountBalance: 31000.09,
+      type: "current",
+      status: "dormant",
+      createdAt: "2019 - 04 - 04T18: 23: 05.602Z",
+    },
+    {
       id: 1000006,
       accountNumber: 3008989876,
       phoneNumber: "09080678989",

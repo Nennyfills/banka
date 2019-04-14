@@ -34,10 +34,10 @@ class AdminController {
     });
   }
 
-
-  static activate(req, res) {
+  static toggleAccountStatus(req, res) {
     const userAccountNumber = parseInt(req.params.accountnumber);
-    Admin.activateUser(userAccountNumber, (err, data) => {
+    Admin.toggleAccountStatus(userAccountNumber, (err, data) => {
+
       if (err) {
         res.status(404).json({
           status: 404,
@@ -46,25 +46,7 @@ class AdminController {
         });
         return;
       }
-      res.status(200).json({
-        status: 200,
-        message: "successfully deactivate",
-        data,
-      });
-    });
-  }
 
-  static deactivate(req, res) {
-    const userAccountNumber = parseInt(req.params.accountnumber);
-    Admin.deactivateUser(userAccountNumber, (err, data) => {
-      if (err) {
-        res.status(404).json({
-          status: 404,
-          error: err,
-          message: "Acount not founded",
-        });
-        return;
-      }
       res.status(200).json({
         status: 200,
         message: "successfully deactivate",
