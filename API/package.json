@@ -4,7 +4,7 @@
   "description": "Easy optimization of data",
   "main": "app.js",
   "scripts": {
-    "test": "nyc mocha --require @babel/register unitTest/**/*.js ---reporter=Icov",
+    "test": "nyc --reporter=text mocha --require @babel/register unitTest/**/*.js",
     "start": "node --exec babel-node app.js",
     "dev": "nodemon --exec babel-node app.js",
     "coveralls": "cat ./coverage/Icov.info | coveralls"
