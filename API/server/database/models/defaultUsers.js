@@ -20,28 +20,27 @@ exports.userLogin = (data, callbck) => {
   const staff = allStaff.find(user => user.email === data.email);
   const currentUser = users || admin || staff;
 
+  
   if (!currentUser) {
     callbck("Auth Fail email", null);
     return;
   }
+  // eslint-disable-next-line consistent-return
+  bcrypt.compare(data.password, currentUser.password, (err, res) => {
+    if (!res) {
+      return callbck("Invalid email and password", null);
+    }
+    const token = jwt.sign(
+      {
+        email: currentUser.email,
+        userId: currentUser.id,
+      },
+      process.env.SECRET_KEY,
+      {
+        expiresIn: "1h",
+      },
+    );
+    callbck(null, token);
+  });
 
-  if (currentUser) {
-    // eslint-disable-next-line consistent-return
-    bcrypt.compare(data.password, currentUser.password, (err) => {
-      if (err !== null) {
-        return callbck(err, null);
-      }
-      const token = jwt.sign(
-        {
-          email: currentUser.email,
-          userId: currentUser.id,
-        },
-        process.env.SECRET_KEY,
-        {
-          expiresIn: "1h",
-        },
-      );
-      callbck(null, token);
-    });
-  }
 };

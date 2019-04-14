@@ -1,31 +1,29 @@
-import { expect, describe, it } from "jasmine";
-import request from "request";
-import server from "../app";
+import chai, { expect } from "chai";
+import chaiHttp from "chai-http";
+import "@babel/polyfill";
+import app from "../app";
 
-describe("Testing default controller", () => {
-  // eslint-disable-next-line no-unused-expressions
-  server;
+chai.use(chaiHttp);
+
+describe("Default controller", () => {
   describe("Testing login", () => {
-    const endpoint = "http://localhost:1500/api/v1/auth/login";
-    const payload = {
-      json: true,
-    };
-    it("should log in a user with correct email and password", (done) => {
-      request.post(endpoint, payload, (err, res, body) => {
-        expect(res.statusCode).toBe(200);
-        expect(body.token).toBeDefined();
-        done();
+    const endpoint = "/api/v1/auth/login";
+
+    it("should log in a user with correct email and password", () => {
+      chai.request(app).post(endpoint)
+      .send({email: "mark@hotmail.com", password: "love"})
+      .end((err, res) => {
+        expect(res).to.have.status(200);
+        expect(res.body).to.have.property("token");
       });
     });
-  });
-  describe("Testing login", () => {
-    const endpoint = "http://localhost:1500/api/v1/auth/login";
-    const payload = {
-    };
-    it("should not login a user with wrong email and password", (done) => {
-      request.post(endpoint, payload, (err, res) => {
-        expect(res.statusCode).toBe(404);
-        done();
+
+    it("should not login a user with wrong email and password", () => {
+      chai.request(app)
+      .post(endpoint)
+      .send({ email: "mark@hotmail.com", password: "love2" })
+      .end((err, res) => {
+        expect(res).to.have.status(404);
       });
     });
   });

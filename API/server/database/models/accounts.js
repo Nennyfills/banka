@@ -2,16 +2,21 @@ import DbControllers from "../dbControllers";
 
 
 exports.DeleteAccount = (data, callback) => {
-  // console.log(data);
   
-  const account = DbControllers.getAllAccounts();
-  // console.log(account);
+  const accounts = DbControllers.getAllAccounts();
 
-  const matchedAccount = account.find(accountData => accountData.accountNumber === parseInt(data.accountnumber, 10));
-  // console.log(matchedAccount);
+  const matchedAccount = accounts.find(accountData => accountData.accountNumber === Number(data));
   if (!matchedAccount) { callback(data, null); return; }
 
-  DbControllers.deleteDb(matchedAccount)
+  DbControllers.deleteDb(matchedAccount);
 
   callback(null, "Account deleted");
+};
+
+exports.getEachAcount = (data, callbk) => {
+  const accounts = DbControllers.getAllAccounts();
+  const account = accounts.find(acc => acc.accountNumber === data);
+  if (!account) { callbk(data, null); return; }
+
+  callbk(null, account);
 };

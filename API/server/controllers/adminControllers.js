@@ -5,67 +5,39 @@ import Admin from "../database/models/admin";
 import DbControllers from "../database/dbControllers";
 
 class AdminController {
-  static create(req, res) {
+  static createStaffAdminAccount(req, res) {
     const {
-      email, firstName, surName, password,
+      email, firstName, surName, password, type,
     } = req.body;
-
-    const hash = bcrypt.hashSync(password, 10);
-    Admin.create(
-      {
-        isAdmin: true,
-        type: "USER",
-        id: DbControllers.generateId(),
-        email,
-        firstName,
-        surName,
-        password: hash,
-      },
-      (err, user) => {
-        if (err) {
-          res.status(400).json({
-            status: 404,
-            error: "Signup not sucessful",
-          });
-          return; // stop early
-        }
-
-        // no error was found
-        res.status(201).json({
-          status: 201,
-          user: {
-            message: "Staff created",
-            user,
-          },
-        });
-      },
-    );
-  }
-
-
-
-  static activate(req, res) {
-    const userAccountNumber = parseInt(req.params.accountnumber);
-    Admin.activateUser(userAccountNumber, (err, data) => {
+    Admin.StaffAdminAccount({
+      email,
+      firstName,
+      surName,
+      password,
+      type,
+    }, (err, data) => {
       if (err) {
-        res.status(404).json({
+        res.status(400).json({
           status: 404,
           error: err,
-          message: "Acount not founded",
+          message: "Signup not sucessful",
         });
-        return;
+        return; // stop early
       }
-      res.status(200).json({
-        status: 200,
-        message: "successfully deactivate",
-        data,
+      res.status(201).json({
+        status: 201,
+        user: {
+          message: "User created",
+          data,
+        },
       });
     });
   }
 
-  static deactivate(req, res) {
+  static toggleAccountStatus(req, res) {
     const userAccountNumber = parseInt(req.params.accountnumber);
-    Admin.deactivateUser(userAccountNumber, (err, data) => {
+    Admin.toggleAccountStatus(userAccountNumber, (err, data) => {
+
       if (err) {
         res.status(404).json({
           status: 404,
@@ -74,6 +46,7 @@ class AdminController {
         });
         return;
       }
+
       res.status(200).json({
         status: 200,
         message: "successfully deactivate",
