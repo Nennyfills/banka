@@ -4,14 +4,16 @@ import Staff from "../database/models/staff";
 
 class StaffController {
   static debit(req, res) {
-    Staff.debitUser(req.body, (err, data) => {
+    const data = req.body;
+    data.cashierEmail = req.currentUser.email
+
+    Staff.debitUser(data, (err, data) => {
       if (err) {
-        res.status(404).json({
-          status: 404,
+        return res.status(err.code).json({
+          status: err.code,
           error: err,
-          message: "Acount not founded",
+          message: err.message,
         });
-        return;
       }
       res.status(200).json({
         status: 200,
@@ -22,14 +24,17 @@ class StaffController {
   }
 
   static credit(req, res) {
-    Staff.creditUser(req.body, (err, data) => {
+    const data = req.body;    
+    data.cashierEmail = req.currentUser.email
+    Staff.creditUser(data, (err, data) => {
+
       if (err) {
-        res.status(404).json({
-          status: 404,
+        return res.status(err.code).json({
+          status: err.code,
           error: err,
-          message: "Acount not founded",
+          message: err.message,
         });
-        return;
+        
       }
       res.status(200).json({
         status: 200,
