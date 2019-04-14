@@ -5,43 +5,34 @@ import Admin from "../database/models/admin";
 import DbControllers from "../database/dbControllers";
 
 class AdminController {
-  static create(req, res) {
+  static createStaffAdminAccount(req, res) {
     const {
-      email, firstName, surName, password,
+      email, firstName, surName, password, type,
     } = req.body;
-
-    const hash = bcrypt.hashSync(password, 10);
-    Admin.create(
-      {
-        isAdmin: true,
-        type: "USER",
-        id: DbControllers.generateId(),
-        email,
-        firstName,
-        surName,
-        password: hash,
-      },
-      (err, user) => {
-        if (err) {
-          res.status(400).json({
-            status: 404,
-            error: "Signup not sucessful",
-          });
-          return; // stop early
-        }
-
-        // no error was found
-        res.status(201).json({
-          status: 201,
-          user: {
-            message: "Staff created",
-            user,
-          },
+    Admin.StaffAdminAccount({
+      email,
+      firstName,
+      surName,
+      password,
+      type,
+    }, (err, data) => {
+      if (err) {
+        res.status(400).json({
+          status: 404,
+          error: err,
+          message: "Signup not sucessful",
         });
-      },
-    );
+        return; // stop early
+      }
+      res.status(201).json({
+        status: 201,
+        user: {
+          message: "User created",
+          data,
+        },
+      });
+    });
   }
-
 
 
   static activate(req, res) {

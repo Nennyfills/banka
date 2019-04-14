@@ -25,14 +25,14 @@ export default class DbControllers {
   }
 
   static saveData(data) {
+    data.id = DbControllers.generateId();
     data.status = "active";
-    data.createdAt = moment().format();
     database[data.type].push(data);
     return data;
   }
 
   static saveByKey(data) {
-    data.accountId = DbControllers.generateId();
+    data.id = DbControllers.generateId();
     data.createdAt = moment().format();
     database[data.key].push(data);
     return data;
@@ -81,10 +81,9 @@ export default class DbControllers {
   static deleteDb(data) {
     const index = database.ACCOUNT.indexOf(data);
     console.log(index);
-    
+
     database.ACCOUNT.splice(index, 1);
     // return data;
     console.log(database.ACCOUNT);
-    
   }
 }

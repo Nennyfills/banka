@@ -1,14 +1,20 @@
 import express from "express";
 import bodyParser from "body-parser";
+import env from "dotenv";
 import cors from "cors";
 import router from "./server/routers";
 import { port } from "./config";
+
+env.config();
 
 const app = express();
 const portal = process.env.PORT || port;
 app.use(express.json());
 app.use(cors());
+app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.text());
+app.use(bodyParser.json({ type: "application/json" }));
 app.use(bodyParser.json());
 app.use("/", router);
 
@@ -32,5 +38,5 @@ app.patch("*", (req, res) => {
 });
 app.listen(portal);
 console.log(portal);
-console.log(process.env.PORT);
-module.exports = app;
+// console.log(process.env.PORT);
+// module.exports = app;
