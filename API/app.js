@@ -36,5 +36,5 @@ app.put("*", (req, res) => {
 app.patch("*", (req, res) => {
   res.send("API banka invalid url ");
 });
-app.listen(portal);
+app.listen(portal, () => console.log(`listening on port ${portal}!`));
 module.exports = app;
