@@ -1,40 +1,32 @@
-import { expect, describe, it } from "jasmine";
+import chai, { expect } from "chai";
+import chaiHttp from "chai-http";
 import "@babel/polyfill";
-import request from "request";
-import server from "../app";
+import app from "../app";
 
+chai.use(chaiHttp);
 
-describe("Testing Accounts controller", () => {
-  server;
+describe("Accounts controller", () => {
   describe("Testing Delete route", () => {
-    const endpoint = `http://localhost:1500/api/v1/${3008989879}`;
-    const payload = {
-      json: true,
-      body: {
-        accountNumber: 3008989879,
-      },
-    };
-    it("should not delete account once the account number wrong is given", (done) => {
-      request.post(endpoint, payload, (err, res, body) => {
-        expect(res.statusCode).toBe(201);
-        expect(body.data.accountNumber).toBe(payload.body.accountNumber);
-        done();
+    const endpoint = `/api/v1/accounts/:accountnumber`;
+    it("should not delete account once a wrong accountnumber is given", () => {
+      chai.request(app).delete(endpoint)
+        .end((err, res) => {
+          expect(res).to.have.status(200);
+        });
+    });
+  });
+
+  describe("delete", () => {
+    describe("if parameters are correct", () => {
+      const endpoint = `/api/v1/accounts/:accountnumber`;
+      it("should not delete account once a wrong account number is given", () => {
+        chai.request(app).delete(endpoint)
+          .query({ accountnumber: 3008989879 })
+          .end((err, res) => {
+            expect(res).to.have.status(404);
+          });
       });
     });
   });
 
-  describe("create delete", () => {
-    describe("if parameters are correct", () => {
-      const endpoint = `http://localhost:1500/api/v1/${3008989879}`;
-      const payload = {
-        json: true,
-      };
-      it("should not delete account once the account number wrong is given", (done) => {
-        request.post(endpoint, payload, (err, res, body) => {
-          expect(res.statusCode).toBe(404);
-          done();
-        });
-      });
-    });
-  });
 });

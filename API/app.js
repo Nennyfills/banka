@@ -39,4 +39,4 @@ app.patch("*", (req, res) => {
 app.listen(portal);
 console.log(portal);
 // console.log(process.env.PORT);
-// module.exports = app;
+module.exports = app;
