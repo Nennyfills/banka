@@ -6,29 +6,24 @@ node.js:
 install:
   - npm install
 
-env:
-  global: 
-   - CC_TEST_REPORTER_ID=$CCMATE_ID
-   - NODE_ENV=test
+ env:
+    global: CC_TEST_REPORTER_ID=KEY_TRAVIS
+    -NODE_ENV=test
+
+
+    script:
+    - npm test
+
+after_script:
+  -yarn global add nyc
+  - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
 
 cache:
   directories:
     - "node_modules"
 
+    after_success:
+    - npm run coverage
+    
 
-before_script:
-  - cd API
-  - yarn global add nyc
-  - yarn global add mocha
-  - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
-  - chmod +x ./cc-test-reporter
-  - ./cc-test-reporter before-build
 
-script:
-  - npm test
-
-after_script:
-  - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
-
-after_success:
-  - npm run coverage
