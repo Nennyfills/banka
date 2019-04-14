@@ -4,7 +4,7 @@
   "description": "Easy optimization of data",
   "main": "app.js",
   "scripts": {
-    "test": "nyc --reporter=text mocha --require @babel/register unitTest/**/*.js",
+    "test": "nyc --reporter=text mocha --require babel-register unitTest/**/*.js",
     "start": "node --exec babel-node app.js",
     "dev": "nodemon --exec babel-node app.js",
     "coveralls": "cat ./coverage/Icov.info | coveralls"
@@ -33,7 +33,7 @@
     "request": "^2.88.0"
   },
   "devDependencies": {
-    "@babel/register": "^7.4.0",
+    "babel-register": "^6.26.0",
     "coveralls": "^3.0.3",
     "eslint": "^5.16.0",
     "eslint-config-airbnb-base": "^13.1.0",
