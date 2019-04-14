@@ -20,7 +20,6 @@
     "@babel/node": "^7.2.2",
     "@babel/polyfill": "^7.4.3",
     "@babel/preset-env": "^7.4.3",
-    "@babel/register": "^7.4.0",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.18.3",
     "chai": "^4.2.0",
@@ -34,6 +33,7 @@
     "request": "^2.88.0"
   },
   "devDependencies": {
+    "@babel/register": "^7.4.0",
     "coveralls": "^3.0.3",
     "eslint": "^5.16.0",
     "eslint-config-airbnb-base": "^13.1.0",
