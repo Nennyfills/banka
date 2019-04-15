@@ -20,7 +20,7 @@ exports.userLogin = (data, callbck) => {
   const staff = allStaff.find(user => user.email === data.email);
   const currentUser = users || admin || staff;
 
-  
+
   if (!currentUser) {
     callbck("Auth Fail email", null);
     return;
@@ -42,5 +42,4 @@ exports.userLogin = (data, callbck) => {
     );
     callbck(null, token);
   });
-
 };

@@ -2,13 +2,13 @@ import express from "express";
 import bodyParser from "body-parser";
 import env from "dotenv";
 import cors from "cors";
-import router from "./server/routers";
-import { port } from "./config";
+// import { port } from "config";
+import router from "./routers/index";
 
 env.config();
 
 const app = express();
-const portal = process.env.PORT || port;
+const portal = process.env.PORT || 5001;
 app.use(express.json());
 app.use(cors());
 app.use(bodyParser.json());
@@ -38,3 +38,4 @@ app.patch("*", (req, res) => {
 });
 app.listen(portal, () => console.log(`listening on port ${portal}!`));
 module.exports = app;
+console.log(portal);
