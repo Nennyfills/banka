@@ -13,8 +13,10 @@ exports.create = (data, callbk) => {
     callbk(requiredError, null);
     return;
   }
+
   const users = database.USER;
   const user = users.filter(eachUser => eachUser.email === data.email);
+  // console.log("phpne", user);
   if (user.length !== 0) {
     callbk("email already exist", null);
     return;
