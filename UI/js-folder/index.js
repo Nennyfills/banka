@@ -10,17 +10,17 @@ const logMeIn = e => {
       "user",
       JSON.stringify({ name: "ADMIN", permission: "ADMIN" })
     );
-    window.location.href = "user/dashboard-admin.html";
+    window.location.href = "UI/user/dashboard-admin.html";
     return false;
   } else if (username === "staff" && password === "staff") {
-    window.location.href = "user/dashboard-staff.html";
+    window.location.href = "UI/user/dashboard-staff.html";
     localStorage.setItem(
       "user",
       JSON.stringify({ name: "STAFF", permission: "STAFF" })
     );
     return false;
   } else if (username === "user" && password === "user") {
-    window.location.href = "user/dashboard-user.html";
+    window.location.href = "UI/user/dashboard-user.html";
     localStorage.setItem(
       "user",
       JSON.stringify({ name: "USER", permission: "USER" })
