@@ -4,10 +4,10 @@
   "description": "Easy optimization of data",
   "main": "app.js",
   "scripts": {
-    "test": "nyc --reporter=text --reporter=clover mocha --require @babel/register unitTest/**/*.js --exit",
+    "test": "nyc --reporter=text --reporter=clover --reporter=lcov mocha --require @babel/register unitTest/**/*.js --exit",
     "start": "babel-node app.js",
     "dev": "nodemon --exec babel-node app.js",
-    "coveralls": "cat ./coverage/Icov.info | coveralls"
+    "coveralls": "cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js"
   },
   "engines": {
     "node": "v11.8.0"
