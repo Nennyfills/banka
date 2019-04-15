@@ -14,7 +14,7 @@ class UserController {
     }, (err, data) => {
       if (err) {
         res.status(400).json({
-          status: 404,
+          status: 400,
           error: err,
           message: "Signup not sucessful",
         });
@@ -22,10 +22,8 @@ class UserController {
       }
       res.status(201).json({
         status: 201,
-        user: {
-          message: "User created",
-          data,
-        },
+        message: "User created",
+        data,
       });
     });
   }
