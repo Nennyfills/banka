@@ -1,34 +1,33 @@
-const logMeIn = e => {
+const logMeIn = (e) => {
   e.preventDefault();
-  let username = document.getElementById("username").value;
-  let password = document.getElementById("userpassword").value;
-  let content = document.getElementById("login-respond");
-  console.log(username, password);
+  const username = document.getElementById("username").value;
+  const password = document.getElementById("userpassword").value;
+  const content = document.getElementById("login-respond");
 
   if (username === "admin" && password === "admin") {
     localStorage.setItem(
       "user",
-      JSON.stringify({ name: "ADMIN", permission: "ADMIN" })
+      JSON.stringify({ name: "ADMIN", permission: "ADMIN" }),
     );
-    window.location.href = "user/dashboard-admin.html";
+    window.location.href = "UI/user/dashboard-admin.html";
     return false;
-  } else if (username === "staff" && password === "staff") {
-    window.location.href = "user/dashboard-staff.html";
+  } if (username === "staff" && password === "staff") {
+    window.location.href = "UI/user/dashboard-staff.html";
     localStorage.setItem(
       "user",
-      JSON.stringify({ name: "STAFF", permission: "STAFF" })
+      JSON.stringify({ name: "STAFF", permission: "STAFF" }),
     );
     return false;
-  } else if (username === "user" && password === "user") {
-    window.location.href = "user/dashboard-user.html";
+  } if (username === "user" && password === "user") {
+    window.location.href = "UI/user/profile.html";
     localStorage.setItem(
       "user",
-      JSON.stringify({ name: "USER", permission: "USER" })
+      JSON.stringify({ name: "USER", permission: "USER" }),
     );
     return false;
-  } else {
-    content.style.display = "block";
   }
+  content.style.display = "block";
+
 
   return false;
 };

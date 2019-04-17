@@ -62,7 +62,7 @@ class UserController {
 
 
   static transaction(req, res) {
-    const userAccount = parseInt(req.params.accountNumber);
+    const userAccount = parseInt(req.params.accountnumber);
     User.findTransaction(userAccount, (err, data) => {
       if (err) {
         res.status(400).json({

@@ -1,15 +1,12 @@
 /* eslint-disable radix */
-import jwt from "jsonwebtoken";
-import bcrypt from "bcryptjs";
 import Admin from "../database/models/admin";
-import DbControllers from "../database/dbControllers";
 
 class AdminController {
   static createStaffAdminAccount(req, res) {
     const {
       email, firstName, surName, password, type,
     } = req.body;
-    Admin.StaffAdminAccount({
+    Admin.createStaffAdmin({
       email,
       firstName,
       surName,

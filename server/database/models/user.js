@@ -86,13 +86,12 @@ exports.createUser = (data, callbk) => {
   let newAccount = DbControllers.saveByKey(allData);
   delete newAccount.key; delete newAccount.balance;
   newAccount = { openingBalance, ...newAccount };
-  // newAccount[openingBalance] = data.openingBalance;
   callbk(null, newAccount);
 };
 
 
 exports.findTransaction = (data, callbk) => {
-  const accounts = DbControllers.getAllTransactions();
+  const accounts = database.TRANSACTION;
   const account = accounts.find(acc => acc.accountNumber === data);
   if (!account) { callbk(data, null); return; }
 
