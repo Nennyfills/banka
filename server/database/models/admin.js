@@ -36,19 +36,19 @@ exports.createStaffAdmin = (data, callbk) => {
   const newuser = DbControllers.saveData(allData);
 
   delete newuser.password;
+  delete newuser.type;
   callbk(null, newuser);
 };
 
 exports.toggleAccountStatus = (data, callbk) => {
-  const accounts = DbControllers.getAllAccounts();
+  const accounts = database.ACCOUNT;
   const account = accounts.find(acc => acc.accountNumber === data);
   if (!account) { callbk(`${data} was not found`, null); return; }
 
   account.status = account.status === "active" ? "dormant" : "active";
   const {
-    accountNumber, status
+    accountNumber, status,
   } = account;
-  
   DbControllers.updataDb(account);
   callbk(null, { accountNumber, status });
 };

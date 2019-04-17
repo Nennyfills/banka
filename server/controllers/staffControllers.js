@@ -4,16 +4,17 @@ import Staff from "../database/models/staff";
 
 class StaffController {
   static debit(req, res) {
-    const data = req.body;
-    data.cashierEmail = req.currentUser.email
-
-    Staff.debitUser(data, (err, data) => {
+    const { amount } = req.body;
+    const cashierEmail = req.currentUser.email;
+    const accountNumber = Number(req.params.accountnumber);
+    Staff.debitUser({ amount, cashierEmail, accountNumber }, (err, data) => {
       if (err) {
-        return res.status(err.code).json({
+        res.status(err.code).json({
           status: err.code,
           error: err,
           message: err.message,
         });
+        return;
       }
       res.status(200).json({
         status: 200,
@@ -24,17 +25,17 @@ class StaffController {
   }
 
   static credit(req, res) {
-    const data = req.body;    
-    data.cashierEmail = req.currentUser.email
-    Staff.creditUser(data, (err, data) => {
-
+    const { amount } = req.body;
+    const cashierEmail = req.currentUser.email;
+    const accountNumber = Number(req.params.accountnumber);
+    Staff.creditUser({ amount, cashierEmail, accountNumber }, (err, data) => {
       if (err) {
-        return res.status(err.code).json({
+        res.status(err.code).json({
           status: err.code,
           error: err,
           message: err.message,
         });
-        
+        return;
       }
       res.status(200).json({
         status: 200,

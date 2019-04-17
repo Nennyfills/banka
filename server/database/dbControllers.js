@@ -1,29 +1,8 @@
 /* eslint-disable no-param-reassign */
 import moment from "moment";
-import {
-  database,
-  userdb,
-  admindb,
-  transactionsdb,
-  staff,
-  accountdb,
-} from "./database";
+import { database } from "./database";
 
 export default class DbControllers {
-  constructor() {
-    this.PERMISSION = {
-      ADMIN: "ADMIN",
-      STAFF: "STAFF",
-      USER: "USER",
-    };
-    this.KEY = {
-      DEBIT: "1",
-      CEDIT: "2",
-      ACOUNT: "3",
-      TRANSACTION: "4",
-    };
-  }
-
   static saveData(data) {
     data.id = DbControllers.generateId();
     data.status = "active";
@@ -36,26 +15,6 @@ export default class DbControllers {
     data.createdOn = moment().format();
     database[data.key].push(data);
     return data;
-  }
-
-  static getAllUsers() {
-    return JSON.parse(JSON.stringify(userdb));
-  }
-
-  static getAllAccounts() {
-    return JSON.parse(JSON.stringify(accountdb));
-  }
-
-  static getAllAdmin() {
-    return JSON.parse(JSON.stringify(admindb));
-  }
-
-  static getAllStaff() {
-    return JSON.parse(JSON.stringify(staff));
-  }
-
-  static getAllTransactions() {
-    return JSON.parse(JSON.stringify(transactionsdb));
   }
 
   static generateAccountNumber() {
@@ -73,14 +32,12 @@ export default class DbControllers {
 
   static updataDb(data) {
     const indexOfAccount = database.ACCOUNT.findIndex(acc => acc.id === data.id);
-
     if (indexOfAccount === -1) { return; }
     database.ACCOUNT[indexOfAccount] = data;
   }
 
   static deleteDb(data) {
     const index = database.ACCOUNT.indexOf(data);
-
     database.ACCOUNT.splice(index, 1);
   }
 }

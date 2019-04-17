@@ -11,20 +11,20 @@ describe("Default controller", () => {
 
     it("should log in a user with correct email and password", () => {
       chai.request(app).post(endpoint)
-      .send({email: "mark@hotmail.com", password: "love"})
-      .end((err, res) => {
-        expect(res).to.have.status(200);
-        expect(res.body).to.have.property("token");
-      });
+        .send({ email: "mark@hotmail.com", password: "love" })
+        .end((err, res) => {
+          expect(res).to.have.status(200);
+          expect(res.body).to.have.property("token");
+        });
     });
 
     it("should not login a user with wrong email and password", () => {
       chai.request(app)
-      .post(endpoint)
-      .send({ email: "mark@hotmail.com", password: "love2" })
-      .end((err, res) => {
-        expect(res).to.have.status(404);
-      });
+        .post(endpoint)
+        .send({ email: "mark@hotmail.com", password: "love2" })
+        .end((err, res) => {
+          expect(res).to.have.status(404);
+        });
     });
   });
 });
