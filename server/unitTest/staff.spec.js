@@ -44,24 +44,18 @@ describe("Staff controller", () => {
         .set("Authorization", token)
         .send({
           amount: 1000,
-          accountNumber: 30089898,
-          cashierEmail: "staff@FileList.com",
         })
         .end((err, res) => {
           expect(res).to.have.status(404);
-          expect(res).to.equal(30089898);
-          expect(res).to.equal(1000);
-          expect(res).to.equal("staff@FileList.com");
         });
     });
   });
 
   describe("Debit", () => {
-    const endpoint = "/api/v1/3008989879/debit";
+    const endpoint = "/api/v1/4008989879/debit";
     const payload = {
       json: true,
       body: {
-        accountNumber: 3008989879,
         amount: 500,
       },
     };
@@ -72,7 +66,7 @@ describe("Staff controller", () => {
         .send(payload.body)
         .end((err, res) => {
           expect(res).to.have.status(200);
-          expect(res.body.data.accountNumber).to.equal(payload.body.accountNumber);
+          expect(res.body.data.accountNumber).to.equal(4008989879);
           expect(res.body.data.transactionType).to.equal("debit");
         });
     });
@@ -82,7 +76,6 @@ describe("Staff controller", () => {
         .post("/api/v1/300898987/credit")
         .set("Authorization", token)
         .send({
-          accountNumber: 300898987,
           amount: 1000,
         })
         .end((err, res) => {

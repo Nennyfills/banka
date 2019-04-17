@@ -38,4 +38,3 @@ app.patch("/api/v1/*", (req, res) => {
 });
 app.listen(portal, () => console.log(`listening on port ${portal}!`));
 module.exports = app;
-console.log(portal);

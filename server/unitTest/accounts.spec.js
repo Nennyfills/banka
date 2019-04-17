@@ -1,7 +1,6 @@
 import chai, { expect } from "chai";
 import jwt from "jsonwebtoken";
 import chaiHttp from "chai-http";
-// import { database } from "../database";
 import "@babel/polyfill";
 import { doesNotReject } from "assert";
 import app from "../app";
@@ -51,7 +50,8 @@ describe("Accounts controller", () => {
     it("should view a user profile with right acount number", () => {
       chai.request(app)
         .get(endpoint)
-        .end((err, res) => {
+        .set("Authorization", token)
+        .end((err, res) => {          
           expect(res).to.have.status(200);
         });
     });
@@ -61,6 +61,7 @@ describe("Accounts controller", () => {
     it("should not view a user profile with wrong acount number", () => {
       chai.request(app)
         .get(endpoint)
+        .set("Authorization", token)
         .end((err, res) => {
           expect(res).to.have.status(400);
         });
@@ -72,7 +73,8 @@ describe("Accounts controller", () => {
     it("should get all user  accounts", () => {
       chai.request(app)
         .get(endpoint)
-        .end((err, res) => {
+        .set("Authorization", token)
+        .end((err, res) => {          
           expect(res).to.have.status(200);
         });
     });
