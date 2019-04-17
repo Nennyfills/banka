@@ -54,79 +54,104 @@
         </div>
         <div class="username">
           <p>
-            Welcome "<span id="username"> <strong>Staff1</strong></span
-            >"
+            Welcome <span id="username"> Staff1</span
+            >
           </p>
         </div>       
       </div>
     </header>
-    <div class="tiny-device">
-      <h1>Please Note this application will not show on smaller device</h1>
-    </div>
-    <div class="content-area">
-      <div class="heading">
-        <h1>Dashboard</h1>
-        <p>Welcome to the Banka app</p>
-      </div>
-      <div class="cards">
-        <div class="card-profile card">
-          <div class="userimg">
-            <img src="public/nenny1.jpg" alt="loading" />
+  <div class="content-area">
+    <div class=".profiles-card">
+      <h1 class="card-head"> Dashboard </h1>
+      <div class="card-wrapper">
+        <div class="card-item">
+          <img src="../public/nenny2.jpg" alt="loading" id="" class="cards-image" />
+          <img src="../public/nenny1.jpg" alt="loading" id="" class="profiles-image" />
+          <div class="upload secondary-btn">
+            <a href="uploadImage.html">Upload Photo</a>
           </div>
-          <div class="username-styles">
-            <h4 id="username">Staff1</h4>
+          <div class=" username-styles">
+            <h4 id="userName">Staff1</h4>
           </div>
           <div class="useremail">
-            <h4 id="userEmail">staff1@gmail.com</h4>
+            <h4 id="userEmail">Staff@gmail.com</h4>
           </div>
-          <div class="phoneNumber">
-            <h4 id="userPhoneNumber">08097665456</h4>
-          </div>
-          <div>
-            <a
-              class="upload secondary-btn"
-              href="uploadImage.html"
-              id="profilePhoto"
-              >Upload Photo</a
-            >
+          <div class="PhoneNumber">
+            <h4 id="userPhoneNumber">08023243567</h4>
           </div>
         </div>
-
-        <div class="card show-case ">
-          <div class="each-show-case">
-            <h1>Acounts</h1>
+  
+        <div class="card-i">
+          <div class="card-item-right">
+            <div>
+              <h2>Accounts</h2>
+              <h4>
+                <span id="accounts">0</span> Bank Account
+              </h4>
+            </div>
           </div>
-          <h4> <span id="accounts">0</span> accounts</h4>
+          <div class="card-item-right">
+            <div class="">
+              <h2>Deleted Accounts</h2>
+              <h4>
+                <span id="DeletedAccounts">0</span> Deleted Bank
+                Account
+              </h4>
+            </div>
+          </div>
         </div>
-
-        <div class="card show-case">
-          <div class="each-show-case">
-            <h1>Deleted Acounts</h1>
+        <div>
+          <div class="card-item-right">
+            <div class="">
+              <h2>credit Accounts</h2>
+              <h4>
+                <span id="actvatedAccounts">0</span> Credit Bank
+                Account
+              </h4>
+            </div>
           </div>
-          <h4>
-            <span id="deletedAccount">0</span> deleted accounts
-          </h4>
-        </div>
-
-        <div class="card show-case ">
-          <div class="card each-show-case">
-            <h1 id="debitedAccounts">Debited Acounts</h1>
+          <div class="card-item-right">
+            <div class="">
+              <h2>Debit Accounts</h2>
+              <h4>
+                <span id="deactvatedAccounts">0</span> Debit Bank
+                Account
+              </h4>
+            </div>
           </div>
-          <h4>
-            <span class="staff-debit">0</span> debited
-            accounts
-          </h4>
-        </div>
-        <div class="card show-case">
-          <div class="card each-show-case">
-            <h1 creditedAccounts>Credited Accounts</h1>
-          </div>
-          <h4>
-          <span id="creditedAccounts">0</span> credited
-            accounts
-          </h4>
         </div>
       </div>
+    </div>
+    <div class="card-item-right-small-view-content">
+      <div class="card-item-right-small-view">
+          <h2>Accounts</h2>
+          <h4>
+            <span id="accounts">0</span> Bank Account
+          </h4>
+      </div>
+      
+      <div class="card-item-right-small-view">
+          <h2>Deleted Accounts</h2>
+          <h4>
+            <span id="DeletedAccounts">0</span> Deleted Bank
+            Account
+          </h4>
+      </div>
+        <div class="card-item-right-small-view">
+            <h2>credit Accounts</h2>
+            <h4>
+              <span id="actvatedAccounts">0</span> Credit Bank
+              Account
+            </h4>
+        </div>
+        <div class="card-item-right-small-view">
+            <h2>Debit Accounts</h2>
+            <h4>
+              <span id="deactvatedAccounts">0</span> Debit Bank
+              Account
+         </h4>
+           </div> 
+          </div>
       <footer id="main-footer">
         <p>Copyright &copy; 2019 Banka All Right Reserved</p>
       </footer>
