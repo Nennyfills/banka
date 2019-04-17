@@ -69,7 +69,6 @@ h6 {
   flex-direction: column;
   justify-content: center;
   width: 60%;
-  padding-bottom: 1rem;
 }
 
 #signin-form {
@@ -99,7 +98,7 @@ h6 {
 }
 
 .signin label {
-  font-size: 0.9rem;
+  font-size: 1.2rem;
   line-height: 2rem;
   font-weight: 500;
 }
@@ -122,12 +121,15 @@ h6 {
 }
 
 .signin .link {
-  color: rgb(159, 185, 182);
   text-decoration: none;
   margin: 1rem 0;
   display: block;
   text-align: center;
-  font-size: 0.9rem;
+  font-size: 1rem;
+}
+.link a, div footer a {
+  color: #fff !important;
+  text-decoration: none;
 }
 .signin .or,
 #signup .or {
@@ -180,7 +182,7 @@ h3,
 #main-footer {
   color: #ccc;
   text-align: center;
-  font-size: 0.8rem;
+  font-size: 0.9rem;
   max-width: 80%;
   padding: 2rem 0 0.1rem 0;
 }

@@ -39,7 +39,7 @@
             </div>
             <div class="username">
                 <p>
-                    Welcome "<span> <strong>Joy</strong></span>"
+                    Welcome <span> Joy</span>
                 </p>
             </div>
         </div>
@@ -49,15 +49,13 @@
         <div class="heading">
             <h1>Upload your photo</h1>
         </div>
-        <div class="cards">
-            <div class="card ">
-                <img src="../public/userImage.png" alt="" id="image">
+        <div class="card-item-create-photo">
+                <img src="../public/nenny1.jpg" alt=""  class="profiles-image" id="image">
+                <div class="upload-button">
+                    <input type="file" onchange="previewImage(this)" class="upload-input primary-btn" />
+                    <button class="primary-btn" id="saveBtn">Save</button>
+                </div>
             </div>
-            <div class="upload-button">
-                <input type="file" onchange="previewImage(this)" class="upload-input primary-btn" />
-                <button class="primary-btn" id="saveBtn">Save</button>
-            </div>
-        </div>
 
         <footer id="main-footer">
             <p>Copyright &copy; 2019 Banka All Right Reserved</p>
