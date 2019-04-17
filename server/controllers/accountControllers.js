@@ -1,5 +1,5 @@
 import Account from "../database/models/accounts";
-import DbControllers from "../database/dbControllers";
+import { database } from "../database/database";
 
 
 class AccountController {
@@ -23,7 +23,7 @@ class AccountController {
 
   static accountprofile(req, res) {
     const userAccount = Number(req.params.accountnumber);
-
+    console.log(userAccount, "control");
     Account.getEachAcount(userAccount, (err, data) => {
       if (err) {
         res.status(400).json({
@@ -33,6 +33,8 @@ class AccountController {
         });
         return;
       }
+      console.log(err);
+
       // stop early
       res.status(200).json({
         status: 200,
@@ -43,7 +45,7 @@ class AccountController {
   }
 
   static accounts(req, res) {
-    const accounts = DbControllers.getAllAccounts();
+    const accounts = database.ACCOUNT;
     res.status(200).json({
       status: 200,
       message: "Request was successfully",

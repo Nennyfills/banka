@@ -19,10 +19,10 @@ describe("Staff controller", () => {
   });
 
   describe("Credit", () => {
-    const endpoint = "/api/v1/3008989879/credit";
+    const endpoint = "/api/v1/4008989879/credit";
     const payload = {
       body: {
-        accountNumber: 3008989879,
+        accountNumber: 4008989879,
         amount: 1000,
       },
     };
@@ -34,20 +34,24 @@ describe("Staff controller", () => {
         .end((err, res) => {
           expect(res).to.have.status(200);
           expect(res.body.data.accountNumber).to.equal(payload.body.accountNumber);
-          expect(res.body.data.type).to.equal(payload.body.type);
+          expect(res.body.data.amount).to.equal(payload.body.amount);
         });
     });
 
-    it("should not credit a  user once the wrong account number is given", () => {
+    it("should not credit a user once the wrong account number is given", () => {
       chai.request(app)
-        .post(endpoint)
+        .post("/api/v1/30089898/credit")
         .set("Authorization", token)
         .send({
-          accountNumber: 300898989,
           amount: 1000,
+          accountNumber: 30089898,
+          cashierEmail: "staff@FileList.com",
         })
         .end((err, res) => {
           expect(res).to.have.status(404);
+          expect(res).to.equal(30089898);
+          expect(res).to.equal(1000);
+          expect(res).to.equal("staff@FileList.com");
         });
     });
   });
@@ -75,10 +79,10 @@ describe("Staff controller", () => {
 
     it("should not Debit a  user once the wrong account number is given", () => {
       chai.request(app)
-        .post(endpoint)
+        .post("/api/v1/300898987/credit")
         .set("Authorization", token)
         .send({
-          accountNumber: 300898989,
+          accountNumber: 300898987,
           amount: 1000,
         })
         .end((err, res) => {

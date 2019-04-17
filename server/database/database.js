@@ -43,7 +43,7 @@ const DATABASE = {
       phoneNumber: "09078754450",
       password: "$2b$10$peUVM0nFUfGxIoOO55mdW.5bFkadvs8wIDIrikywodrnzvnsXqe52",
       isadmin: false,
-    }
+    },
   ],
   ACCOUNT: [
     {
@@ -57,7 +57,7 @@ const DATABASE = {
       createdAt: "2019 - 04 - 04T18: 23: 05.602Z",
     },
     {
-      id: 1000001,
+      id: 1000002,
       accountNumber: 4008989879,
       ownerId: 1000001,
       phoneNumber: "09098765438",

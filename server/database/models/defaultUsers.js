@@ -1,7 +1,7 @@
 import jwt from "jsonwebtoken";
 import bcrypt from "bcryptjs";
 import env from "dotenv";
-import DbControllers from "../dbControllers";
+import { database } from "../database";
 
 env.config();
 exports.userLogin = (data, callbck) => {
@@ -11,15 +11,14 @@ exports.userLogin = (data, callbck) => {
     callbck(requiredError, null);
     return;
   }
-  const alluser = DbControllers.getAllUsers();
-  const allAdmin = DbControllers.getAllAdmin();
-  const allStaff = DbControllers.getAllStaff();
+  const alluser = database.USER;
+  const allAdmin = database.ADMIN;
+  const allStaff = database.STAFF;
 
   const users = alluser.find(user => user.email === data.email);
   const admin = allAdmin.find(user => user.email === data.email);
   const staff = allStaff.find(user => user.email === data.email);
   const currentUser = users || admin || staff;
-
 
   if (!currentUser) {
     callbck("Auth Fail email", null);
@@ -37,7 +36,7 @@ exports.userLogin = (data, callbck) => {
       },
       process.env.SECRET_KEY,
       {
-        expiresIn: "1h",
+        expiresIn: "7d",
       },
     );
     callbck(null, token);

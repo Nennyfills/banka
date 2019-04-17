@@ -16,24 +16,24 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.text());
 app.use(bodyParser.json({ type: "application/json" }));
 app.use(bodyParser.json());
-app.use("/", router);
+app.use("/api/v1", router);
 
 app.get("/", (req, res) => {
   res.send("Home Page");
 });
-app.get("*", (req, res) => {
+app.get("/api/v1/*", (req, res) => {
   res.send("API banka invalid url ");
 });
-app.post("*", (req, res) => {
+app.post("/api/v1/*", (req, res) => {
   res.send("API banka invalid url ");
 });
-app.delete("*", (req, res) => {
+app.delete("/api/v1/*", (req, res) => {
   res.send("API banka invalid url ");
 });
-app.put("*", (req, res) => {
+app.put("/api/v1/*", (req, res) => {
   res.send("API banka invalid url ");
 });
-app.patch("*", (req, res) => {
+app.patch("/api/v1/*", (req, res) => {
   res.send("API banka invalid url ");
 });
 app.listen(portal, () => console.log(`listening on port ${portal}!`));
