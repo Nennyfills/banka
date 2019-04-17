@@ -59,16 +59,13 @@ exports.creditUser = (data, callbk) => {
 
   const { amount, accountNumber } = data;
   const cashier = database.STAFF.filter(staff => staff.email === data.cashierEmail).id;
-  console.log(accountNumber, "here");
 
   const accounts = database.ACCOUNT;
-  console.log(accounts, "here");
 
   const account = accounts.find(acc => acc.accountNumber === accountNumber);
-  console.log(account.accountNumber);
 
   if (!account) { callbk({ message: "Account Not Found", code: 404 }, null); return; }
-  console.log(account, accountNumber);
+  
   const oldBalance = account.accountBalance;
   const newBalance = oldBalance + Number(data.amount);
   account.accountBalance = newBalance;

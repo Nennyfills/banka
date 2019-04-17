@@ -14,17 +14,12 @@ exports.DeleteAccount = (data, callback) => {
 };
 
 exports.getEachAcount = (data, callbk) => {
-  console.log(data, "data");
-  
+
   const accounts = database.ACCOUNT;
-  console.log(accounts);
   
   const account = accounts.find(acc => acc.accountNumber === data);
-  console.log(account,"before not");
   
   if (!account) { callbk(`${data} not found`, null); return; }
-  console.log(account, "after not");
   
-
   callbk(null, account);
 };

@@ -34,9 +34,10 @@ class UserController {
       surName,
       openingBalance,
       type,
-      email,
     } = req.body;
-    User.createUser({
+
+    const email = req.currentUser.email;
+    User.createUserAccount({
       firstName,
       surName,
       openingBalance,
