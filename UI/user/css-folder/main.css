@@ -174,7 +174,6 @@ header .username {
 
 .content-area {
   margin-left: 250px;
-  background-attachment: #ebf5e9;
 }
 
 .content-area .cards {
@@ -213,12 +212,12 @@ header .username {
 
  }
 
- .card-item-right-small-view{
+.card-item-right-small-view{
     align-items: center;
     text-align: center;
     background-color: #ebeef8;
     align-items: center;
-    height: 50px;;
+    height: 100%;;
     justify-content: center;
     margin: 3rem 9px;
     padding:1rem;
@@ -300,12 +299,13 @@ header .username {
 }
 .card-item-create-photo .upload-input{
    margin-bottom:1rem;
+   width: 50%
 }
 
 .card-item-create-photo{
     align-items: center;
     text-align: center;
-    width: 30%;
+    width: 80%;
     background-color: #ebeef8;
     align-items: center;
     justify-content: center;
@@ -342,44 +342,40 @@ header .username {
   margin:  40px auto;
   margin-bottom :5rem;
 }
-.card-item-create-acount .id-header,
-.card-item-create-acount .name-header,
-.card-item-create-acount .created-on-header,
-.card-item-create-acount .account-header,
-.card-item-create-acount .cell-header,
-.card-item-create-acount .email-header,
-.card-item-create-acount .address-header,
-.card-item-create-acount .dob-header,
-.card-item-create-acount .account-balance-header,
-.card-item-create-acount .type-header,
-.card-item-create-acount .view-active-header {
+.card-item-create-view{
+  padding: 10px 0 20px 0;
+  align-items: center;
+  width: 40%;
+  text-align: center;
+  background-color: #ebeef8;
+  align-items: center;
+  justify-content: center;
+  margin: 5rem  auto;
+  box-shadow: .5rem .5rem 3rem rgba(0,0,0,0.2);
+}
+.card-item-create-view .id-header,
+.card-item-create-view .name-header,
+.card-item-create-view .created-on-header,
+.card-item-create-view .account-header,
+.card-item-create-view .cell-header,
+.card-item-create-view .email-header,
+.card-item-create-view .address-header,
+.card-item-create-view .dob-header,
+.card-item-create-view .account-balance-header,
+.card-item-create-view .type-header,
+.card-item-create-view .view-active-header {
   border-radius: 5px;
-  padding: 50px;
+  padding: 10px;
   height: auto;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.12), 0 2px 4px 0 rgba(0, 0, 0, 0.08);
 }
 
-.card-item-create-acount .id,
-.card-item-create-acount .name,
-.card-item-create-acount .created-on,
-.card-item-create-acount .account,
-.card-item-create-acount .cell,
-.card-item-create-acount .email,
-.card-item-create-acount .address,
-.card-item-create-acount .dob,
-.card-item-create-acount .account-balance,
-.card-item-create-acount .type 
-.card-item-create-acount .view-active-header{
-  border-radius: 5px;
-  padding: 15px;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.12), 0 2px 4px 0 rgba(0, 0, 0, 0.08);
-}
 .delete-btn {
-  margin-bottom: 2.8rem !important;
+  margin-top: 1.8rem !important;
 }
-.card-item-create-acount .primary-btn {
+.card-item-create-view .primary-btn {
   width:50% !important;
-  margin:auto;
+  margin: 10px auto;
 }
 .heading{
   text-align: center;
@@ -449,7 +445,7 @@ form {
   color: #494646;
   background-color: #fff;
   padding: 40px 20px 40px 10px;
-  width: 50%;
+  width: 100%;
   margin: 90px auto;
   border-radius: 100px;
   border-bottom: solid 26px rgb(7, 26, 83);
@@ -474,8 +470,9 @@ form {
 .admin-name,
 .admin-password,
 .confirm-admin-password {
-  margin-bottom: 1.3rem;
+  /* margin-bottom: 1.3rem; */
   width: 100% ;
+  margin: 5px auto;
   border-radius: 2px;
   background: #3a3838;
   border: solid 1px #555;
@@ -513,7 +510,6 @@ input[type="number"]::-webkit-outer-spin-button {
   border-radius: 2px;
   background: #302d43;
   border: solid 1px #555;
-  /* color: #fff; */
   padding: 0.9rem 1rem;
   line-height: 1.3rem;
   font-size: 1rem;
@@ -539,7 +535,7 @@ input[type="number"]::-webkit-outer-spin-button {
 }
 
 .card-item-create-acount{
-  padding: 50px;
+  padding: 10px 0 20px 0;
   align-items: center;
   width: 80%;
   text-align: center;
@@ -553,10 +549,6 @@ input[type="number"]::-webkit-outer-spin-button {
 .card-item-create-view-size{
   width: 30%;
 }
-.card-item-create-acount .primary-btn{
-  width:100%;
-}
-
 .card-form-design input[type="number"]::-webkit-inner-spin-button,
 input[type="number"]::-webkit-outer-spin-button {
   -webkit-appearance: none;
@@ -661,7 +653,7 @@ th,
   background-color: #fff;
   margin: 30px auto;
   padding: 20px;
-  width: 30%;
+  width: 50%;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.12), 0 2px 4px 0 rgba(0, 0, 0, 0.08);
 }
 .closeBtn {
@@ -808,20 +800,19 @@ input[type="checkbox"]:checked ~ .sidemenu {
   }
   .card-item-right{
     display: none;
-  }
-  form {
+  }form {
     margin: auto;
   }
 
-  .searchItem {
-    display: none;
-  }
-  .searchItem input[type="date"] {
-   display: none;
-  }
-  .searchItem button {
-    display: none;
-  }
+ .searchItem input[type="date"] {
+  padding:5px;
+  width: 30%;
+}
+
+.searchItem  button {
+  font-size: 18px;
+  margin :9px 30%;
+}  
   table,
   thead,
   tbody,
