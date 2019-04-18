@@ -5,7 +5,8 @@
 
 # Banka 
 ````
-Banka is a light-weight financial system that allows the client to create their account view their transaction whenever they want but must visit a branch to withdraw or make any deposit.
+Banka is a light-weight financial system that allows the client to create their account view their transaction whenever they
+want but must visit a branch to withdraw or make any deposit.
 ````
 Getting Started
 ````
@@ -14,11 +15,13 @@ You will need to clone the projct cd into it and run npm run div. This will star
 
 Requirements
 ```
-Banka application was bulit from the scrtach with vanilla JavaScript on the frontend which is also powered by Express server at the backend side.
+Banka application was bulit from the scrtach with vanilla JavaScript on the frontend which is also powered by Express server at 
+the backend side.
 ```
 Description
 ````
-To run Banka you have to install Node.js and NPM packages. The application backend was written in ES2015 note that babel is highly recomened for the application to function. specially [@babel/cli": "^7.4.3", @babel/core: "^7.4.3", @babel/node: "^7.2.2"].
+To run Banka you have to install Node.js and NPM packages. The application backend was written in ES2015 note that babel is highly recomened for the application to function. specially [@babel/cli": "^7.4.3",
+@babel/core: "^7.4.3", @babel/node: "^7.2.2"].
 ````
 
 Installing
@@ -61,7 +64,9 @@ Response body
 {
     "status": 200,
     "message": "Login successful",
-    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImpveUB3ZXN0bGlmZS5jb20iLCJ1c2VySWQiOjEwMDAwMDEsImlhdCI6MTU1NTU0OTUzNCwiZXhwIjoxNTU2MTU0MzM0fQ.-0MzGYjLBPkaOZVkeS0lRpCwGk_l78VIIxf84MdRMdc"
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImpveUB3ZXN0bGlm
+    ZS5jb20iLCJ1c2VySWQiOjEwMDAwMDEsImlhdCI6MTU1NTU0OTUzNCwiZXhwIjoxNTU2MTU0MzM0
+    fQ.-0MzGYjLBPkaOZVkeS0lRpCwGk_l78VIIxf84MdRMdc"
 }
 ```
 Test
