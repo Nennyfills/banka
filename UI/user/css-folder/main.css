@@ -504,16 +504,7 @@ input[type="number"]::-webkit-outer-spin-button {
 #firstname,
 #surname,
 #password,
-#comfirm-password {
-  margin-bottom: 1.3rem;
-  width: 49.3%;
-  border-radius: 2px;
-  background: #302d43;
-  border: solid 1px #555;
-  padding: 0.9rem 1rem;
-  line-height: 1.3rem;
-  font-size: 1rem;
-}
+#comfirm-password ,
 #email,
 #phone-number,
 #address,
@@ -533,7 +524,14 @@ input[type="number"]::-webkit-outer-spin-button {
   padding-bottom: 1rem;
   font-size: 1rem;
 }
-
+.card-item-create-user-acount .primary-btn{
+  margin-bottom: 5rem;
+  width: 100%;
+}
+.card-item-create-user-acount{
+  text-align: center;
+}
+.card-item-create-user-acount 
 .card-item-create-acount{
   padding: 10px 0 20px 0;
   align-items: center;
@@ -790,6 +788,17 @@ input[type="checkbox"]:checked ~ .sidemenu {
 }
 @media only screen and (max-width: 760px),
   (min-device-width: 768px) and (max-device-width: 1024px) {
+    .card-item-create-user-acount{
+   padding: 10px 0 20px 0;
+  align-items: center;
+  width: 100% !important;
+  text-align: center;
+  background-color: #ebeef8;
+  align-items: center;
+  justify-content: center;
+  margin: 5rem  auto;
+  box-shadow: .5rem .5rem 3rem rgba(0,0,0,0.2);
+}
     header #logout a :hover{
   text-decoration: none;
   color: #634eeb;
