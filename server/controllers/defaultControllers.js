@@ -4,11 +4,11 @@ import AllUser from "../database/models/defaultUsers";
 
 class DefaultUserController {
   static login(req, res) {
-    const { email, password, id } = req.body;
-    AllUser.userLogin({ email, password, id }, (err, data) => {
+    const { email, password } = req.body;
+    AllUser.userLogin({ email, password }, (err, data) => {
       if (err) {
-        res.status(404).json({
-          status: 404,
+        res.status(400).json({
+          status: 400,
           error: err,
           message: "Email and password incorrect",
         });
