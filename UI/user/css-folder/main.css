@@ -3,13 +3,23 @@
 }
 
 body {
-  font-family: "Gill Sans", "Gill Sans MT", "Calibri", "Trebuchet MS",
-    sans-serif;
-  font-weight: 200;
-  background: #f4f6f9;
-  color: rgb(7, 26, 83) !important;
-  padding: 0;
-  margin: 0;
+    font-family:"Gill Sans", "Gill Sans MT", "Calibri", "Trebuchet MS", sans-serif;
+    font-weight: 200;
+    background: #f4f6f9;
+    color: rgb(7, 26, 83) !important;
+    padding: 0;
+    margin: 0;
+}
+
+
+footer {
+   position: fixed;
+   left: 0;
+   bottom: 0;
+   width: 100%;
+   background-color: #fff;
+   color:rgb(24, 19, 94);
+   text-align: center;
 }
 h1,
 h2,
@@ -19,7 +29,7 @@ h5,
 h6 {
   font-weight: 300;
 }
-
+/* logo design */
 .logo h1 span {
   color: #92a5de;
   font-size: 100px;
@@ -36,6 +46,7 @@ h6 {
     20px 20px 0 rgb(-37, -18, 39), 21px 21px 20px rgba(0, 0, 0, 1),
     21px 21px 1px rgba(0, 0, 0, 0.5), 0px 0px 20px rgba(0, 0, 0, 0.2);
 }
+/* sidemenu design */
 .sidemenu {
   background-color: #201d38;
   width: 250px;
@@ -55,7 +66,7 @@ h6 {
   color: #ccc;
   text-decoration: none;
   padding: 15px 30px;
-  transition: all 0.3s ease-in-out;
+  transition: all 0.2s ease-in-out;
 }
 .sidemenu nav a:hover {
   background-color: #302d43;
@@ -80,7 +91,7 @@ h6 {
   color: #ccc;
   text-decoration: none;
   padding: 15px 30px 15px 25px;
-  transition: all 0.3s ease-in-out;
+  transition: all 0.2s ease-in-out;
 }
 ul {
   list-style-type: none;
@@ -92,7 +103,7 @@ li ul {
 
 li:hover ul li a {
   background-color: #302d43;
-  transition: all 0.3s ease-in-out;
+  transition: all 59.3s ease-in-out;
 }
 li:hover ul li a:hover {
   background-color: #302d43;
@@ -110,7 +121,7 @@ li ul {
 li a:hover + .hidden,
 .hidden:hover {
   display: block;
-  transition: all 5.3s ease-in-out;
+  transition: all 509.3s ease-in-out;
 }
 
 nav i {
@@ -163,7 +174,6 @@ header .username {
 
 .content-area {
   margin-left: 250px;
-  background-attachment: #ebf5e9;
 }
 
 .content-area .cards {
@@ -202,13 +212,15 @@ header .username {
 
  }
 
- .card-item-right-small-view{
+.card-item-right-small-view{
     align-items: center;
     text-align: center;
     background-color: #ebeef8;
     align-items: center;
+    height: 100%;;
     justify-content: center;
-    margin: 3rem 6px;;
+    margin: 3rem 9px;
+    padding:1rem;
     box-shadow: .5rem .5rem 3rem rgba(0,0,0,0.2);  
  }
 
@@ -271,7 +283,7 @@ header .username {
 
 .upload {
   color: #282639;
-  width: 40%;
+  width: 20%;
   margin: auto;
 }
 .upload a {
@@ -282,21 +294,22 @@ header .username {
   color: #92a5de;
 }
 .card-item-create-photo .primary-btn {
-  width: 59%;
+  width: 29%;
   margin:auto;
 }
 .card-item-create-photo .upload-input{
    margin-bottom:1rem;
+   width: 50%
 }
 
 .card-item-create-photo{
     align-items: center;
     text-align: center;
-    width: 50%;
+    width: 80%;
     background-color: #ebeef8;
     align-items: center;
     justify-content: center;
-    margin: 10rem auto;
+    margin: 15rem auto;
     box-shadow: .5rem .5rem 3rem rgba(0,0,0,0.2);  
     padding-bottom:2rem;
 }
@@ -327,47 +340,42 @@ header .username {
 .badge-success {
   width: 50%;
   margin:  40px auto;
+  margin-bottom :5rem;
 }
-.card-item-create-acount .id-header,
-.card-item-create-acount .name-header,
-.card-item-create-acount .created-on-header,
-.card-item-create-acount .account-header,
-.card-item-create-acount .cell-header,
-.card-item-create-acount .email-header,
-.card-item-create-acount .address-header,
-.card-item-create-acount .dob-header,
-.card-item-create-acount .account-balance-header,
-.card-item-create-acount .type-header,
-.card-item-create-acount .view-active-header {
+.card-item-create-view{
+  padding: 10px 0 20px 0;
+  align-items: center;
+  width: 40%;
+  text-align: center;
+  background-color: #ebeef8;
+  align-items: center;
+  justify-content: center;
+  margin: 5rem  auto;
+  box-shadow: .5rem .5rem 3rem rgba(0,0,0,0.2);
+}
+.card-item-create-view .id-header,
+.card-item-create-view .name-header,
+.card-item-create-view .created-on-header,
+.card-item-create-view .account-header,
+.card-item-create-view .cell-header,
+.card-item-create-view .email-header,
+.card-item-create-view .address-header,
+.card-item-create-view .dob-header,
+.card-item-create-view .account-balance-header,
+.card-item-create-view .type-header,
+.card-item-create-view .view-active-header {
   border-radius: 5px;
-  padding: 50px;
+  padding: 10px;
   height: auto;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.12), 0 2px 4px 0 rgba(0, 0, 0, 0.08);
 }
 
-.card-item-create-acount .id,
-.card-item-create-acount .name,
-.card-item-create-acount .created-on,
-.card-item-create-acount .account,
-.card-item-create-acount .cell,
-.card-item-create-acount .email,
-.card-item-create-acount .address,
-.card-item-create-acount .dob,
-.card-item-create-acount .account-balance,
-.card-item-create-acount .type {
-  border-radius: 5px;
-  padding: 15px;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.12), 0 2px 4px 0 rgba(0, 0, 0, 0.08);
-}
-.card-item-create-acount .view-active-header {
-  margin: 4rem 5rem 6rem 0;
-}
 .delete-btn {
-  margin-bottom: 2.8rem !important;
+  margin-top: 1.8rem !important;
 }
-.card-item-create-acount .primary-btn {
+.card-item-create-view .primary-btn {
   width:50% !important;
-  margin:auto;
+  margin: 10px auto;
 }
 .heading{
   text-align: center;
@@ -397,41 +405,37 @@ header .username {
 /* search button */
 form {
   width: 50%;
-  margin: 19px auto;
+  margin: 40px auto;
 }
 .searchItem input[type="date"] {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.12), 0 2px 4px 0 rgba(0, 0, 0, 0.08);
   align-items: center;
   text-align: center;
-  background-color: #ebeef8;
+  background-color: #adb1bd;
   align-items: center;
   justify-content: center;
   box-shadow: .5rem .5rem 3rem rgba(0,0,0,0.2); 
-  width: 80%;
   border: none;
-  padding: 15px;
   font-size: 18px;
-  font-family: "Courier New", Courier, monospace;
-  border-radius: 5px;
+  font-family: 'Courier New', Courier, monospace;
+  color: white;
+  border-radius: 2px; 
+  padding:5px;
+
 }
 
-.searchItem input[type=submit]{
-  align-items: center;
-  text-align: center;
-  background-color: #ebeef8;
-  align-items: center;
-  justify-content: center;
+.searchItem  button {
   box-shadow: .5rem .5rem 3rem rgba(0,0,0,0.2); 
-  border: none;
-  padding: 18px;
+   border: none;
   font-size: 18px;
   font-family: 'Courier New', Courier, monospace;
   background-color:#201d38;
   color: white;
-  border-radius: 5px;
+  padding:8px;
+  border-radius: 2px; 
   cursor: pointer;
-  position: absolute;
-} 
-.searchItem input[type=submit]:hover{
+}  
+.searchItem  button:hover{
   background-color: rgb(137, 156, 213)
 }
 
@@ -441,7 +445,7 @@ form {
   color: #494646;
   background-color: #fff;
   padding: 40px 20px 40px 10px;
-  width: 50%;
+  width: 100%;
   margin: 90px auto;
   border-radius: 100px;
   border-bottom: solid 26px rgb(7, 26, 83);
@@ -466,8 +470,9 @@ form {
 .admin-name,
 .admin-password,
 .confirm-admin-password {
-  margin-bottom: 1.3rem;
+  /* margin-bottom: 1.3rem; */
   width: 100% ;
+  margin: 5px auto;
   border-radius: 2px;
   background: #3a3838;
   border: solid 1px #555;
@@ -499,17 +504,7 @@ input[type="number"]::-webkit-outer-spin-button {
 #firstname,
 #surname,
 #password,
-#comfirm-password {
-  margin-bottom: 1.3rem;
-  width: 49.3%;
-  border-radius: 2px;
-  background: #302d43;
-  border: solid 1px #555;
-  /* color: #fff; */
-  padding: 0.9rem 1rem;
-  line-height: 1.3rem;
-  font-size: 1rem;
-}
+#comfirm-password ,
 #email,
 #phone-number,
 #address,
@@ -529,9 +524,16 @@ input[type="number"]::-webkit-outer-spin-button {
   padding-bottom: 1rem;
   font-size: 1rem;
 }
-
+.card-item-create-user-acount .primary-btn{
+  margin-bottom: 5rem;
+  width: 100%;
+}
+.card-item-create-user-acount{
+  text-align: center;
+}
+.card-item-create-user-acount 
 .card-item-create-acount{
-  padding: 50px;
+  padding: 10px 0 20px 0;
   align-items: center;
   width: 80%;
   text-align: center;
@@ -541,10 +543,10 @@ input[type="number"]::-webkit-outer-spin-button {
   margin: 5rem  auto;
   box-shadow: .5rem .5rem 3rem rgba(0,0,0,0.2);
 }
-.card-item-create-acount .primary-btn{
-  width:100%;
-}
 
+.card-item-create-view-size{
+  width: 30%;
+}
 .card-form-design input[type="number"]::-webkit-inner-spin-button,
 input[type="number"]::-webkit-outer-spin-button {
   -webkit-appearance: none;
@@ -588,17 +590,6 @@ th,
   text-align: left;
 }
 
-/* footer */
-
-footer {
-  background-color: #fff;
-  color: purple;
-  padding: 1px;
-  text-align: center;
-  position: relative;
-  margin-top: 40rem;
-  clear: both;
-}
 
 /* badge */
 .badge-success {
@@ -660,7 +651,7 @@ footer {
   background-color: #fff;
   margin: 30px auto;
   padding: 20px;
-  width: 30%;
+  width: 50%;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.12), 0 2px 4px 0 rgba(0, 0, 0, 0.08);
 }
 .closeBtn {
@@ -797,31 +788,40 @@ input[type="checkbox"]:checked ~ .sidemenu {
 }
 @media only screen and (max-width: 760px),
   (min-device-width: 768px) and (max-device-width: 1024px) {
+    .card-item-create-user-acount{
+   padding: 10px 0 20px 0;
+  align-items: center;
+  width: 100% !important;
+  text-align: center;
+  background-color: #ebeef8;
+  align-items: center;
+  justify-content: center;
+  margin: 5rem  auto;
+  box-shadow: .5rem .5rem 3rem rgba(0,0,0,0.2);
+}
     header #logout a :hover{
   text-decoration: none;
   color: #634eeb;
 }
     .card-item-right-small-view-content{
+      margin: auto;
     display: block;
   }
   .card-item-right{
     display: none;
-  }
-  form {
+  }form {
     margin: auto;
   }
-  .searchItem input[type="text"] {
-    width: 80%;
-    padding: 10px;
-    border-radius: 5px;
-  }
-  .searchItem input[type="submit"] {
-    width: 80%;
-    padding: 15px;
-    border-radius: 5px;
-    margin: 5px 0 20px 0;
-    position: static;
-  }
+
+ .searchItem input[type="date"] {
+  padding:5px;
+  width: 30%;
+}
+
+.searchItem  button {
+  font-size: 18px;
+  margin :9px 30%;
+}  
   table,
   thead,
   tbody,
