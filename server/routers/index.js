@@ -21,7 +21,7 @@ router.patch("/:accountnumber", middleware.authorized, AdminController.toggleAcc
 router.post("/:accountnumber/credit", middleware.authorized, StaffController.credit);
 router.post("/:accountnumber/debit", middleware.authorized, StaffController.debit);
 router.delete("/accounts/:accountnumber", middleware.authorized, AccountController.delete);
-router.get("/:accountnumber/profile", AccountController.accountprofile);
+router.get("/:accountnumber/profile", middleware.authorized, AccountController.accountprofile);
 router.get("/accounts", middleware.authorized, AccountController.accounts);
 
 

@@ -16,7 +16,7 @@ exports.create = (data, callbk) => {
 
   const users = database.USER;
   const user = users.filter(eachUser => eachUser.email === data.email);
-  // console.log("phpne", user);
+
   if (user.length !== 0) {
     callbk("email already exist", null);
     return;
@@ -54,7 +54,7 @@ exports.create = (data, callbk) => {
   callbk(null, newuser);
 };
 
-exports.createUser = (data, callbk) => {
+exports.createUserAccount = (data, callbk) => {
   const requiredField = ["firstName", "surName", "openingBalance", "type", "email"];
   const requiredError = requiredField.filter(key => data[key] === undefined).map(value => `${value} is required`);
   if (requiredError.length !== 0) {
@@ -63,12 +63,11 @@ exports.createUser = (data, callbk) => {
   }
   const users = database.USER;
   const currentUser = users.find(eachUser => eachUser.email === data.email);
-
   const key = "ACCOUNT";
   const ownerId = currentUser.id;
   const accountNumber = DbControllers.generateAccountNumber();
   const balance = data.openingBalance;
-  const status = "Active";
+  const status = "active";
   const {
     type, email, firstName, surName, openingBalance,
   } = data;

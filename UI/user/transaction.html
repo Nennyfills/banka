@@ -42,7 +42,7 @@
     <header>
       <div class="userarea">
         <div id="logout">
-          <a href="../index.html"><strong>Log Out</strong></a>
+          <a href="../../index.html"><strong>Log Out</strong></a>
         </div>
         <div class="userimage">
           <img src="../public/nenny1.jpg" alt="" />
@@ -65,8 +65,11 @@
   
   <form action="">
     <div class=" searchItem">
-      <input type="date" name="Search" class="searchField" id="transactionSearch" />
-      <input type="Submit" name="Submit" id="get-search-button" class="getSearchButton">
+      <label for="from">From</label>
+       <input type="date" name="Search" class="searchField" id="transactionSearch"  placeholder="Filter by date"/>
+       <label for="to">To</label>
+       <input type="date" name="Search" class="searchFieldTwo" id="transactionSearch" />
+      <button type="Submit" id="get-search-button" class="getSearchButton">Search</button>
     </div>
   </form>
 

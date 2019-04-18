@@ -23,7 +23,7 @@ class AccountController {
 
   static accountprofile(req, res) {
     const userAccount = Number(req.params.accountnumber);
-    console.log(userAccount, "control");
+
     Account.getEachAcount(userAccount, (err, data) => {
       if (err) {
         res.status(400).json({
@@ -33,7 +33,6 @@ class AccountController {
         });
         return;
       }
-      console.log(err);
 
       // stop early
       res.status(200).json({

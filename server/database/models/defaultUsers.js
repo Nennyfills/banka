@@ -11,28 +11,28 @@ exports.userLogin = (data, callbck) => {
     callbck(requiredError, null);
     return;
   }
+  
   const alluser = database.USER;
   const allAdmin = database.ADMIN;
   const allStaff = database.STAFF;
 
-  const users = alluser.find(user => user.email === data.email);
+  const users = alluser.find(user => user.email !== data.email);
   const admin = allAdmin.find(user => user.email === data.email);
   const staff = allStaff.find(user => user.email === data.email);
-  const currentUser = users || admin || staff;
-
-  if (!currentUser) {
+  const currentUsers = users || admin || staff;
+  
+  if (!currentUsers) {
     callbck("Auth Fail email", null);
     return;
-  }
-  // eslint-disable-next-line consistent-return
-  bcrypt.compare(data.password, currentUser.password, (err, res) => {
+}
+  bcrypt.compare(data.password, currentUsers.password, (err, res) => {
     if (!res) {
       return callbck("Invalid email and password", null);
     }
     const token = jwt.sign(
       {
-        email: currentUser.email,
-        userId: currentUser.id,
+        email: currentUsers.email,
+        userId: currentUsers.id,
       },
       process.env.SECRET_KEY,
       {

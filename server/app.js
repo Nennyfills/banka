@@ -2,7 +2,6 @@ import express from "express";
 import bodyParser from "body-parser";
 import env from "dotenv";
 import cors from "cors";
-// import { port } from "config";
 import router from "./routers/index";
 
 env.config();
@@ -36,6 +35,5 @@ app.put("/api/v1/*", (req, res) => {
 app.patch("/api/v1/*", (req, res) => {
   res.send("API banka invalid url ");
 });
-app.listen(portal, () => console.log(`listening on port ${portal}!`));
+app.listen(portal);
 module.exports = app;
-console.log(portal);

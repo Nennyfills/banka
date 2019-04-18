@@ -24,7 +24,6 @@ h6 {
 #wrapper {
   display: flex;
   flex-direction: row;
-  height: 100vh;
 }
 
 #left {
@@ -36,7 +35,7 @@ h6 {
 
 #right {
   flex: 1;
-  display: flex;
+  text-align: center;
   justify-content: center;
   background: url("../public/wallpaper.jpg") no-repeat;
   background-size: 100% 100%;
@@ -157,7 +156,7 @@ h6 {
   padding: 0 1.7rem;
 }
 
-/* showcase */
+showcase
 #showcase h1,
 h3,
 #signup #login-nav p {
@@ -231,7 +230,7 @@ h3,
   border: 1px solid #f4f4f4;
   border-radius: 2px;
   font-weight: 500;
-  background: none;
+  background:rgba(0, 81, 255, 0.144);
   color: #fff;
   text-decoration: none;
   cursor: pointer;
@@ -239,8 +238,8 @@ h3,
   transition: all 0.5s;
 }
 .secondary-btn:hover {
-  border-color: #92a5de;
-  color: rgb(42, 61, 118);
+  border-color: #323233;
+  color: rgb(190, 195, 207);
 }
 
 #signup #firstname,
@@ -248,7 +247,7 @@ h3,
 #password,
 #confirm-password {
   margin-bottom: 1.3rem;
-  width: 45%;
+  width: 44.8%;
   border-radius: 2px;
   background: #181818;
   border: solid 1px #555;
@@ -264,7 +263,7 @@ h3,
 #signup .user-email,
 .phone-number {
   margin-bottom: 1.3rem;
-  width: 90.2%;
+  width: 90%;
   border-radius: 2px;
   background: #181818;
   border: solid 1px #555;
@@ -303,12 +302,13 @@ input[type="number"]::-webkit-outer-spin-button {
 }
 
 /* media query */
-@media (min-width: 1000px) {
+@media (min-width: 1360px) {
   #left {
     flex: 4;
   }
   #right {
     flex: 5;
+    height: 100vh;
   }
 }
 
@@ -318,7 +318,8 @@ input[type="number"]::-webkit-outer-spin-button {
   }
   #left {
     justify-content: center;
-    margin-top: -2rem;
+    /* margin-top: -2rem; */
+    margin: auto;
   }
   .signin .logo {
     margin-bottom: none;

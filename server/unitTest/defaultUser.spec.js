@@ -23,7 +23,7 @@ describe("Default controller", () => {
         .post(endpoint)
         .send({ email: "mark@hotmail.com", password: "love2" })
         .end((err, res) => {
-          expect(res).to.have.status(404);
+          expect(res).to.have.status(400);
         });
     });
   });
