@@ -3,13 +3,23 @@
 }
 
 body {
-  font-family: "Gill Sans", "Gill Sans MT", "Calibri", "Trebuchet MS",
-    sans-serif;
-  font-weight: 200;
-  background: #f4f6f9;
-  color: rgb(7, 26, 83) !important;
-  padding: 0;
-  margin: 0;
+    font-family:"Gill Sans", "Gill Sans MT", "Calibri", "Trebuchet MS", sans-serif;
+    font-weight: 200;
+    background: #f4f6f9;
+    color: rgb(7, 26, 83) !important;
+    padding: 0;
+    margin: 0;
+}
+
+
+footer {
+   position: fixed;
+   left: 0;
+   bottom: 0;
+   width: 100%;
+   background-color: #fff;
+   color:rgb(24, 19, 94);
+   text-align: center;
 }
 h1,
 h2,
@@ -19,7 +29,7 @@ h5,
 h6 {
   font-weight: 300;
 }
-
+/* logo design */
 .logo h1 span {
   color: #92a5de;
   font-size: 100px;
@@ -36,6 +46,7 @@ h6 {
     20px 20px 0 rgb(-37, -18, 39), 21px 21px 20px rgba(0, 0, 0, 1),
     21px 21px 1px rgba(0, 0, 0, 0.5), 0px 0px 20px rgba(0, 0, 0, 0.2);
 }
+/* sidemenu design */
 .sidemenu {
   background-color: #201d38;
   width: 250px;
@@ -55,7 +66,7 @@ h6 {
   color: #ccc;
   text-decoration: none;
   padding: 15px 30px;
-  transition: all 0.3s ease-in-out;
+  transition: all 0.2s ease-in-out;
 }
 .sidemenu nav a:hover {
   background-color: #302d43;
@@ -80,7 +91,7 @@ h6 {
   color: #ccc;
   text-decoration: none;
   padding: 15px 30px 15px 25px;
-  transition: all 0.3s ease-in-out;
+  transition: all 0.2s ease-in-out;
 }
 ul {
   list-style-type: none;
@@ -92,7 +103,7 @@ li ul {
 
 li:hover ul li a {
   background-color: #302d43;
-  transition: all 0.3s ease-in-out;
+  transition: all 59.3s ease-in-out;
 }
 li:hover ul li a:hover {
   background-color: #302d43;
@@ -110,7 +121,7 @@ li ul {
 li a:hover + .hidden,
 .hidden:hover {
   display: block;
-  transition: all 5.3s ease-in-out;
+  transition: all 509.3s ease-in-out;
 }
 
 nav i {
@@ -207,8 +218,10 @@ header .username {
     text-align: center;
     background-color: #ebeef8;
     align-items: center;
+    height: 50px;;
     justify-content: center;
-    margin: 3rem 6px;;
+    margin: 3rem 9px;
+    padding:1rem;
     box-shadow: .5rem .5rem 3rem rgba(0,0,0,0.2);  
  }
 
@@ -271,7 +284,7 @@ header .username {
 
 .upload {
   color: #282639;
-  width: 40%;
+  width: 20%;
   margin: auto;
 }
 .upload a {
@@ -282,7 +295,7 @@ header .username {
   color: #92a5de;
 }
 .card-item-create-photo .primary-btn {
-  width: 59%;
+  width: 29%;
   margin:auto;
 }
 .card-item-create-photo .upload-input{
@@ -292,11 +305,11 @@ header .username {
 .card-item-create-photo{
     align-items: center;
     text-align: center;
-    width: 50%;
+    width: 30%;
     background-color: #ebeef8;
     align-items: center;
     justify-content: center;
-    margin: 10rem auto;
+    margin: 15rem auto;
     box-shadow: .5rem .5rem 3rem rgba(0,0,0,0.2);  
     padding-bottom:2rem;
 }
@@ -327,6 +340,7 @@ header .username {
 .badge-success {
   width: 50%;
   margin:  40px auto;
+  margin-bottom :5rem;
 }
 .card-item-create-acount .id-header,
 .card-item-create-acount .name-header,
@@ -354,13 +368,11 @@ header .username {
 .card-item-create-acount .address,
 .card-item-create-acount .dob,
 .card-item-create-acount .account-balance,
-.card-item-create-acount .type {
+.card-item-create-acount .type 
+.card-item-create-acount .view-active-header{
   border-radius: 5px;
   padding: 15px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.12), 0 2px 4px 0 rgba(0, 0, 0, 0.08);
-}
-.card-item-create-acount .view-active-header {
-  margin: 4rem 5rem 6rem 0;
 }
 .delete-btn {
   margin-bottom: 2.8rem !important;
@@ -397,41 +409,37 @@ header .username {
 /* search button */
 form {
   width: 50%;
-  margin: 19px auto;
+  margin: 40px auto;
 }
 .searchItem input[type="date"] {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.12), 0 2px 4px 0 rgba(0, 0, 0, 0.08);
   align-items: center;
   text-align: center;
-  background-color: #ebeef8;
+  background-color: #adb1bd;
   align-items: center;
   justify-content: center;
   box-shadow: .5rem .5rem 3rem rgba(0,0,0,0.2); 
-  width: 80%;
   border: none;
-  padding: 15px;
   font-size: 18px;
-  font-family: "Courier New", Courier, monospace;
-  border-radius: 5px;
+  font-family: 'Courier New', Courier, monospace;
+  color: white;
+  border-radius: 2px; 
+  padding:5px;
+
 }
 
-.searchItem input[type=submit]{
-  align-items: center;
-  text-align: center;
-  background-color: #ebeef8;
-  align-items: center;
-  justify-content: center;
+.searchItem  button {
   box-shadow: .5rem .5rem 3rem rgba(0,0,0,0.2); 
-  border: none;
-  padding: 18px;
+   border: none;
   font-size: 18px;
   font-family: 'Courier New', Courier, monospace;
   background-color:#201d38;
   color: white;
-  border-radius: 5px;
+  padding:8px;
+  border-radius: 2px; 
   cursor: pointer;
-  position: absolute;
-} 
-.searchItem input[type=submit]:hover{
+}  
+.searchItem  button:hover{
   background-color: rgb(137, 156, 213)
 }
 
@@ -541,6 +549,10 @@ input[type="number"]::-webkit-outer-spin-button {
   margin: 5rem  auto;
   box-shadow: .5rem .5rem 3rem rgba(0,0,0,0.2);
 }
+
+.card-item-create-view-size{
+  width: 30%;
+}
 .card-item-create-acount .primary-btn{
   width:100%;
 }
@@ -588,17 +600,6 @@ th,
   text-align: left;
 }
 
-/* footer */
-
-footer {
-  background-color: #fff;
-  color: purple;
-  padding: 1px;
-  text-align: center;
-  position: relative;
-  margin-top: 40rem;
-  clear: both;
-}
 
 /* badge */
 .badge-success {
@@ -802,6 +803,7 @@ input[type="checkbox"]:checked ~ .sidemenu {
   color: #634eeb;
 }
     .card-item-right-small-view-content{
+      margin: auto;
     display: block;
   }
   .card-item-right{
@@ -810,17 +812,15 @@ input[type="checkbox"]:checked ~ .sidemenu {
   form {
     margin: auto;
   }
-  .searchItem input[type="text"] {
-    width: 80%;
-    padding: 10px;
-    border-radius: 5px;
+
+  .searchItem {
+    display: none;
   }
-  .searchItem input[type="submit"] {
-    width: 80%;
-    padding: 15px;
-    border-radius: 5px;
-    margin: 5px 0 20px 0;
-    position: static;
+  .searchItem input[type="date"] {
+   display: none;
+  }
+  .searchItem button {
+    display: none;
   }
   table,
   thead,
