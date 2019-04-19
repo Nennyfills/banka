@@ -23,6 +23,7 @@ Description
 To run Banka you have to install Node.js and NPM packages. The application backend was written in
 ES2015 note that babel is highly recomened for the application to function. specially 
 [@babel/cli": "^7.4.3",@babel/core: "^7.4.3", @babel/node: "^7.2.2"].
+
 ````
 Demo login for UI
 ````
@@ -64,9 +65,9 @@ router.post("/:accountnumber/debit");
 router.delete("/accounts/:accountnumber");
 router.get("/:accountnumber/profile");
 router.get("/accounts");
-```
 
-Give the example
+```
+Login Route
 Request body
 ```
 {
