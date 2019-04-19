@@ -283,7 +283,7 @@ header .username {
 
 .upload {
   color: #282639;
-  width: 20%;
+  width: 50%;
   margin: auto;
 }
 .upload a {
@@ -404,8 +404,9 @@ header .username {
 
 /* search button */
 form {
-  width: 50%;
+  width: 100%;
   margin: 40px auto;
+  text-align: center;
 }
 .searchItem input[type="date"] {
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.12), 0 2px 4px 0 rgba(0, 0, 0, 0.08);
@@ -419,7 +420,7 @@ form {
   font-size: 18px;
   font-family: 'Courier New', Courier, monospace;
   color: white;
-  border-radius: 2px; 
+  border-radius: 1px; 
   padding:5px;
 
 }
@@ -432,11 +433,11 @@ form {
   background-color:#201d38;
   color: white;
   padding:8px;
-  border-radius: 2px; 
+  border-radius: 1px; 
   cursor: pointer;
 }  
 .searchItem  button:hover{
-  background-color: rgb(137, 156, 213)
+  background-color:  #634eeb
 }
 
 /* credit and debit design */
@@ -471,8 +472,8 @@ form {
 .admin-password,
 .confirm-admin-password {
   /* margin-bottom: 1.3rem; */
-  width: 100% ;
-  margin: 5px auto;
+  width: 80% ;
+  margin: 10px auto;
   border-radius: 2px;
   background: #3a3838;
   border: solid 1px #555;
@@ -483,7 +484,19 @@ form {
 }
 
 .card-item-create-acount .primary-btn {
-  width: 100% !important;
+  width: 80% !important;
+  margin: 0  auto !important;
+}
+.card-item-create-acount{
+    text-align: center;
+    background-color: #ebeef8;
+    align-items: center;
+    justify-content: center;
+    width: 50%;
+    margin: 5rem auto;
+    padding-top: 2rem;
+    padding-bottom: 4rem;
+    box-shadow: .5rem .5rem 3rem rgba(0,0,0,0.2); 
 }
 .credit-account-number,
 .debit-account-number,
@@ -496,9 +509,9 @@ input[type="number"]::-webkit-outer-spin-button {
 
 /* create account design */
 
-.card-item-create-acount #create-text {
-  text-align: center;
-  padding-bottom: 2rem;
+.card-item-create-acount #create-text, .card-item-create-acount h1 {
+  text-align: center ;
+  padding: 1rem;
 }
 
 #firstname,
@@ -511,7 +524,7 @@ input[type="number"]::-webkit-outer-spin-button {
 #create-dob,
 #usertype {
   margin-bottom: 1.3rem;
-  width: 100%;
+  width: 80%;
   border-radius: 2px;
   background: #302d43;
   border: solid 1px #555;
@@ -525,23 +538,23 @@ input[type="number"]::-webkit-outer-spin-button {
   font-size: 1rem;
 }
 .card-item-create-user-acount .primary-btn{
-  margin-bottom: 5rem;
-  width: 100%;
+  margin: 2rem auto;
+  width: 80%;
 }
 .card-item-create-user-acount{
   text-align: center;
 }
-.card-item-create-user-acount 
+.card-item-create-user-acount ,
 .card-item-create-acount{
-  padding: 10px 0 20px 0;
-  align-items: center;
-  width: 80%;
-  text-align: center;
-  background-color: #ebeef8;
-  align-items: center;
-  justify-content: center;
-  margin: 5rem  auto;
-  box-shadow: .5rem .5rem 3rem rgba(0,0,0,0.2);
+ text-align: center;
+    background-color: #ebeef8;
+    align-items: center;
+    justify-content: center;
+    width: 50%;
+    margin: 5rem auto;
+    padding-top: 2rem;
+    padding-bottom: 4rem;
+    box-shadow: .5rem .5rem 3rem rgba(0,0,0,0.2); 
 }
 
 .card-item-create-view-size{
@@ -717,6 +730,7 @@ input[type="checkbox"]:checked ~ .sidemenu {
   color: #fff;
   background-color: #302d43;
   text-align: center;
+  justify-content: center;
   padding: 10px 0;
   display: none;
 }
@@ -789,7 +803,7 @@ input[type="checkbox"]:checked ~ .sidemenu {
 @media only screen and (max-width: 760px),
   (min-device-width: 768px) and (max-device-width: 1024px) {
     .card-item-create-user-acount{
-   padding: 10px 0 20px 0;
+  padding: 10px 0 20px 0;
   align-items: center;
   width: 100% !important;
   text-align: center;
@@ -803,8 +817,8 @@ input[type="checkbox"]:checked ~ .sidemenu {
   text-decoration: none;
   color: #634eeb;
 }
-    .card-item-right-small-view-content{
-      margin: auto;
+.card-item-right-small-view-content{
+    margin: auto;
     display: block;
   }
   .card-item-right{
@@ -813,7 +827,7 @@ input[type="checkbox"]:checked ~ .sidemenu {
     margin: auto;
   }
 
- .searchItem input[type="date"] {
+.searchItem input[type="date"] {
   padding:5px;
   width: 30%;
 }
@@ -822,6 +836,12 @@ input[type="checkbox"]:checked ~ .sidemenu {
   font-size: 18px;
   margin :9px 30%;
 }  
+.logo h1 {
+  font-size: 2rem !important;
+}
+.logo h1 span {
+  font-size: 3rem !important;
+}
   table,
   thead,
   tbody,

@@ -44,7 +44,7 @@ const dashboard = document.getElementById("side_dashboard").addEventListener("cl
   } else if (user.permission === "staff".toUpperCase()) {
     window.location.href = "dashboard-staff.html";
   } else if (user.permission === "user".toUpperCase()) {
-    window.location.href = "dashboard-user.html";
+    window.location.href = "profile.html";
   }
 });
 const user = JSON.parse(localStorage.getItem("user"));
