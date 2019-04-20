@@ -29,7 +29,7 @@ exports.userLogin = (data, callbck) => {
     if (!res) {
       return callbck("Invalid email and password", null);
     }
-    const token = jwt.sign(
+    const token = "Bearer " + jwt.sign( 
       {
         email: currentUsers.email,
         userId: currentUsers.id,

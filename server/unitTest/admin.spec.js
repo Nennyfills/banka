@@ -9,12 +9,36 @@ chai.use(chaiHttp);
 describe("Admin controller", () => {
   let token;
   beforeEach(() => {
-    token = jwt.sign({
+    token = `Bearer ${jwt.sign({
       type: "ADMIN",
       email: "admin@FileList.com",
     },
     process.env.SECRET_KEY,
-    { expiresIn: "7d" });
+    { expiresIn: "7d" })}`;
+       
+  });
+  it("should create staff or admin once all the parameters are given", () => {
+    const payload = {
+      email: "staff2@FileList.com",
+      firstName: "Joy",
+      surName: "dills",
+      password: "love",
+      isAdmin: "true",
+      type: "STAFF",
+    };
+
+    chai.request(app)
+      .post("/api/v1/auth/account")
+      .set("Authorization", token)
+      .send(payload)
+      .end((err, res) => {
+        expect(res).to.have.status(201);
+        expect(res.body.data.email).to.equal(payload.email);
+        expect(res.body.data.surName).to.equal(payload.surName);
+        expect(res.body.data.firstName).to.equal(payload.firstName);
+        expect(res.body.data.isAdmin).to.equal(true);
+        expect(res.body.data).to.have.property("id");
+      });
   });
   describe("Activate", () => {
     const endpoint = "/api/v1/4008989879";

@@ -133,24 +133,24 @@ module.exports = {
 const client = new Client({
   user: "postgres",
   password: "postgres",
-  host: "nennyfills",
+  host: "localhost",
   port: 5432,
   database: "banka",
 });
 
-// async function execute() {
-//   try {
-//     await client.connect();
-//     ("Connected successfully.");
-//     const { rows } = await client.query("select * from user");
-//     console.table(rows);
-//     await client.end();
-//     ("Client disconnected successfully.");
-//   } catch (run) {
-//     await
-//       (`Something wrong happened ${run}`);
-//   } finally {
-//     await client.end();
-//     ("Client disconnection successfully.");
-//   }
-// }
+async function execute() {
+  try {
+    await client.connect();
+    ("Connected successfully.");
+    const { rows } = await client.query("select * from user");
+    console.table(rows);
+    await client.end();
+    ("Client disconnected successfully.");
+  } catch (run) {
+    await
+      (`Something wrong happened ${run}`);
+  } finally {
+    await client.end();
+    ("Client disconnection successfully.");
+  }
+}

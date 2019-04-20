@@ -36,13 +36,13 @@ describe("Post /auth/signup", () => {
   describe("User can create account", () => {
     let token;
     beforeEach(() => {
-      token = jwt.sign({
+      token = `Bearer ${jwt.sign({
         type: "USER",
         email: "joy@westlife.com",
         id: 1000001,
       },
       process.env.SECRET_KEY,
-      { expiresIn: "7d" });
+      { expiresIn: "7d" })}`;
     });
 
     const endpoint = "/api/v1/accounts";

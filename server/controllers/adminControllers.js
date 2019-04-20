@@ -6,6 +6,8 @@ class AdminController {
     const {
       email, firstName, surName, password, type,
     } = req.body;
+
+
     Admin.createStaffAdmin({
       email,
       firstName,
@@ -13,8 +15,6 @@ class AdminController {
       password,
       type,
     }, (err, data) => {
-      // console.log(data);
-
       if (err) {
         res.status(400).json({
           status: 400,
@@ -23,7 +23,6 @@ class AdminController {
         });
         return; // stop early
       }
-      console.log(data);
 
       res.status(201).json({
         status: 201,

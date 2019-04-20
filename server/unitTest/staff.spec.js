@@ -10,12 +10,12 @@ describe("Staff controller", () => {
   let token;
 
   beforeEach(() => {
-    token = jwt.sign({
+    token = `Bearer ${jwt.sign({
       type: "STAFF",
       email: "staff@FileList.com",
     },
     process.env.SECRET_KEY,
-    { expiresIn: "7d" });
+    { expiresIn: "7d" })}`;
   });
 
   describe("Credit", () => {

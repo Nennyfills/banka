@@ -39,7 +39,7 @@ exports.createStaffAdmin = (data, callbk) => {
 
   delete newuser.password;
   delete newuser.type;
-  // console.log(newuser)
+  //  (newuser)
   callbk(null, newuser);
 };
 
