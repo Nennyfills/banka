@@ -33,21 +33,23 @@ class UserController {
       firstName,
       surName,
       openingBalance,
+      phoneNumber,
       type,
     } = req.body;
 
-    const email = req.currentUser.email;
+    const { email } = req.currentUser;
     User.createUserAccount({
       firstName,
       surName,
       openingBalance,
+      phoneNumber,
       type,
       email,
     }, (err, data) => {
       if (err) {
         res.status(400).json({
           status: 400,
-          message: "Account  not sucessfully created",
+          message: "Account not sucessfully created",
           error: err,
         });
         return;
@@ -56,27 +58,6 @@ class UserController {
       res.status(201).json({
         status: 201,
         message: "Account created",
-        data,
-      });
-    });
-  }
-
-
-  static transaction(req, res) {
-    const userAccount = parseInt(req.params.accountnumber);
-    User.findTransaction(userAccount, (err, data) => {
-      if (err) {
-        res.status(400).json({
-          status: 400,
-          message: "Invalid account",
-          error: err,
-        });
-        return;
-      }
-      // stop early
-      res.status(200).json({
-        status: 200,
-        message: "Request was successfully",
         data,
       });
     });

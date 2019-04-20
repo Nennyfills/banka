@@ -20,20 +20,12 @@ app.use("/api/v1", router);
 app.get("/", (req, res) => {
   res.send("Home Page");
 });
-app.get("/api/v1/*", (req, res) => {
-  res.send("API banka invalid url ");
-});
-app.post("/api/v1/*", (req, res) => {
-  res.send("API banka invalid url ");
-});
-app.delete("/api/v1/*", (req, res) => {
-  res.send("API banka invalid url ");
-});
-app.put("/api/v1/*", (req, res) => {
-  res.send("API banka invalid url ");
-});
-app.patch("/api/v1/*", (req, res) => {
-  res.send("API banka invalid url ");
+
+app.use("*", (req, res) => {
+  res.status(404).json({
+    status: 404,
+    message: "Page not found",
+  });
 });
 app.listen(portal);
 module.exports = app;

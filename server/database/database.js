@@ -1,3 +1,5 @@
+import { Client } from "pg";
+
 const DATABASE = {
   ADMIN: [
     {
@@ -47,7 +49,8 @@ const DATABASE = {
   ],
   ACCOUNT: [
     {
-      id: 1000005,
+      id: 1000001,
+      email: "joy@westlife.com",
       accountNumber: 3008989871,
       ownerId: 1000001,
       phoneNumber: "09098765438",
@@ -58,6 +61,7 @@ const DATABASE = {
     },
     {
       id: 1000001,
+      email: "joy@westlife.com",
       accountNumber: 3008989879,
       ownerId: 1000001,
       phoneNumber: "09098765438",
@@ -68,6 +72,7 @@ const DATABASE = {
     },
     {
       id: 1000002,
+      email: "mark@hotmail.com",
       accountNumber: 4008989879,
       ownerId: 1000001,
       phoneNumber: "09098765438",
@@ -77,7 +82,8 @@ const DATABASE = {
       createdAt: "2019 - 04 - 04T18: 23: 05.602Z",
     },
     {
-      id: 1000006,
+      id: 1000002,
+      email: "mark@hotmail.com",
       accountNumber: 3008989876,
       phoneNumber: "09080678989",
       ownerId: 1000002,
@@ -91,7 +97,7 @@ const DATABASE = {
     {
       key: "TRANSACTION",
       accountNumber: 3008989879,
-      transactionsId: 1000001,
+      id: 1000001,
       amount: 3000,
       casher: 1000001,
       type: "credit",
@@ -102,7 +108,7 @@ const DATABASE = {
     {
       key: "TRANSACTION",
       accountNumber: 3008989879,
-      transactionsId: 1000002,
+      id: 1000002,
       amount: 3000,
       casher: 1000001,
       type: "debit",
@@ -123,3 +129,28 @@ const transactionsdb = [...DATABASE.TRANSACTION];
 module.exports = {
   database, userdb, admindb, staff, accountdb, transactionsdb,
 };
+
+const client = new Client({
+  user: "postgres",
+  password: "postgres",
+  host: "nennyfills",
+  port: 5432,
+  database: "banka",
+});
+
+// async function execute() {
+//   try {
+//     await client.connect();
+//     ("Connected successfully.");
+//     const { rows } = await client.query("select * from user");
+//     console.table(rows);
+//     await client.end();
+//     ("Client disconnected successfully.");
+//   } catch (run) {
+//     await
+//       (`Something wrong happened ${run}`);
+//   } finally {
+//     await client.end();
+//     ("Client disconnection successfully.");
+//   }
+// }

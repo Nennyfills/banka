@@ -1,7 +1,7 @@
 import bcrypt from "bcryptjs";
 import env from "dotenv";
-import DbControllers from "../dbControllers";
 import { database } from "../database";
+import DbControllers from "../dbControllers";
 
 env.config();
 
@@ -12,9 +12,11 @@ exports.createStaffAdmin = (data, callbk) => {
     callbk(requiredError, null);
     return;
   }
-  const users = database.USER;
-  const user = users.filter(eachUser => eachUser.email === data.email);
-  if (user.length !== 0) {
+  const admins = database.ADMIN;
+  const staffs = database.STAFF;
+  const admin = admins.filter(eachUser => eachUser.email === data.email);
+  const staff = staffs.filter(eachUser => eachUser.email === data.email);
+  if (staff.length !== 0 || admin.length !== 0) {
     callbk("email already exist", null);
     return;
   }
@@ -37,6 +39,7 @@ exports.createStaffAdmin = (data, callbk) => {
 
   delete newuser.password;
   delete newuser.type;
+  // console.log(newuser)
   callbk(null, newuser);
 };
 
