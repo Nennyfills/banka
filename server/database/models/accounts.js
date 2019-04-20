@@ -1,9 +1,6 @@
 import { database } from "../database";
 import DbControllers from "../dbControllers";
 
-console.log(database);
-
-
 exports.DeleteAccount = (data, callback) => {
   const accounts = database.ACCOUNT;
 

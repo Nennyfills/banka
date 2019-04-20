@@ -75,7 +75,6 @@ class AccountController {
 
         return;
       }
-
       // stop early
       res.status(200).json({
         status: 200,

@@ -10,13 +10,13 @@ chai.use(chaiHttp);
 describe("Transaction by account number", () => {
   let token;
   beforeEach(() => {
-    token = jwt.sign({
+    token = `Bearer ${jwt.sign({
       type: "USER",
       email: "joy@westlife.com",
       id: 1000001,
     },
     process.env.SECRET_KEY,
-    { expiresIn: "7d" });
+    { expiresIn: "7d" })}`;
   });
 
   it("should view a user transaction with right acount number", () => {

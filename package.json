@@ -5,6 +5,7 @@
   "main": "app.js",
   "scripts": {
     "test": "cross-env NODE_ENV=test nyc --require @babel/register  mocha server/unitTest --exit",
+    "devtest": "cross-env NODE_ENV=test nyc --require @babel/register  mocha --exit",
     "fullTable": "node  ./server/database/fullTable.js",
     "start": "babel ./server -d build && node build/app.js",
     "dev": "nodemon --exec babel-node server/app.js",

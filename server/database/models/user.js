@@ -27,7 +27,7 @@ exports.create = (data, callbk) => {
   const type = "USER";
   const password = hash;
   const { email, firstName, surName } = data;
-  const token = jwt.sign(
+  const token = "Bearer " + jwt.sign( 
     {
       type: "USER",
       email,
