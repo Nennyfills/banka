@@ -13,20 +13,22 @@ class AdminController {
       password,
       type,
     }, (err, data) => {
+      // console.log(data);
+
       if (err) {
         res.status(400).json({
-          status: 404,
+          status: 400,
           error: err,
           message: "Signup not sucessful",
         });
         return; // stop early
       }
+      console.log(data);
+
       res.status(201).json({
         status: 201,
-        user: {
-          message: "User created",
-          data,
-        },
+        message: "User created",
+        data,
       });
     });
   }
@@ -34,7 +36,6 @@ class AdminController {
   static toggleAccountStatus(req, res) {
     const userAccountNumber = parseInt(req.params.accountnumber);
     Admin.toggleAccountStatus(userAccountNumber, (err, data) => {
-
       if (err) {
         res.status(404).json({
           status: 404,
@@ -46,7 +47,7 @@ class AdminController {
 
       res.status(200).json({
         status: 200,
-        message: "successfully deactivate",
+        message: "successfully",
         data,
       });
     });

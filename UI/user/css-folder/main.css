@@ -69,13 +69,13 @@ h6 {
   transition: all 0.2s ease-in-out;
 }
 .sidemenu nav a:hover {
-  background-color: #302d43;
+  background-color: #92a5de;
   padding: 15px 50px 15px 40px;
 }
 
 .sidemenu nav a:hover:before {
   color: #f7f7f7;
-  background-color: #767580;
+  background-color: #92a5de;
   border-left: #d8f0bb 5px solid;
   padding: 15px 30px 15px 25px;
 }
@@ -283,7 +283,7 @@ header .username {
 
 .upload {
   color: #282639;
-  width: 20%;
+  width: 0%;
   margin: auto;
 }
 .upload a {
@@ -436,7 +436,7 @@ form {
   cursor: pointer;
 }  
 .searchItem  button:hover{
-  background-color: rgb(137, 156, 213)
+  background-color: #92a5de
 }
 
 /* credit and debit design */

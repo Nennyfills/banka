@@ -1,13 +1,12 @@
 import chai, { expect } from "chai";
 import chaiHttp from "chai-http";
 import "@babel/polyfill";
-import app from "../app";
 import jwt from "jsonwebtoken";
+import app from "../app";
 
 chai.use(chaiHttp);
 
 describe("Post /auth/signup", () => {
-
   describe("User signup", () => {
     it("should register a new user once all the parameters are given", () => {
       const payload = {
@@ -46,7 +45,7 @@ describe("Post /auth/signup", () => {
       { expiresIn: "7d" });
     });
 
-    const endpoint = "/api/v1/account";
+    const endpoint = "/api/v1/accounts";
 
     describe("if parameters are correct", () => {
       const payload = {
@@ -85,36 +84,23 @@ describe("Post /auth/signup", () => {
           expect(res).to.have.status(400);
         });
     });
-
   });
-
-  describe("Transaction", () => {
-    let token;
-    beforeEach(() => {
-      token = jwt.sign({
-        type: "USER",
-        email: "joy@westlife.com",
-        id: 1000001,
-      },
-      process.env.SECRET_KEY,
-      { expiresIn: "7d" });
+  describe("Home page and invalid router", () => {
+    describe("Home page", () => {
+      it("Should show page on this route '/' ", () => {
+        chai.request(app)
+          .get("/")
+          .end((err, res) => {
+            expect(res).to.have.status(200);
+          });
+      });
     });
 
-    it("should view a user transaction with right acount number", () => {
+    it("Should show page on this route '*' ", () => {
       chai.request(app)
-        .get(`/api/v1/${3008989876}/profile`)
-        .set("Authorization", token)
+        .get("/ap1/3")
         .end((err, res) => {
-          expect(res).to.have.status(200);
-        });
-    });
-
-    it("should not view a user transaction with wrong acount number", () => {
-      chai.request(app)
-        .get(`/api/v1/${300898987}/profile`)
-        .set("Authorization", token)
-        .end((err, res) => {
-          expect(res).to.have.status(400);
+          expect(res).to.have.status(404);
         });
     });
   });

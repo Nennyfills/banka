@@ -1,8 +1,8 @@
 import chai, { expect } from "chai";
 import chaiHttp from "chai-http";
 import "@babel/polyfill";
+import jwt from "jsonwebtoken";
 import app from "../app";
-import jwt from "jsonwebtoken"
 
 chai.use(chaiHttp);
 
@@ -16,7 +16,6 @@ describe("Admin controller", () => {
     process.env.SECRET_KEY,
     { expiresIn: "7d" });
   });
-
   describe("Activate", () => {
     const endpoint = "/api/v1/4008989879";
     it("should activate a user once the right account number is given", () => {
@@ -57,14 +56,14 @@ describe("Admin controller", () => {
 
   describe("Deactivate", () => {
     const endpoint = `/api/v1/${300898987}`;
-    
+
     it("should not deactivate a user once the wrong account number is given", () => {
       chai.request(app)
-      .patch(endpoint)
-      .set("Authorization", token)
-      .end((err, res) => {
-        expect(res).to.have.status(404);
-      });
+        .patch(endpoint)
+        .set("Authorization", token)
+        .end((err, res) => {
+          expect(res).to.have.status(404);
+        });
     });
   });
 });

@@ -1,5 +1,4 @@
 import Account from "../database/models/accounts";
-import { database } from "../database/database";
 
 
 class AccountController {
@@ -21,10 +20,10 @@ class AccountController {
     });
   }
 
-  static accountprofile(req, res) {
+  static accountsByAccountNumber(req, res) {
     const userAccount = Number(req.params.accountnumber);
 
-    Account.getEachAcount(userAccount, (err, data) => {
+    Account.getAcountByAccountNumber(userAccount, (err, data) => {
       if (err) {
         res.status(400).json({
           status: 400,
@@ -43,12 +42,47 @@ class AccountController {
     });
   }
 
-  static accounts(req, res) {
-    const accounts = database.ACCOUNT;
-    res.status(200).json({
-      status: 200,
-      message: "Request was successfully",
-      accounts,
+  static viewAllAccount(req, res) {
+    const { status } = req.query;
+    Account.getAllAccounts(status, (err, data) => {
+      if (err) {
+        res.status(400).json({
+          status: 400,
+          message: "Invalid account",
+          error: err,
+        });
+        return;
+      }
+      res.status(200).json({
+        status: 200,
+        message: "Request was successfully",
+        data,
+      });
+    });
+  }
+
+
+  static accountsByEmail(req, res) {
+    const useEmail = req.params.email;
+
+    Account.getAcountByEmail(useEmail, (err, data) => {
+      if (err) {
+        res.status(400).json({
+          status: 400,
+          message: "account not found",
+          error: err,
+        });
+
+        return;
+      }
+
+      // stop early
+      res.status(200).json({
+        status: 200,
+        message: "Request was successfully",
+        data,
+      });
+      //   (data);
     });
   }
 }

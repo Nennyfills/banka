@@ -2,10 +2,8 @@ import chai, { expect } from "chai";
 import jwt from "jsonwebtoken";
 import chaiHttp from "chai-http";
 import "@babel/polyfill";
-import { doesNotReject } from "assert";
 import app from "../app";
 
-const should = chai.should();
 chai.use(chaiHttp);
 
 describe("Accounts controller", () => {
@@ -34,7 +32,7 @@ describe("Accounts controller", () => {
   describe("delete", () => {
     describe("if parameters are correct", () => {
       const endpoint = "/api/v1/accounts/3018989879";
-      it("should not delete account once a wrong account number is given", () => {
+      it("should not delete account once a wrong account number", () => {
         chai.request(app).delete(endpoint)
           .set("Authorization", token)
           .query({ accountnumber: 3018989879 })
@@ -45,37 +43,37 @@ describe("Accounts controller", () => {
     });
   });
 
-  describe("Profile", () => {
-    const endpoint = `/api/v1/${3008989876}/profile`;
-    it("should view a user profile with right acount number", () => {
+  describe("Get all accounts", () => {
+    const endpoint = "/api/v1/accounts";
+
+    it("should get all user accounts", () => {
       chai.request(app)
         .get(endpoint)
         .set("Authorization", token)
-        .end((err, res) => {          
+        .end((err, res) => {
           expect(res).to.have.status(200);
         });
     });
   });
-  describe("Profile", () => {
-    const endpoint = `/api/v1/${300898987}/profile`;
-    it("should not view a user profile with wrong acount number", () => {
+  describe("Find account by accountNumber", () => {
+    const endpoint = `/api/v1/accounts/${3008989876}`;
+    it("should get an account if the right account number is given", () => {
+      chai.request(app)
+        .get(endpoint)
+        .set("Authorization", token)
+        .end((err, res) => {
+          expect(res).to.have.status(200);
+        });
+    });
+  });
+  describe("Find account by accountNumber", () => {
+    const endpoint = `/api/v1/accounts/${897898987}`;
+    it("should not get an account if the wrong account number is given", () => {
       chai.request(app)
         .get(endpoint)
         .set("Authorization", token)
         .end((err, res) => {
           expect(res).to.have.status(400);
-        });
-    });
-  });
-  describe("Get all accounts", () => {
-    const endpoint = "/api/v1/accounts";
-
-    it("should get all user  accounts", () => {
-      chai.request(app)
-        .get(endpoint)
-        .set("Authorization", token)
-        .end((err, res) => {          
-          expect(res).to.have.status(200);
         });
     });
   });

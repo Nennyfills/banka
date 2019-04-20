@@ -55,7 +55,7 @@ exports.create = (data, callbk) => {
 };
 
 exports.createUserAccount = (data, callbk) => {
-  const requiredField = ["firstName", "surName", "openingBalance", "type", "email"];
+  const requiredField = ["firstName", "surName", "openingBalance", "type", "email", "phoneNumber"];
   const requiredError = requiredField.filter(key => data[key] === undefined).map(value => `${value} is required`);
   if (requiredError.length !== 0) {
     callbk(requiredError, null);
@@ -69,7 +69,7 @@ exports.createUserAccount = (data, callbk) => {
   const balance = data.openingBalance;
   const status = "active";
   const {
-    type, email, firstName, surName, openingBalance,
+    type, email, firstName, surName, openingBalance, phoneNumber,
   } = data;
   const allData = {
     key,
@@ -77,6 +77,7 @@ exports.createUserAccount = (data, callbk) => {
     surName,
     ownerId,
     accountNumber,
+    phoneNumber,
     status,
     balance,
     type,
@@ -86,13 +87,4 @@ exports.createUserAccount = (data, callbk) => {
   delete newAccount.key; delete newAccount.balance;
   newAccount = { openingBalance, ...newAccount };
   callbk(null, newAccount);
-};
-
-
-exports.findTransaction = (data, callbk) => {
-  const accounts = database.TRANSACTION;
-  const account = accounts.find(acc => acc.accountNumber === data);
-  if (!account) { callbk(data, null); return; }
-
-  callbk(null, accounts);
 };
