@@ -54,7 +54,6 @@ exports.creditUser = async (data, callbk) => {
 
   try {
     const account = await findAccountByAccountNumber(accountNumber);
-    console.log(account);
     
     if (!cashierId) { callbk({ message: "Account Not Found", code: 404 }, null); return; }
     if (!account) { callbk({ message: "Account Not Found", code: 404 }, null); return; }
