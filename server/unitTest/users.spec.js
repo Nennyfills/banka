@@ -12,7 +12,7 @@ describe("Post /auth/signup", () => {
       const payload = {
         email: "joy2@westlife.com",
         firstName: "Joy",
-        surName: "Fills",
+        surname: "Fills",
         password: "love",
         isAdmin: "false",
         type: "USER",
@@ -24,7 +24,7 @@ describe("Post /auth/signup", () => {
         .end((err, res) => {
           expect(res).to.have.status(201);
           expect(res.body.data.email).to.equal(payload.email);
-          expect(res.body.data.surName).to.equal(payload.surName);
+          expect(res.body.data.surname).to.equal(payload.surname);
           expect(res.body.data.firstName).to.equal(payload.firstName);
           expect(res.body.data.isAdmin).to.equal(false);
           expect(res.body.data.status).to.equal("active");
@@ -41,8 +41,8 @@ describe("Post /auth/signup", () => {
         email: "joy@westlife.com",
         id: 1000001,
       },
-      process.env.SECRET_KEY,
-      { expiresIn: "7d" })}`;
+        process.env.SECRET_KEY,
+        { expiresIn: "7d" })}`;
     });
 
     const endpoint = "/api/v1/accounts";
@@ -52,11 +52,11 @@ describe("Post /auth/signup", () => {
         json: true,
         body: {
           firstName: "Joy",
-          surName: "Fills",
+          surname: "Fills",
           accountNumber: 300984857,
           type: "current",
-          openingBalance: parseFloat(3989.40),
-          phoneNumber: "0909999890",
+          openingbalance: parseFloat(3989.40),
+          phonenumber: "0909999890",
         },
       };
       it("should create account once all the parameters are given", () => {
@@ -67,7 +67,7 @@ describe("Post /auth/signup", () => {
           .end((err, res) => {
             expect(res).to.have.status(201);
             expect(res.body.data.email).to.equal("joy@westlife.com");
-            expect(res.body.data.surName).to.equal(payload.body.surName);
+            expect(res.body.data.surname).to.equal(payload.body.surname);
             expect(res.body.data.firstName).to.equal(payload.body.firstName);
             expect(res.body.data.status).to.equal("active");
             expect(res.body.data).to.have.property("id");

@@ -3,7 +3,7 @@ import Account from "../database/models/accounts";
 
 class AccountController {
   static delete(req, res) {
-    Account.DeleteAccount(req.params.accountnumber, (err, data) => {
+    Account.DeleteAccount(Number(req.params.accountnumber), (err, data) => {
       if (err) {
         res.status(404).json({
           status: 404,
@@ -43,8 +43,8 @@ class AccountController {
   }
 
   static viewAllAccount(req, res) {
-    const { status } = req.query;
-    Account.getAllAccounts(status, (err, data) => {
+    const { status, createdAt } = req.query;
+    Account.getAllAccounts({ status, createdAt }, (err, data) => {
       if (err) {
         res.status(400).json({
           status: 400,

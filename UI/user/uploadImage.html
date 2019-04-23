@@ -50,7 +50,7 @@
             <h1>Upload your photo</h1>
         </div>
         <div class="card-item-create-photo">
-                <img src="../public/nenny1.jpg" alt=""  class="profiles-image" id="image">
+                <img src="#" onerror="if (this.src != '../public/nenny1.jpg') this.src = '../public/nenny1.jpg';" alt=""  class="profiles-image" id="image">
                 <div class="upload-button">
                     <input type="file" onchange="previewImage(this)" class="upload-input primary-btn" />
                     <button class="primary-btn" id="saveBtn">Save</button>

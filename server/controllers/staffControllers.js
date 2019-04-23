@@ -4,10 +4,12 @@ import Staff from "../database/models/staff";
 
 class StaffController {
   static debit(req, res) {
-    const { amount } = req.body;
-    const cashierEmail = req.currentUser.email;
+    const { amount, depositor } = req.body;
+    const cashierId = req.currentUser.id;
     const accountNumber = Number(req.params.accountnumber);
-    Staff.debitUser({ amount, cashierEmail, accountNumber }, (err, data) => {
+    Staff.debitUser({
+      amount, cashierId, accountNumber, depositor,
+    }, (err, data) => {
       if (err) {
         res.status(err.code).json({
           status: err.code,
@@ -21,19 +23,21 @@ class StaffController {
         message: "Debit successful",
         data,
       });
-    });
+    });//.catch(err => console.log(err));
   }
 
   static credit(req, res) {
-    const { amount } = req.body;
-    const cashierEmail = req.currentUser.email;
+    const { amount, depositor } = req.body;
+    const cashierId = req.currentUser.id;
     const accountNumber = Number(req.params.accountnumber);
-    Staff.creditUser({ amount, cashierEmail, accountNumber }, (err, data) => {
-      if (err) {
-        res.status(err.code).json({
-          status: err.code,
-          error: err,
-          message: err.message,
+    Staff.creditUser({
+      amount, cashierId, accountNumber, depositor,
+    }, (error, data) => {
+      if (error) {
+        res.status(error.code).json({
+          status: error.code,
+          error,
+          message: error.message,
         });
         return;
       }

@@ -1,23 +1,18 @@
 import jwt from "jsonwebtoken";
 import bcrypt from "bcryptjs";
-import env from "dotenv";
 import DbControllers from "../dbControllers";
-import { database } from "../database";
+import { addUser, findUserByEmail, saveAccount } from "../database";
 
-env.config();
-
-exports.create = (data, callbk) => {
-  const requiredField = ["firstName", "surName", "password", "email"];
+exports.create = async (data, callbk) => {
+  const requiredField = ["firstName", "surname", "password", "email", "phonenumber"];
   const requiredError = requiredField.filter(key => data[key] === undefined).map(value => `${value} is required`);
   if (requiredError.length !== 0) {
     callbk(requiredError, null);
     return;
   }
 
-  const users = database.USER;
-  const user = users.filter(eachUser => eachUser.email === data.email);
-
-  if (user.length !== 0) {
+  const user = await findUserByEmail(data.email);
+  if (user) {
     callbk("email already exist", null);
     return;
   }
@@ -26,65 +21,56 @@ exports.create = (data, callbk) => {
   const isAdmin = false;
   const type = "USER";
   const password = hash;
-  const { email, firstName, surName } = data;
-  const token = "Bearer " + jwt.sign( 
-    {
-      type: "USER",
-      email,
-      isAdmin: false,
+  const {
+    email, firstName, surname, phonenumber,
+  } = data;
 
-    },
-    process.env.SECRET_KEY,
-    {
-      expiresIn: "1h",
-    },
-  );
-
-  const allData = {
-    token,
-    isAdmin,
-    type,
-    password,
-    email,
-    firstName,
-    surName,
-  };
-  const newuser = DbControllers.saveData(allData);
-  delete newuser.password;
-  callbk(null, newuser);
+  const values = [type, firstName, surname, phonenumber, email, password, isAdmin];
+  try {
+    const newuser = await addUser(values);
+    const token = `Bearer ${jwt.sign(
+      {
+        payload: {
+          type: "USER",
+          email,
+          isAdmin: false,
+          id: newuser.id,
+        },
+      },
+      process.env.SECRET_KEY,
+      {
+        expiresIn: "7h",
+      },
+    )}`;
+    callbk(null, { token, ...newuser });
+  } catch (err) {
+    callbk(err.detail, null);
+  }
 };
 
-exports.createUserAccount = (data, callbk) => {
-  const requiredField = ["firstName", "surName", "openingBalance", "type", "email", "phoneNumber"];
+exports.createUserAccount = async (data, callbk) => {
+  const requiredField = ["openingbalance", "type", "email"];
   const requiredError = requiredField.filter(key => data[key] === undefined).map(value => `${value} is required`);
   if (requiredError.length !== 0) {
     callbk(requiredError, null);
     return;
   }
-  const users = database.USER;
-  const currentUser = users.find(eachUser => eachUser.email === data.email);
-  const key = "ACCOUNT";
-  const ownerId = currentUser.id;
   const accountNumber = DbControllers.generateAccountNumber();
-  const balance = data.openingBalance;
   const status = "active";
   const {
-    type, email, firstName, surName, openingBalance, phoneNumber,
+    type, email, openingbalance,
   } = data;
-  const allData = {
-    key,
-    firstName,
-    surName,
-    ownerId,
-    accountNumber,
-    phoneNumber,
-    status,
-    balance,
-    type,
-    email,
-  };
-  let newAccount = DbControllers.saveByKey(allData);
-  delete newAccount.key; delete newAccount.balance;
-  newAccount = { openingBalance, ...newAccount };
-  callbk(null, newAccount);
+
+
+  try {
+    const accountDetails = await saveAccount({
+      accountNumber, email, openingbalance, type, status,
+    });
+    if (accountDetails.length > 8) {
+      callbk("account not created", null);
+    }
+    callbk(null, accountDetails);
+  } catch (err) {
+    callbk(err, null);
+  }
 };

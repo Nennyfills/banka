@@ -2,7 +2,10 @@ import express from "express";
 import bodyParser from "body-parser";
 import env from "dotenv";
 import cors from "cors";
+import { Client } from "pg";
 import router from "./routers/index";
+// import { Client } from "./database/power.db";
+
 
 env.config();
 
@@ -27,5 +30,27 @@ app.use("*", (req, res) => {
     message: "Page not found",
   });
 });
+
+const client = new Client();
+async function execute() {
+  try {
+    await client.connect();
+    console.log("Client connected successfuly");
+    const users = await client.query("select users from users ");
+    console.table(users.rows);
+    const account = await client.query("select account from account ");
+    console.table(account.rows);
+    const transaction = await client.query("select transaction from transaction ");
+    console.table(transaction.rows);
+  } catch (ex) {
+    console.log(`Something wrong happened ${ex}`);
+  } finally {
+    await client.end();
+    console.log("Client disconnected successfuly");
+  }
+}
+execute();
+
 app.listen(portal);
+console.log(portal);
 module.exports = app;

@@ -1,6 +1,5 @@
 /* eslint-disable no-param-reassign */
 import moment from "moment";
-import { database } from "./database";
 
 
 export default class DbControllers {
