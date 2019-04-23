@@ -23,7 +23,7 @@ class StaffController {
         message: "Debit successful",
         data,
       });
-    });//.catch(err => console.log(err));
+    });
   }
 
   static credit(req, res) {

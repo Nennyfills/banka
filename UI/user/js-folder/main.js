@@ -35,11 +35,8 @@ function uploadFile(file) {
   })
     .then(res => res.text())
     .then((text) => {
-      console.log(text);
       const response = JSON.parse(text);
-      // https://res.cloudinary.com/cloudName/image/upload/public_id.jpg
       const url_s = response.secure_url;
-      // Create a thumbnail of the uploaded image, with 150px width
       const tokens = url_s.split("/");
       tokens.splice(-2, 0, "w_150,c_scale");
       const img = document.getElementById("image");
@@ -85,7 +82,6 @@ const deactivateBtn = () => {
 };
 
 document.onreadystatechange = () => {
-  console.log("fasf");
   // eslint-disable-next-line no-empty
   if (document.readyState !== "complete") {
     return;

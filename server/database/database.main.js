@@ -15,7 +15,6 @@ const config = {
 const pool = new pg.Pool(config);
 
 pool.on("connect", () => {
-  console.log("connected to the db");
 });
 
 
@@ -37,11 +36,9 @@ const createTableUser = () => {
          )`;
   pool.query(UserTable)
     .then((res) => {
-      console.log(res);
       pool.end();
     })
     .catch((err) => {
-      console.log(err);
       pool.end();
     });
 };
@@ -61,11 +58,9 @@ const createTableAccount = () => {
          )`;
   pool.query(accountTable)
     .then((res) => { 
-      console.log(res);
       pool.end();
     })
     .catch((err) => {
-      console.log(err);
       pool.end();
     });
 };
@@ -85,11 +80,9 @@ const createTableTransaction = () => {
 )`;
   pool.query(transactionTable)
     .then((res) => {
-      console.log(res);
       pool.end();
     })
     .catch((err) => {
-      console.log(err);
       pool.end();
     });
 };
@@ -102,17 +95,14 @@ const dropTables = () => {
   const queryText = "DROP TABLE IF EXISTS";
   pool.query(queryText)
     .then((res) => {
-      console.log(res);
       pool.end();
     })
     .catch((err) => {
-      console.log(err);
       pool.end();
     });
 };
 
 pool.on("remove", () => {
-  console.log("client removed");
   process.exit(0);
 });
 

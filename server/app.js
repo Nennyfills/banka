@@ -35,7 +35,6 @@ const client = new Client();
 async function execute() {
   try {
     await client.connect();
-    console.log("Client connected successfuly");
     const users = await client.query("select users from users ");
     console.table(users.rows);
     const account = await client.query("select account from account ");
@@ -43,14 +42,11 @@ async function execute() {
     const transaction = await client.query("select transaction from transaction ");
     console.table(transaction.rows);
   } catch (ex) {
-    console.log(`Something wrong happened ${ex}`);
   } finally {
     await client.end();
-    console.log("Client disconnected successfuly");
   }
 }
 execute();
 
 app.listen(portal);
-console.log(portal);
 module.exports = app;
