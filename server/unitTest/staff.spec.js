@@ -24,6 +24,7 @@ describe("Staff controller", () => {
       body: {
         accountNumber: 4008989879,
         amount: 1000,
+        depositor: "nenye",
       },
     };
     it("should credit a  user once the right account number is given", () => {
@@ -35,6 +36,7 @@ describe("Staff controller", () => {
           expect(res).to.have.status(200);
           expect(res.body.data.accountNumber).to.equal(payload.body.accountNumber);
           expect(res.body.data.amount).to.equal(payload.body.amount);
+          expect(res.body.data.depositor).to.equal(payload.body.depositor);
         });
     });
 
@@ -52,7 +54,7 @@ describe("Staff controller", () => {
   });
 
   describe("Debit", () => {
-    const endpoint = "/api/v1/4008989879/debit";
+    const endpoint = "/api/v1/3006993038/debit";
     const payload = {
       json: true,
       body: {
@@ -66,7 +68,7 @@ describe("Staff controller", () => {
         .send(payload.body)
         .end((err, res) => {
           expect(res).to.have.status(200);
-          expect(res.body.data.accountNumber).to.equal(4008989879);
+          expect(res.body.data.accountNumber).to.equal(3006993038);
           expect(res.body.data.transactionType).to.equal("debit");
         });
     });

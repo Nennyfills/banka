@@ -21,7 +21,7 @@ describe("Admin controller", () => {
     const payload = {
       email: "staff2@FileList.com",
       firstName: "Joy",
-      surName: "dills",
+      surname: "dills",
       password: "love",
       isAdmin: "true",
       type: "STAFF",
@@ -34,7 +34,7 @@ describe("Admin controller", () => {
       .end((err, res) => {
         expect(res).to.have.status(201);
         expect(res.body.data.email).to.equal(payload.email);
-        expect(res.body.data.surName).to.equal(payload.surName);
+        expect(res.body.data.surname).to.equal(payload.surname);
         expect(res.body.data.firstName).to.equal(payload.firstName);
         expect(res.body.data.isAdmin).to.equal(true);
         expect(res.body.data).to.have.property("id");

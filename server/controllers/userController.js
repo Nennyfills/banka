@@ -4,13 +4,14 @@ import User from "../database/models/user";
 class UserController {
   static signup(req, res) {
     const {
-      email, firstName, surName, password,
+      email, firstName, surname, password, phonenumber,
     } = req.body;
     User.create({
       email,
       firstName,
-      surName,
+      surname,
       password,
+      phonenumber,
     }, (err, data) => {
       if (err) {
         res.status(400).json({
@@ -22,7 +23,7 @@ class UserController {
       }
       res.status(201).json({
         status: 201,
-        message: "User created",
+        message: "account created",
         data,
       });
     });
@@ -30,19 +31,13 @@ class UserController {
 
   static createUserAccount(req, res) {
     const {
-      firstName,
-      surName,
-      openingBalance,
-      phoneNumber,
+      openingbalance,
       type,
     } = req.body;
 
     const { email } = req.currentUser;
     User.createUserAccount({
-      firstName,
-      surName,
-      openingBalance,
-      phoneNumber,
+      openingbalance,
       type,
       email,
     }, (err, data) => {

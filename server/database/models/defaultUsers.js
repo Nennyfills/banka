@@ -1,44 +1,39 @@
 import jwt from "jsonwebtoken";
 import bcrypt from "bcryptjs";
 import env from "dotenv";
-import { database } from "../database";
+import { addUser, findUserByEmail, saveAccount } from "../database";
 
 env.config();
-exports.userLogin = (data, callbck) => {
+exports.userLogin = async (data, callbck) => {
   const requiredField = ["email", "password"];
   const requiredError = requiredField.filter(key => data[key] === undefined).map(value => `${value} is required`);
   if (requiredError.length !== 0) {
     callbck(requiredError, null);
     return;
   }
-  
-  const alluser = database.USER;
-  const allAdmin = database.ADMIN;
-  const allStaff = database.STAFF;
+  const user = await findUserByEmail(data.email);
 
-  const users = alluser.find(user => user.email !== data.email);
-  const admin = allAdmin.find(user => user.email === data.email);
-  const staff = allStaff.find(user => user.email === data.email);
-  const currentUsers = users || admin || staff;
-  
-  if (!currentUsers) {
+  if (!user) {
     callbck("Auth Fail email", null);
     return;
-}
-  bcrypt.compare(data.password, currentUsers.password, (err, res) => {
+  }
+  bcrypt.compare(data.password, user.password, (err, res) => {
     if (!res) {
       return callbck("Invalid email and password", null);
     }
-    const token = "Bearer " + jwt.sign( 
+    const token = `Bearer ${jwt.sign(
       {
-        email: currentUsers.email,
-        userId: currentUsers.id,
+
+        type: "USER",
+        email: user.email,
+        isAdmin: false,
+        id: user.id,
       },
       process.env.SECRET_KEY,
       {
         expiresIn: "7d",
       },
-    );
+    )}`;
     callbck(null, token);
   });
 };

@@ -4,15 +4,16 @@ import Admin from "../database/models/admin";
 class AdminController {
   static createStaffAdminAccount(req, res) {
     const {
-      email, firstName, surName, password, type,
+      email, firstName, surname, password, phonenumber, type,
     } = req.body;
 
 
     Admin.createStaffAdmin({
       email,
       firstName,
-      surName,
+      surname,
       password,
+      phonenumber,
       type,
     }, (err, data) => {
       if (err) {
@@ -33,8 +34,8 @@ class AdminController {
   }
 
   static toggleAccountStatus(req, res) {
-    const userAccountNumber = parseInt(req.params.accountnumber);
-    Admin.toggleAccountStatus(userAccountNumber, (err, data) => {
+    const accountNumber = Number(req.params.accountnumber);
+    Admin.toggleAccountStatus(accountNumber, (err, data) => {
       if (err) {
         res.status(404).json({
           status: 404,

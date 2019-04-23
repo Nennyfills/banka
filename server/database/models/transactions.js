@@ -1,18 +1,21 @@
-import { database } from "../database";
+import { findTransactionById, findTransactionByAccountNumber } from "../database";
 
-exports.findTransactionByAccount = (data, callbk) => {
-  const accounts = database.TRANSACTION;
-  const account = accounts.find(acc => acc.accountNumber === data);
-  if (!account) { callbk(data, null); return; }
-
-  callbk(null, accounts);
+exports.findTransactionByAccount = async (data, callbk) => {
+  try {
+    const transaction = await findTransactionByAccountNumber(data);
+    if (transaction.length === 0) { callbk(data, null); return; }
+    callbk(null, transaction);
+  } catch (err) {
+    callbk(err.message, null);
+  }
 };
 
-exports.findTransactionById = (data, callbk) => {
-  const accounts = database.TRANSACTION;
-  const account = accounts.find(acc => acc.id === data);
-  (account);
-  if (!account) { callbk(`${data} invalid id`, null); return; }
-
-  callbk(null, account);
+exports.findTransactionById = async (data, callbk) => {
+  try {
+    const transaction = await findTransactionById(data);
+    if (transaction.length === 0) { callbk(data, null); return; }
+    callbk(null, transaction);
+  } catch (err) {
+    callbk(err.message, null);
+  }
 };

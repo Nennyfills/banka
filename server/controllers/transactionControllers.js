@@ -8,8 +8,8 @@ import Transaction from "../database/models/transactions";
 
 class TransactionsController {
   static transactionByAccount(req, res) {
-    const userAccount = parseInt(req.params.accountnumber);
-    Transaction.findTransactionByAccount(userAccount, (err, data) => {
+    const accountNumber = Number(req.params.accountnumber);
+    Transaction.findTransactionByAccount(accountNumber, (err, data) => {
       if (err) {
         res.status(400).json({
           status: 400,

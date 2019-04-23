@@ -1,6 +1,6 @@
 
 /* eslint-disable radix */
-import AllUser from "../database/models/defaultUsers";
+import AllUser from "../database/models/defaultusers";
 
 class DefaultUserController {
   static login(req, res) {
