@@ -9,8 +9,7 @@ class DefaultUserController {
       if (err) {
         res.status(400).json({
           status: 400,
-          error: err,
-          message: "Email and password incorrect",
+          message: err.message,
         });
         return;
       }

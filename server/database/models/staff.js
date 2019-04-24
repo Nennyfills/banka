@@ -4,14 +4,14 @@ import {
 
 
 exports.debitUser = async (data, callbk) => {
-  const requiredField = ["amount", "accountNumber", "depositor"];
+  const requiredField = ["amount", "accountNumber"];
   const requiredError = requiredField.filter(key => data[key] === undefined).map(value => `${value} is required`);
   if (requiredError.length !== 0) {
     callbk({ message: requiredError, code: 400 }, null);
     return;
   }
   const {
-    amount, accountNumber, depositor, cashierId,
+    amount, accountNumber, cashierId,
   } = data;
 
   try {
@@ -30,7 +30,6 @@ exports.debitUser = async (data, callbk) => {
       accountNumber,
       amount: Number(amount),
       cashierId,
-      depositor,
       type,
       oldBalance,
       newBalance: updatedAccount.balance,

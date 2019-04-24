@@ -1,19 +1,17 @@
-
 /* eslint-disable radix */
 import Staff from "../database/models/staff";
 
 class StaffController {
   static debit(req, res) {
-    const { amount, depositor } = req.body;
+    const { amount } = req.body;
     const cashierId = req.currentUser.id;
     const accountNumber = Number(req.params.accountnumber);
     Staff.debitUser({
-      amount, cashierId, accountNumber, depositor,
+      amount, cashierId, accountNumber,
     }, (err, data) => {
       if (err) {
         res.status(err.code).json({
           status: err.code,
-          error: err,
           message: err.message,
         });
         return;
@@ -36,7 +34,6 @@ class StaffController {
       if (error) {
         res.status(error.code).json({
           status: error.code,
-          error,
           message: error.message,
         });
         return;

@@ -49,15 +49,15 @@ const createTableAccount = () => {
      account(
         id SERIAL PRIMARY KEY,
         ownerId INTEGER NOT NULL REFERENCES users(id)  ON DELETE CASCADE,
-        accountNumber NUMERIC(10,0) NOT NULL UNIQUE,
+        accountNumber BIGINT NOT NULL UNIQUE,
         email VARCHAR(20) NOT NULL,
-        balance FLOAT NOT NULL,
+        balance FLOAT NULL,
         type VARCHAR(10) NOT NULL,
         status VARCHAR(10) NOT NULL,
         createdAt TIMESTAMPTZ
          )`;
   pool.query(accountTable)
-    .then((res) => { 
+    .then((res) => {
       pool.end();
     })
     .catch((err) => {
@@ -69,13 +69,13 @@ const createTableTransaction = () => {
   const transactionTable = `CREATE TABLE IF NOT EXISTS
      transaction(
         id SERIAL PRIMARY KEY,
-        accountNumber NUMERIC(10,0) REFERENCES account(accountNumber) ON DELETE CASCADE,
+        accountNumber BIGINT REFERENCES account(accountNumber) ON DELETE CASCADE,
         amount FLOAT NOT NULL,
         cashier INTEGER  NOT NULL REFERENCES  users(id) ON DELETE CASCADE,
         depositor VARCHAR(10) NOT NULL,
         type VARCHAR(10) NOT NULL,
-        oldBalance FLOAT,
-        newBalance FLOAT,
+        oldBalance FLOAT 
+        newBalance FLOAT 
         createdAt TIMESTAMPTZ
 )`;
   pool.query(transactionTable)

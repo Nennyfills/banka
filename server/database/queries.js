@@ -16,12 +16,24 @@ export default {
     text: "SELECT * FROM  users WHERE email = $1",
     values,
   }),
+  GET_USER_BY_ID: values => ({
+    text: "SELECT * FROM  users WHERE id = $1",
+    values,
+  }),
+  GET_ACCOUNT_BY_OWNERID: values => ({
+    text: "SELECT * FROM  account WHERE ownerid = $1",
+    values,
+  }),
   GET_ACCOUNT_BY_EMAIL: values => ({
     text: "SELECT * FROM  account WHERE email = $1",
     values,
   }),
   GET_ACCOUNT_BY_ACCOUNTNUMBER: values => ({
     text: "SELECT * FROM account WHERE accountNumber = $1",
+    values,
+  }),
+  GET_ALL_ACCOUNT: values => ({
+    text: "SELECT * FROM account",
     values,
   }),
   GET_ACCOUNT_BY_STATUS: values => ({
@@ -45,11 +57,16 @@ export default {
     values,
   }),
   SEARCH_BY_TRANSACTION_DATE: values => ({
-    text: "SELECT * FROM transaction WHERE createdAt >= ($1) AND created <= ($1) RETURNING *;",
+    text: "SELECT * FROM transaction WHERE createdAt >= ($1) AND createdAt <= ($2);",
     values,
   }),
   SEARCH_BY_ACCOUNT_DATE: values => ({
-    text: "SELECT * FROM account WHERE createdAt >= ($1) AND created <= ($1) RETURNING *;",
+    text: "SELECT * FROM account WHERE createdAt >= ($1) AND createdAt <= ($2);",
     values,
   }),
+  SEARCH_ACCOUNT_BY_STATUS: values => ({
+    text: "SELECT * FROM account WHERE status= ($1);",
+    values,
+  }),
+
 };

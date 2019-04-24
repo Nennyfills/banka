@@ -19,8 +19,7 @@ class AdminController {
       if (err) {
         res.status(400).json({
           status: 400,
-          error: err,
-          message: "Signup not sucessful",
+          message: err.message,
         });
         return; // stop early
       }
@@ -39,8 +38,7 @@ class AdminController {
       if (err) {
         res.status(404).json({
           status: 404,
-          error: err,
-          message: "Acount not founded",
+          message: err.message,
         });
         return;
       }
