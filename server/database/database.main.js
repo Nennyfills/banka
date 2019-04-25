@@ -72,10 +72,10 @@ const createTableTransaction = () => {
         accountNumber BIGINT REFERENCES account(accountNumber) ON DELETE CASCADE,
         amount FLOAT NOT NULL,
         cashier INTEGER  NOT NULL REFERENCES  users(id) ON DELETE CASCADE,
-        depositor VARCHAR(10) NOT NULL,
+        depositor VARCHAR(10),
         type VARCHAR(10) NOT NULL,
-        oldBalance FLOAT 
-        newBalance FLOAT 
+        oldBalance FLOAT, 
+        newBalance FLOAT, 
         createdAt TIMESTAMPTZ
 )`;
   pool.query(transactionTable)

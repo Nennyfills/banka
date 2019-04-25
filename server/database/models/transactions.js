@@ -1,8 +1,8 @@
-import { findTransactionById, findTransactionByAccountNumber, searchTansactionByDate } from "../database";
+import databaseController from "../database";
 
 exports.findTransactionByAccount = async (data, callbk) => {
   try {
-    const transaction = await findTransactionByAccountNumber(data);
+    const transaction = await databaseController.findTransactionByAccountNumber(data);
     if (transaction.length === 0) { callbk(data, null); return; }
     callbk(null, transaction);
   } catch (err) {
@@ -12,7 +12,7 @@ exports.findTransactionByAccount = async (data, callbk) => {
 
 exports.findTransactionById = async (data, callbk) => {
   try {
-    const transaction = await findTransactionById(data);
+    const transaction = await databaseController.findTransactionById(data);
     if (transaction.length === 0) { callbk(data, null); return; }
     callbk(null, transaction);
   } catch (err) {
@@ -22,7 +22,7 @@ exports.findTransactionById = async (data, callbk) => {
 
 exports.findTransactionByDate = async (data, callbk) => {
   try {
-    const findByDate = await searchTansactionByDate({ from: data.startDate, to: data.endDate });
+    const findByDate = await databaseController.searchTansactionByDate({ from: data.startDate, to: data.endDate });
     if (findByDate.length === 0) { callbk("Nothing found", null); return; }
     callbk(null, findByDate);
   } catch (err) {

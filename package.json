@@ -6,7 +6,7 @@
   "scripts": {
     "build": "babel ./server -d build",
     "test": "nyc mocha build/unitTest/*.js --exit",
-    "devTest": "cross-env NODE_ENV=test nyc --require @babel/register  mocha server/unitTest --exit",
+    "devTest": "cross-env TEST_ENV=true nyc --require @babel/register  mocha server/unitTest --exit",
     "singleTest": "cross-env NODE_ENV=test nyc --require @babel/register  mocha --exit",
     "create": "node ./server/database/database.main.js",
     "fullTable": "node ./server/database/fullTable.js",
@@ -15,6 +15,12 @@
     "dev": "nodemon --exec babel-node server/app.js",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
     "email": "babel-node server/helpers/mail.js"
+  },
+  "nyc": {
+    "require": [
+      "@babel/register"
+    ],
+    "sourceMap": false
   },
   "engines": {
     "node": "v11.8.0"
@@ -37,6 +43,7 @@
     "moment": "^2.24.0",
     "nodemailer": "^6.1.1",
     "pg": "^7.10.0",
+    "pg-types": "^2.0.1",
     "request": "^2.88.0"
   },
   "devDependencies": {

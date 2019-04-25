@@ -14,8 +14,8 @@ class UserController {
       phonenumber,
     }, (err, data) => {
       if (err) {
-        res.status(400).json({
-          status: 400,
+        res.status(409).json({
+          status: 409,
           message: err.message,
         });
         return;

@@ -1,20 +1,19 @@
 import jwt from "jsonwebtoken";
 import bcrypt from "bcryptjs";
 import DbControllers from "../dbControllers";
-import { addUser, findUserByEmail, saveAccount } from "../database";
+import databaseController from "../database";
 
 exports.create = async (data, callbk) => {
-  const requiredField = ["firstName", "surname", "password", "email", "phonenumber"];
-  const requiredError = requiredField.filter(key => data[key] === undefined).map(value => `${value} is required`);
-  if (requiredError.length !== 0) {
-    callbk(requiredError, null);
-    return;
-  }
-
   try {
-    const user = await findUserByEmail(data.email);
+    const requiredField = ["firstName", "surname", "password", "email", "phonenumber"];
+    const requiredError = requiredField.filter(key => data[key] === undefined).map(value => `${value} is required`);
+    if (requiredError.length !== 0) {
+      callbk({ message: requiredError }, null);
+      return;
+    }
+    const user = await databaseController.findUserByEmail(data.email);
     if (user) {
-      callbk("email already exist", null);
+      callbk({ message: "email already exist" }, null);
 
       return;
     }
@@ -27,7 +26,7 @@ exports.create = async (data, callbk) => {
     } = data;
 
     const values = [type, firstName, surname, phonenumber, email, password, isAdmin];
-    const newuser = await addUser(values);
+    const newuser = await databaseController.addUser(values);
     const token = `Bearer ${jwt.sign(
       {
         payload: {
@@ -53,7 +52,7 @@ exports.createUserAccount = async (data, callbk) => {
     const requiredField = ["openingbalance", "type", "email"];
     const requiredError = requiredField.filter(key => data[key] === undefined).map(value => `${value} is required`);
     if (requiredError.length !== 0) {
-      callbk({ requiredError }, null);
+      callbk({ message: requiredError }, null);
 
       return;
     }
@@ -62,7 +61,7 @@ exports.createUserAccount = async (data, callbk) => {
     const {
       type, email, openingbalance,
     } = data;
-    const accountDetails = await saveAccount({
+    const accountDetails = await databaseController.saveAccount({
       accountNumber, email, openingbalance, type, status,
     });
     if (accountDetails.length > 8) {

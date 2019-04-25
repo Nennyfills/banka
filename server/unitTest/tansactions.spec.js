@@ -7,50 +7,63 @@ import app from "../app";
 chai.use(chaiHttp);
 
 
-describe("Transaction by account number", () => {
+describe("Transaction", () => {
   let token;
   beforeEach(() => {
     token = `Bearer ${jwt.sign({
       type: "USER",
-      email: "joy@westlife.com",
-      id: 1000001,
+      email: "canny@gmail.com",
+      id: 4,
     },
     process.env.SECRET_KEY,
     { expiresIn: "7d" })}`;
   });
 
-  it("should view a user transaction with right acount number", () => {
+  it("should view a user transaction with right acount number", (done) => {
     chai.request(app)
-      .get(`/api/v1/${3008989879}/transactions`)
+      .get(`/api/v1/${3008622723}/transactions`)
       .set("Authorization", token)
       .end((err, res) => {
         expect(res).to.have.status(200);
+        done();
       });
   });
 
-  it("should not view a user transaction with wrong acount number", () => {
+  it("should not view a user transaction with wrong acount number", (done) => {
     chai.request(app)
       .get(`/api/v1/${30089898976}/transactions`)
       .set("Authorization", token)
       .end((err, res) => {
         expect(res).to.have.status(400);
+        done();
       });
   });
-  it("should view a user transaction with right id", () => {
+  it("should view a user transaction with right id", (done) => {
     chai.request(app)
-      .get(`/api/v1/transactions/${1000001}`)
+      .get(`/api/v1/transactions/${4}`)
       .set("Authorization", token)
       .end((err, res) => {
         expect(res).to.have.status(200);
+        done();
       });
   });
 
-  it("should not view a user transaction with wrong id", () => {
+  it("should not view a user transaction with wrong id", (done) => {
     chai.request(app)
       .get(`/api/v1/transactions/${100000190}`)
       .set("Authorization", token)
       .end((err, res) => {
         expect(res).to.have.status(400);
+        done();
+      });
+  });
+  it("User can search transaction by date", (done) => {
+    chai.request(app)
+      .get("/api/v1/transactions?startDate=2019-04-25&endDate=2019-04-26")
+      .set("Authorization", token)
+      .end((err, res) => {
+        expect(res).to.have.status(404);
+        done();
       });
   });
 });

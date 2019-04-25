@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 import jwt from "jsonwebtoken";
-import { findUserByEmail } from "../database/database";
+import databaseController from "../database/database";
 
 
 module.exports = {
@@ -12,7 +12,7 @@ module.exports = {
       const headerToken = req.headers.authorization.split(" ")[1];
       const encoded = jwt.verify(headerToken, process.env.SECRET_KEY);
       let currentUser = null;
-      currentUser = await findUserByEmail(encoded.email);      
+      currentUser = await databaseController.findUserByEmail(encoded.email);      
       req.currentUser = encoded;
       return next();
     } catch (err) {

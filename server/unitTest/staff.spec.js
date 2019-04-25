@@ -27,7 +27,7 @@ describe("Staff controller", () => {
         depositor: "nenye",
       },
     };
-    it("should credit a  user once the right account number is given", () => {
+    it("should credit a  user once the right account number is given", (done) => {
       chai.request(app)
         .post(endpoint)
         .set("Authorization", token)
@@ -37,10 +37,11 @@ describe("Staff controller", () => {
           expect(res.body.data.accountNumber).to.equal(payload.body.accountNumber);
           expect(res.body.data.amount).to.equal(payload.body.amount);
           expect(res.body.data.depositor).to.equal(payload.body.depositor);
+          done();
         });
     });
 
-    it("should not credit a user once the wrong account number is given", () => {
+    it("should not credit a user once the wrong account number is given", (done) => {
       chai.request(app)
         .post("/api/v1/30089898/credit")
         .set("Authorization", token)
@@ -49,6 +50,7 @@ describe("Staff controller", () => {
         })
         .end((err, res) => {
           expect(res).to.have.status(404);
+          done();
         });
     });
   });
@@ -61,7 +63,7 @@ describe("Staff controller", () => {
         amount: 500,
       },
     };
-    it("should debit a  user once the right account number is given", () => {
+    it("should debit a  user once the right account number is given", (done) => {
       chai.request(app)
         .post(endpoint)
         .set("Authorization", token)
@@ -70,10 +72,11 @@ describe("Staff controller", () => {
           expect(res).to.have.status(200);
           expect(res.body.data.accountNumber).to.equal(3006993038);
           expect(res.body.data.transactionType).to.equal("debit");
+          done();
         });
     });
 
-    it("should not Debit a  user once the wrong account number is given", () => {
+    it("should not Debit a  user once the wrong account number is given", (done) => {
       chai.request(app)
         .post("/api/v1/300898987/credit")
         .set("Authorization", token)
@@ -82,6 +85,7 @@ describe("Staff controller", () => {
         })
         .end((err, res) => {
           expect(res).to.have.status(404);
+          done();
         });
     });
   });
