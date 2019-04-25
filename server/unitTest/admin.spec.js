@@ -28,10 +28,10 @@ describe("Admin controller", () => {
     };
 
     chai.request(app)
-      .post("/api/v1/auth/account")
+      .post("/api/v1/auth/portal")
       .set("Authorization", token)
       .send(payload)
-      .end((err, res) => {
+      .end((err, res) => {        
         expect(res).to.have.status(201);
         expect(res.body.data.email).to.equal(payload.email);
         expect(res.body.data.surname).to.equal(payload.surname);
@@ -41,13 +41,13 @@ describe("Admin controller", () => {
       });
   });
   describe("Activate", () => {
-    const endpoint = "/api/v1/4008989879";
+    const endpoint = "/api/v1/3006993038";
     it("should activate a user once the right account number is given", () => {
       chai.request(app).patch(endpoint)
         .set("Authorization", token)
         .end((err, res) => {
           expect(res).to.have.status(200);
-          expect(res.body.data.accountNumber).to.equal(4008989879);
+          expect(res.body.data.accountNumber).to.equal(3006993038);
           expect(res.body.data.status).to.equal("active");
         });
     });

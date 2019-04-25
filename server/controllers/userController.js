@@ -16,10 +16,9 @@ class UserController {
       if (err) {
         res.status(400).json({
           status: 400,
-          error: err,
-          message: "Signup not sucessful",
+          message: err.message,
         });
-        return; // stop early
+        return;
       }
       res.status(201).json({
         status: 201,
@@ -44,8 +43,7 @@ class UserController {
       if (err) {
         res.status(400).json({
           status: 400,
-          message: "Account not sucessfully created",
-          error: err,
+          message: err.message,
         });
         return;
       }

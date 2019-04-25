@@ -7,8 +7,7 @@ class AccountController {
       if (err) {
         res.status(404).json({
           status: 404,
-          error: err,
-          message: "Acount not found",
+          message: err.message,
         });
         return;
       }
@@ -25,15 +24,12 @@ class AccountController {
 
     Account.getAcountByAccountNumber(userAccount, (err, data) => {
       if (err) {
-        res.status(400).json({
-          status: 400,
-          message: "Invalid account",
-          error: err,
+        res.status(err.code).json({
+          status: err.code,
+          message: err.message,
         });
         return;
       }
-
-      // stop early
       res.status(200).json({
         status: 200,
         message: "Request was successfully",
@@ -43,14 +39,34 @@ class AccountController {
   }
 
   static viewAllAccount(req, res) {
-    const { status, createdAt } = req.query;
-    Account.getAllAccounts({ status, createdAt }, (err, data) => {
+    const { status, startDate, endDate } = req.query;
+
+    Account.getAllAccounts({ status, startDate, endDate }, (err, data) => {
       if (err) {
-        res.status(400).json({
-          status: 400,
-          message: "Invalid account",
-          error: err,
+        res.status(404).json({
+          status: 404,
+          message: err.message,
         });
+        return;
+      }
+      res.status(200).json({
+        status: 200,
+        message: "Request was successfully",
+        data,
+      });
+    });
+  }
+
+  static accountsByOwnerId(req, res) {
+    const useId = Number(req.params.ownerid);
+
+    Account.getAllAccountsByOwnerid(useId, (err, data) => {
+      if (err) {
+        res.status(404).json({
+          status: 404,
+          message: err.message,
+        });
+
         return;
       }
       res.status(200).json({
@@ -67,21 +83,18 @@ class AccountController {
 
     Account.getAcountByEmail(useEmail, (err, data) => {
       if (err) {
-        res.status(400).json({
-          status: 400,
-          message: "account not found",
-          error: err,
+        res.status(404).json({
+          status: 404,
+          message: err.message,
         });
 
         return;
       }
-      // stop early
       res.status(200).json({
         status: 200,
         message: "Request was successfully",
         data,
       });
-      //   (data);
     });
   }
 }

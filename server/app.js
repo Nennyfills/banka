@@ -2,7 +2,7 @@ import express from "express";
 import bodyParser from "body-parser";
 import env from "dotenv";
 import cors from "cors";
-import { Client } from "pg";
+// import { Client } from "pg";
 import router from "./routers/index";
 // import { Client } from "./database/power.db";
 
@@ -31,22 +31,22 @@ app.use("*", (req, res) => {
   });
 });
 
-const client = new Client();
-async function execute() {
-  try {
-    await client.connect();
-    const users = await client.query("select users from users ");
-    console.table(users.rows);
-    const account = await client.query("select account from account ");
-    console.table(account.rows);
-    const transaction = await client.query("select transaction from transaction ");
-    console.table(transaction.rows);
-  } catch (ex) {
-  } finally {
-    await client.end();
-  }
-}
-execute();
+// const client = new Client();
+// async function execute() {
+//   try {
+//     await client.connect();
+//     const users = await client.query("select * from users ");
+//     console.table(users.rows);
+//     const account = await client.query("select * from account ");
+//     console.table(account.rows);
+//     const transaction = await client.query("select * from transaction ");
+//     console.table(transaction.rows);
+//   } catch (ex) {
+//   } finally {
+//     await client.end();
+//   }
+// }
+// execute();
 
 app.listen(portal);
 module.exports = app;

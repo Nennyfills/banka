@@ -13,8 +13,8 @@ describe("Accounts controller", () => {
       type: "ADMIN",
       email: "admin@FileList.com",
     },
-    process.env.SECRET_KEY,
-    { expiresIn: "7d" })}`;
+      process.env.SECRET_KEY,
+      { expiresIn: "7d" })}`;
   });
 
   describe("Testing Delete route", () => {
@@ -22,7 +22,7 @@ describe("Accounts controller", () => {
     it("should delete account with valid accountnumber is given", () => {
       chai.request(app).delete(endpoint)
         .set("Authorization", token)
-        .end((err, res) => {
+        .end((err, res) => {          
           expect(res).to.have.status(200);
         });
     });
@@ -31,12 +31,11 @@ describe("Accounts controller", () => {
   describe("delete", () => {
     describe("if parameters are correct", () => {
       const endpoint = "/api/v1/accounts/301898987";
-      it("should not delete account once a wrong account number", () => {
+      it("should not delete account once a wrong account number is given", () => {
         chai.request(app).delete(endpoint)
           .set("Authorization", token)
-          .query({ accountnumber: 301898987 })
           .end((err, res) => {
-            expect(res).to.have.status(200);
+            expect(res).to.have.status(404);
           });
       });
     });

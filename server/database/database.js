@@ -1,66 +1,67 @@
-import { Client, Pool } from "pg";
+import { Pool } from "pg";
 import ptype from "pg-types";
+import env from "dotenv";
 import QUERY from "./queries";
 
+env.config();
+
+const myconnection = process.env.DBCONNECTION;
+const pool = new Pool({
+  connectionString: myconnection,
+});
+
+/**
+ * @param s — A string to convert into a number.
+    @param radix —
+ *  @param {*} values
+ */
 ptype.setTypeParser(1700, val => parseInt(val));
 
 const addUser = async (values) => {
-  const pool = new Pool();
   const res = await pool.query(QUERY.ADD_USER(values));
-  await pool.end();
+  return res.rows[0];
+};
+const findUserByEmail = async (email) => {
+  const res = await pool.query(QUERY.GET_USER_BY_EMAIL([email]));
   return res.rows[0];
 };
 
-const findUserByEmail = async (email) => {
-  const pool = new Pool();
-  const res = await pool.query(QUERY.GET_USER_BY_EMAIL([email]));
-  await pool.end();
-  return res.rows[0];
-};
+
 const findAccountByEmail = async (email) => {
-  const pool = new Pool();
   const res = await pool.query(QUERY.GET_ACCOUNT_BY_EMAIL([email]));
-  await pool.end();
   return res.rows;
 };
 const findUserById = async (id) => {
-  const pool = new Pool();
-  const res = await pool.query(QUERY.GET_TRANSACTION_BY_ID([id]));
-  await pool.end();
+  const res = await pool.query(QUERY.GET_USER_BY_ID([id]));
   return res.rows[0];
 };
 
+const findAccountByOwnerid = async (values) => {
+  const res = await pool.query(QUERY.GET_ACCOUNT_BY_OWNERID([values]));
+  return res.rows;
+};
+
 const findAccountByAccountNumber = async (accountNumber) => {
-  const pool = new Pool();
   const res = await pool.query(QUERY.GET_ACCOUNT_BY_ACCOUNTNUMBER([accountNumber]));
-  await pool.end();
   return res.rows[0];
 };
 const findTransactionByAccountNumber = async (accountNumber) => {
-  const pool = new Pool();
   const res = await pool.query(QUERY.GET_TRANSACTION_BY_ACCOUNTNUMBER([accountNumber]));
-  await pool.end();
   return res.rows;
 };
 
 const findTransactionById = async (id) => {
-  const pool = new Pool();
   const res = await pool.query(QUERY.GET_TRANSACTION_BY_ID([id]));
-  await pool.end();
   return res.rows;
 };
 
 const getAllAccountByAccountNumber = async (accountNumber) => {
-  const pool = new Pool();
   const res = await pool.query(QUERY.GET_ACCOUNT_BY_ACCOUNTNUMBER([accountNumber]));
-  await pool.end();
   return res.rows;
 };
 
 const deleteAccount = async (accountnumber) => {
-  const pool = new Pool();
   const res = await pool.query(QUERY.DELETE_ACCOUNT([accountnumber]));
-  await pool.end();
   return res.rows[0];
 };
 
@@ -68,32 +69,25 @@ const deleteAccount = async (accountnumber) => {
 const saveTransaction = async ({
   accountNumber, amount, cashierId, depositor, type, oldBalance, newBalance,
 }) => {
-  const pool = new Pool();
   const now = new Date();
   const values = [
     accountNumber, amount, cashierId, depositor,
     type, oldBalance, newBalance, now,
   ];
   const res = await pool.query(QUERY.ADD_TRANSACTION(values));
-  await pool.end();
   return res.rows[0];
 };
 const updateAccountbalance = async ({ accountNumber, newBalance }) => {
-  const pool = new Pool();
   const res = await pool.query(QUERY.UPDATE_ACCOUNTBALANCE([newBalance, accountNumber]));
-  await pool.end();
   return res.rows[0];
 };
 const getAccountbalance = async (accountbalance) => {
-  const pool = new Pool();
   const res = await pool.query(QUERY.GET_accountbalance([accountbalance]));
-  await pool.end();
   return res.rows[0];
 };
 const saveAccount = async ({
   accountNumber, email, openingbalance, type, status,
 }) => {
-  const pool = new Pool();
   const currentUser = await findUserByEmail(email);
   const now = new Date();
   const values = [
@@ -101,22 +95,29 @@ const saveAccount = async ({
     openingbalance, type, status, now,
   ];
   const res = await pool.query(QUERY.ADD_ACCOUNT(values));
-  await pool.end();
   return res.rows[0];
 };
-
+const getAllAccount = async () => {
+  const res = await pool.query(QUERY.GET_ALL_ACCOUNT());
+  return res.rows;
+};
 const updateAccountStatus = async ({ accountnumber, status }) => {
-  const pool = new Pool();
   const res = await pool.query(QUERY.GET_ACCOUNT_BY_STATUS([status, accountnumber]));
-  await pool.end();
   return res.rows[0];
 };
 
 const searchAccountStatus = async (values) => {
-  const pool = new Pool();
-  const res = await pool.query(QUERY.GET_ACCOUNT_BY_STATUS([values]));
-  await pool.end();
-  return res.rows[0];
+  const res = await pool.query(QUERY.SEARCH_ACCOUNT_BY_STATUS([values]));
+  return res.rows;
+};
+const searchAccountByDate = async ({ from, to }) => {
+  const res = await pool.query(QUERY.SEARCH_BY_ACCOUNT_DATE([from, to]));
+  return res.rows;
+};
+
+const searchTansactionByDate = async ({ from, to }) => {
+  const res = await pool.query(QUERY.GET_ACCOUNT_BY_STATUS([from, to]));
+  return res.rows;
 };
 
 module.exports = {
@@ -135,6 +136,10 @@ module.exports = {
   findTransactionByAccountNumber,
   findTransactionById,
   searchAccountStatus,
+  searchAccountByDate,
+  searchTansactionByDate,
+  getAllAccount,
+  findAccountByOwnerid,
 };
 // const DATABASE = {
 //   ADMIN: [

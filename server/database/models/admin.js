@@ -11,14 +11,14 @@ exports.createStaffAdmin = async (data, callbk) => {
   const requiredField = ["firstName", "surname", "password", "phonenumber", "email", "type"];
   const requiredError = requiredField.filter(key => data[key] === undefined).map(value => `${value} is required`);
   if (requiredError.length !== 0) {
-    callbk(requiredError, null);
+    callbk({ requiredError }, null);
     return;
   }
   try {
     const user = await findUserByEmail(data.email);
 
     if (user) {
-      callbk("email already exist", null);
+      callbk({ message: "email already exist" }, null);
       return;
     }
 
@@ -32,7 +32,7 @@ exports.createStaffAdmin = async (data, callbk) => {
     const newuser = await addUser(values);
     callbk(null, { newuser });
   } catch (err) {
-    callbk(err.detail, null);
+    callbk({ message: err.message }, null);
   }
 };
 
@@ -40,14 +40,14 @@ exports.toggleAccountStatus = async (data, callbk) => {
   const account = await findAccountByAccountNumber(data);
 
   try {
-    if (!account) { callbk(`${data} was not found`, null); return; }
+    if (!account) { callbk({ message: "Account not found", code: 404 }, null); return; }
 
     const status = account.status === "active" ? "dormant" : "active";
     const { accountnumber } = account;
 
-    const update = await updateAccountStatus({ accountnumber, status });
+    const update = await updateAccountStatus({ status, accountnumber });
     callbk(null, { update });
   } catch (err) {
-    callbk(err.message, null);
+    callbk({ message: err.message }, null);
   }
 };

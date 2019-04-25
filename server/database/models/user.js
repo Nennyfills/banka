@@ -11,22 +11,22 @@ exports.create = async (data, callbk) => {
     return;
   }
 
-  const user = await findUserByEmail(data.email);
-  if (user) {
-    callbk("email already exist", null);
-    return;
-  }
-
-  const hash = bcrypt.hashSync(data.password, 10);
-  const isAdmin = false;
-  const type = "USER";
-  const password = hash;
-  const {
-    email, firstName, surname, phonenumber,
-  } = data;
-
-  const values = [type, firstName, surname, phonenumber, email, password, isAdmin];
   try {
+    const user = await findUserByEmail(data.email);
+    if (user) {
+      callbk("email already exist", null);
+
+      return;
+    }
+    const hash = bcrypt.hashSync(data.password, 10);
+    const isAdmin = false;
+    const type = "USER";
+    const password = hash;
+    const {
+      email, firstName, surname, phonenumber,
+    } = data;
+
+    const values = [type, firstName, surname, phonenumber, email, password, isAdmin];
     const newuser = await addUser(values);
     const token = `Bearer ${jwt.sign(
       {
@@ -44,33 +44,33 @@ exports.create = async (data, callbk) => {
     )}`;
     callbk(null, { token, ...newuser });
   } catch (err) {
-    callbk(err.detail, null);
+    callbk(err, null);
   }
 };
 
 exports.createUserAccount = async (data, callbk) => {
-  const requiredField = ["openingbalance", "type", "email"];
-  const requiredError = requiredField.filter(key => data[key] === undefined).map(value => `${value} is required`);
-  if (requiredError.length !== 0) {
-    callbk(requiredError, null);
-    return;
-  }
-  const accountNumber = DbControllers.generateAccountNumber();
-  const status = "active";
-  const {
-    type, email, openingbalance,
-  } = data;
-
-
   try {
+    const requiredField = ["openingbalance", "type", "email"];
+    const requiredError = requiredField.filter(key => data[key] === undefined).map(value => `${value} is required`);
+    if (requiredError.length !== 0) {
+      callbk({ requiredError }, null);
+
+      return;
+    }
+    const accountNumber = DbControllers.generateAccountNumber();
+    const status = "active";
+    const {
+      type, email, openingbalance,
+    } = data;
     const accountDetails = await saveAccount({
       accountNumber, email, openingbalance, type, status,
     });
     if (accountDetails.length > 8) {
-      callbk("account not created", null);
+      callbk({ message: "account not created" }, null);
     }
     callbk(null, accountDetails);
   } catch (err) {
+    console.log(err);
     callbk(err, null);
   }
 };

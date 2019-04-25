@@ -11,10 +11,9 @@ class TransactionsController {
     const accountNumber = Number(req.params.accountnumber);
     Transaction.findTransactionByAccount(accountNumber, (err, data) => {
       if (err) {
-        res.status(400).json({
-          status: 400,
-          message: "Invalid account",
-          error: err,
+        res.status(404).json({
+          status: 404,
+          message: err.message,
         });
         return;
       }
@@ -31,14 +30,31 @@ class TransactionsController {
     const transactionId = parseInt(req.params.transactionId);
     Transaction.findTransactionById(transactionId, (err, data) => {
       if (err) {
-        res.status(400).json({
-          status: 400,
-          message: "Invalid id",
-          error: err,
+        res.status(404).json({
+          status: 404,
+          message: err.message,
         });
         return;
       }
       // stop early
+      res.status(200).json({
+        status: 200,
+        message: "Request was successfully",
+        data,
+      });
+    });
+  }
+
+  static viewAccountDate(req, res) {
+    const { startDate, endDate } = req.query;
+    Transaction.findTransactionByDate({ startDate, endDate }, (err, data) => {
+      if (err) {
+        res.status(404).json({
+          status: 404,
+          message: err.message,
+        });
+        return;
+      }
       res.status(200).json({
         status: 200,
         message: "Request was successfully",
