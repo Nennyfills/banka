@@ -5,52 +5,130 @@
 
 # Banka 
 ````
-Banka is a light-weight financial system that allows the client to create their account view their transaction whenever they
-want but must visit a branch to withdraw or make any deposit.
+Banka is a light-weight financial system that was bulit from the scrtach with vanilla 
+JavaScript on the frontend which is also powered by Express server at the backend side.
+this light-weight system allows a client to create their own account and also view their
+transaction whenever they want but must visit a branch to withdraw or make any deposit.
 ````
-Getting Started
-````
-You will need to clone the projct cd into it and run npm run div. This will start the application.
-````
+## Website
+[https://github.com/Nennyfills/banka.git](https://github.com/Nennyfills/banka.git)
 
-Requirements
+## Table of Contents
+* Hosted App
+* Pivotal Tracker Board
+<!-- * API Documentation -->
+* Built With
+* Getting Started
+* Application Features
+* Installation
+* Running Tests
+* Deployment
+* API endpoints
+* License
+* Author
+* Acknowledgments
+  
+## Hosted App
+[https://banka-nenny.herokuapp.com/](https://banka-nenny.herokuapp.com/)
+
+
+## Pivotal Tracker Board
+[https://www.pivotaltracker.com/n/projects/2320187](https://www.pivotaltracker.com/n/projects/2320187)
+
+<!-- ## API Documentation -->
+
+## UI Page Templates
 ```
-Banka application was bulit from the scrtach with vanilla JavaScript on the frontend which is also powered by Express server at 
-the backend side.
+Signing up
+Login
+create Bank account 
+create profile Picture
+Activating / deactivating user accounts
+Creating an admin / a staff user account
+making transactions (credit / debit)
+Viewing a list of all bank accounts
+Viewing a specific bank account record
+Deleting a specific bank account
+Creating a bank account
+Viewing bank account profile
+Viewing account transaction history
+
 ```
-Description
+## Application Features
+User can registration on the application
+User can create bank account
+User can make deposits and withdrawals
+Bank account management
+
+## Built With
+* Html
+* CSS
+* Node.js
+* Express
+* Postgres
+
+## Getting started
+* Clone this repository
+   https://github.com/Nennyfills/banka.git
+
+You will need to clone the projct cd into it, do 1npm and run npm run dev. This will start the application.
+
+### Description
 ````
-To run Banka you have to install Node.js and NPM packages. The application backend was written in ES2015 note that babel is highly recomened for the application to function. specially [@babel/cli": "^7.4.3",
+To run Banka you have to install Node.js and NPM packages. The application backend was written in ES2015 note that babel is highly recommended for the application to function. specially [@babel/cli": "^7.4.3",
 @babel/core: "^7.4.3", @babel/node: "^7.2.2"].
 ````
 
-Installing
+###  Installing
 ````
-Copy the clone link on my github Banka repo
-Go to your terminal clone it with link above
+Copy the clone link on my github Banka repo or with link above
+Go to your terminal clone it
 install your NPM packages
 start your server
 Example below:
-https://github.com/Nennyfills/banka.git
 npm install
 npm run dev
 ````
 
-Features
+<!-- # API Documentation Page -->
+
+## Endpoints
 ```
+create users router
 router.post("/auth/signup");
-router.post("/auth/account");
+create admin and staff router
+router.post("/auth/portal");
+login routers
 router.post("/auth/login");
-router.post("/account");
-router.get("/:accountnumber/transaction");
+create bank accounts router
+router.post("/accounts");
+deactivate and active account router
 router.patch("/:accountnumber");
+credit and debit user account routers
 router.post("/:accountnumber/credit");
 router.post("/:accountnumber/debit");
+delete account router
 router.delete("/accounts/:accountnumber");
-router.get("/:accountnumber/profile");
+get all account router
 router.get("/accounts");
-```
+get all account by status
+router.get("/accounts?status");
+get all account date
+router.get("/accounts?startDate&endDate");
+get account by account number
+router.get("/accounts/:accountnumber");
+account by owner id
+router.get("/user/:ownerid/accounts");
+get transactions by account number
+router.get("/:accountnumber/transactions");
+get transactions by id
+router.get("/transactions/:transactionId";
+get transactions by date
+router.get("/transactions?startDate&endDate");
+get transactions by email
+router.get("/user/:email/accounts");
 
+```
 Give the example
 Request body
 ```
@@ -64,14 +142,12 @@ Response body
 {
     "status": 200,
     "message": "Login successful",
-    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImpveUB3ZXN0bGlm
-    ZS5jb20iLCJ1c2VySWQiOjEwMDAwMDEsImlhdCI6MTU1NTU0OTUzNCwiZXhwIjoxNTU2MTU0MzM0
-    fQ.-0MzGYjLBPkaOZVkeS0lRpCwGk_l78VIIxf84MdRMdc"
+    "token": "eyJhbGciOiJIUzI1NiIsInR5h"
 }
 ```
 Test
 ```
-npm run test or npm test
+npm run test or npm run test
 
 ```
 
@@ -85,6 +161,3 @@ License
 This project is license under the MIT license
 
 ```
-
-
-
