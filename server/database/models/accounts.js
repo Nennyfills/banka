@@ -1,7 +1,7 @@
 import {
   getAllAccount, findAccountByEmail,
   deleteAccount, findAccountByAccountNumber,
-  searchAccountStatus, searchAccountByDate, findAccountByOwnerid,
+  findAccountByOwnerid, findUserById,
 } from "../database";
 
 
@@ -19,8 +19,8 @@ exports.DeleteAccount = async (data, callbck) => {
 };
 
 exports.getAcountByAccountNumber = async (data, callbk) => {
-  const account = await findAccountByAccountNumber(data);
   try {
+    const account = await findAccountByAccountNumber(data);
     if (!account) { callbk({ message: "Account not find" }, null); return; }
     callbk(null, account);
   } catch (err) {
@@ -30,47 +30,35 @@ exports.getAcountByAccountNumber = async (data, callbk) => {
 
 exports.getAllAccountsByOwnerid = async (data, callbk) => {
   try {
-    const result = await findAccountByOwnerid(data);
-
-    if (result.length === 0) {
-      callbk({ message: "No account found" }, null);
+    const { currentUser } = data.req;
+    const result = await findUserById(currentUser.id);
+    const accounts = await findAccountByOwnerid(data.userId);
+    const account = accounts.find(value => value.ownerid === data.userId);
+    if (result.isadmin || result.id === account.ownerid) {
+      callbk(null, accounts);
       return;
     }
-    callbk(null, result);
+    callbk({ message: "Forbidden", code: 403 }, null);
+    return;
   } catch (err) {
     callbk({ message: err.message }, null);
   }
 };
 
-exports.getAllAccounts = async (data, callbk) => {
-  try {
-    // let result = null;
-    // if (data.startDate && data.endDate) {
-      // result = await searchAccountByDate({ from: data.startDate, to: data.startDate });
-    // } else {
-     const result = await getAllAccount();
-    // }
-    // if (data.startDate && data.endDate && data.status)
-    //   const accountStatus = await searchAccountStatus(data.status);
-    // if (result.length === 0) {
-    //   callbk("No account found", null);
-    //   return;
-    // }
-    // callbk(null, accounts);
-    // if (accountStatus.length === 0) { callbk("No account found", null); return; }
-    // callbk(null, accountStatus);
-    // if (findByDate.length === 0) { callbk("No account found", null); return; }
 
-    callbk(null, result);
+exports.getAllAccounts = async ({ startDate, endDate, status }, callbk) => {
+  try {
+    const account = await getAllAccount([startDate, endDate, status]);
+    callbk(null, account);
   } catch (err) {
-    callbk(err, null);
+    callbk({ message: err.message }, null);
   }
 };
 
 exports.getAcountByEmail = async (data, callbk) => {
   const account = await findAccountByEmail(data);
   try {
-    if (account) { callbk({ message: "Account not found", code: 404 }, null); return; }
+    if (!account) { callbk({ message: "Account not found" }, null); return; }
     callbk(null, account);
   } catch (err) {
     callbk({ message: err.message }, null);

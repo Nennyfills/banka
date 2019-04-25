@@ -20,12 +20,13 @@ exports.userLogin = async (data, callbck) => {
     bcrypt.compare(data.password, user.password, (err, res) => {
       if (!res) {
         return callbck({ message: "Invalid email and password" }, null);
-      }
+      }      
       const token = `Bearer ${jwt.sign(
         {
           email: user.email,
           permission: user.permission,
           id: user.id,
+          isAdmin: user.isadmin,
         },
         process.env.SECRET_KEY,
         {
@@ -34,6 +35,7 @@ exports.userLogin = async (data, callbck) => {
       )}`;
       callbck(null, token);
     });
+    
   } catch (err) {
     callbck({ message: err.message }, null);
   }

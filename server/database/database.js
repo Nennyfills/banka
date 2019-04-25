@@ -97,22 +97,13 @@ const saveAccount = async ({
   const res = await pool.query(QUERY.ADD_ACCOUNT(values));
   return res.rows[0];
 };
-const getAllAccount = async () => {
-  const res = await pool.query(QUERY.GET_ALL_ACCOUNT());
+const getAllAccount = async (values) => {
+  const res = await pool.query(QUERY.GET_ALL_ACCOUNT(values));
   return res.rows;
 };
 const updateAccountStatus = async ({ accountnumber, status }) => {
   const res = await pool.query(QUERY.GET_ACCOUNT_BY_STATUS([status, accountnumber]));
   return res.rows[0];
-};
-
-const searchAccountStatus = async (values) => {
-  const res = await pool.query(QUERY.SEARCH_ACCOUNT_BY_STATUS([values]));
-  return res.rows;
-};
-const searchAccountByDate = async ({ from, to }) => {
-  const res = await pool.query(QUERY.SEARCH_BY_ACCOUNT_DATE([from, to]));
-  return res.rows;
 };
 
 const searchTansactionByDate = async ({ from, to }) => {
@@ -135,8 +126,6 @@ module.exports = {
   getAllAccountByAccountNumber,
   findTransactionByAccountNumber,
   findTransactionById,
-  searchAccountStatus,
-  searchAccountByDate,
   searchTansactionByDate,
   getAllAccount,
   findAccountByOwnerid,

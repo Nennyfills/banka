@@ -23,7 +23,7 @@ exports.findTransactionById = async (data, callbk) => {
 exports.findTransactionByDate = async (data, callbk) => {
   try {
     const findByDate = await searchTansactionByDate({ from: data.startDate, to: data.endDate });
-    if (findByDate.length === 0) { callbk("No account found", null); return; }
+    if (findByDate.length === 0) { callbk("Nothing found", null); return; }
     callbk(null, findByDate);
   } catch (err) {
     callbk({ message: err.message }, null);

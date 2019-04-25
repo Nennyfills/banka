@@ -33,7 +33,7 @@ export default {
     values,
   }),
   GET_ALL_ACCOUNT: values => ({
-    text: "SELECT * FROM account",
+    text: "SELECT * FROM account WHERE (createdat >= $1::date or $1 is null) AND (createdat <= $2::date  + '1 day'::interval or $2 is null) AND (status = $3 or $3 is null)",
     values,
   }),
   GET_ACCOUNT_BY_STATUS: values => ({
@@ -57,15 +57,7 @@ export default {
     values,
   }),
   SEARCH_BY_TRANSACTION_DATE: values => ({
-    text: "SELECT * FROM transaction WHERE createdAt >= ($1) AND createdAt <= ($2);",
-    values,
-  }),
-  SEARCH_BY_ACCOUNT_DATE: values => ({
-    text: "SELECT * FROM account WHERE createdAt >= ($1) AND createdAt <= ($2);",
-    values,
-  }),
-  SEARCH_ACCOUNT_BY_STATUS: values => ({
-    text: "SELECT * FROM account WHERE status= ($1);",
+    text: "SELECT * FROM transaction WHERE (createdat >= $1::date or $1 is null) AND (createdat <= $2::date  + '1 day'::interval or $2 is null);",
     values,
   }),
 

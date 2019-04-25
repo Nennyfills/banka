@@ -58,12 +58,11 @@ class AccountController {
   }
 
   static accountsByOwnerId(req, res) {
-    const useId = Number(req.params.ownerid);
-
-    Account.getAllAccountsByOwnerid(useId, (err, data) => {
+    const userId = Number(req.params.ownerid);
+    Account.getAllAccountsByOwnerid({ userId, req, res }, (err, data) => {
       if (err) {
-        res.status(404).json({
-          status: 404,
+        res.status(err.code).json({
+          status: err.code,
           message: err.message,
         });
 
