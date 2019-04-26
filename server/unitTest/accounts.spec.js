@@ -3,15 +3,16 @@ import jwt from "jsonwebtoken";
 import chaiHttp from "chai-http";
 import "@babel/polyfill";
 import app from "../app";
+import { exec } from "child_process"
 
 chai.use(chaiHttp);
 describe("Accounts controller", () => {
-  let token;
+  let token = null;
 
   beforeEach(() => {
     token = `Bearer ${jwt.sign({
       type: "ADMIN",
-      email: "admin@gmail.com",
+      email: "admin01@gmail.com",
     },
     process.env.SECRET_KEY,
     { expiresIn: "7d" })}`;
@@ -19,15 +20,15 @@ describe("Accounts controller", () => {
 
   describe("Testing Delete route", () => {
     const endpoint = `/api/v1/accounts/${30078367}`;
-    it.only("should not delete account once a wrong account number is given", (done) => {
+    
+    it("should not delete account once a wrong account number is given", (done) => {
       chai.request(app).delete(endpoint)
         .set("Authorization", token)
         .end((err, res) => {
-          console.log(res.body);
           expect(res).to.have.status(404);
           done();
         });
-    });
+    }).timeout(10000);
   });
 
   describe("delete", () => {

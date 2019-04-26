@@ -15,6 +15,10 @@ const findEmail = async (email) => {
 };
 
 class databaseController {
+  static async executeQuery(query) {
+    await pool.query(query);
+  }
+
   static async addUser(values) {
     const res = await pool.query(QUERY.ADD_USER(values));
     return res.rows[0];
