@@ -41,8 +41,11 @@ exports.toggleAccountStatus = async (data, callbk) => {
 
     const status = account.status === "active" ? "dormant" : "active";
     const { accountnumber } = account;
+    console.log(status, accountnumber);
+    
 
     const update = await databaseController.updateAccountStatus({ status, accountnumber });
+    console.log(update, "update");
     callbk(null, { update });
   } catch (err) {
     callbk({ message: err.message.replace(/[^\w|\s]/g, "") }, null);

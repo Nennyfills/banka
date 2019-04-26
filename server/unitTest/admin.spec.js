@@ -1,6 +1,6 @@
+import "@babel/polyfill";
 import chai, { expect } from "chai";
 import chaiHttp from "chai-http";
-import "@babel/polyfill";
 import jwt from "jsonwebtoken";
 import app from "../app";
 
@@ -13,9 +13,9 @@ describe("Admin controller", () => {
       type: "ADMIN",
       email: "admin01@gmail.com",
     },
-    process.env.SECRET_KEY,
-    { expiresIn: "7d" })}`;
-       
+      process.env.SECRET_KEY,
+      { expiresIn: "7d" })}`;
+
   });
   it("should create staff or admin once all the parameters are given", () => {
     const payload = {
@@ -42,20 +42,27 @@ describe("Admin controller", () => {
       });
   });
   describe("Activate", () => {
-    const endpoint = "/api/v1/3001219111";
+    const endpoint = `/api/v1/${3001219111}`;
     it("should activate a user once the right account number is given", (done) => {
       chai.request(app).patch(endpoint)
         .set("Authorization", token)
         .end((err, res) => {
+          console.log(res.body, err);
           expect(res).to.have.status(200);
-          expect(res.body.data.accountNumber).to.equal(3001219111);
-          expect(res.body.data.status).to.equal("active");
+          expect(res.body.message).to.equal("successfully");
+          expect(res.body.data).to.have.property("update");
+          // expect(res.body.data.update.status).to.equal("active");
+          expect(res.body.data.update.ownerid).to.equal(3);
+          expect(res.body.data.update.accountnumber).to.equal("3001219111");
+          expect(res.body.data.update.email).to.equal("canny@gmail.com");
+          expect(res.body.data.update.type).to.equal("current");
+          expect(res.body.data.update.createdat).to.equal("2019-04-25T13:01:04.000Z");
           done();
         });
     });
   });
   describe("Activate", () => {
-    const endpoint = `/api/v1/${300121911}`;
+    const endpoint = `/api/v1/${30012911}`;
     it("should not deactivate a user once the wrong account number is given", (done) => {
       chai.request(app)
         .patch(endpoint)
@@ -68,22 +75,21 @@ describe("Admin controller", () => {
   });
 
   describe("Deativate", () => {
-    const endpoint = `/api/v1/${300783679}`;
+    const endpoint = `/api/v1/${3001219111}`;
     it("should deactivate a user once the right account number is given", (done) => {
       chai.request(app)
         .patch(endpoint)
         .set("Authorization", token)
         .end((err, res) => {
           expect(res).to.have.status(200);
-          expect(res.body.data.accountNumber).to.equal(300783679);
-          expect(res.body.data.status).to.equal("dormant");
+          expect(res.body.data.update.status).to.equal("active");
           done();
         });
     });
   });
 
   describe("Deactivate", () => {
-    const endpoint = `/api/v1/${30078367}`;
+    const endpoint = `/api/v1/${3008367}`;
 
     it("should not deactivate a user once the wrong account number is given", (done) => {
       chai.request(app)

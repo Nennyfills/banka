@@ -28,16 +28,14 @@ function () {
   _createClass(TransactionsController, null, [{
     key: "transactionByAccount",
     value: function transactionByAccount(req, res) {
-      var accountNumber = Number(req.params.accountnumber);
+      var userAccount = parseInt(req.params.accountnumber);
 
-      _transactions["default"].findTransactionByAccount({
-        accountNumber: accountNumber,
-        req: req
-      }, function (err, data) {
+      _transactions["default"].findTransactionByAccount(userAccount, function (err, data) {
         if (err) {
-          res.status(404).json({
-            status: 404,
-            message: err.message
+          res.status(400).json({
+            status: 400,
+            message: "Invalid account",
+            error: err
           });
           return;
         } // stop early
@@ -55,45 +53,16 @@ function () {
     value: function transactionById(req, res) {
       var transactionId = parseInt(req.params.transactionId);
 
-      _transactions["default"].findTransactionById({
-        transactionId: transactionId,
-        req: req
-      }, function (err, data) {
+      _transactions["default"].findTransactionById(transactionId, function (err, data) {
         if (err) {
-          res.status(404).json({
-            status: 404,
-            message: err.message
+          res.status(400).json({
+            status: 400,
+            message: "Invalid id",
+            error: err
           });
           return;
         } // stop early
 
-
-        res.status(200).json({
-          status: 200,
-          message: "Request was successfully",
-          data: data
-        });
-      });
-    }
-  }, {
-    key: "viewAccountDate",
-    value: function viewAccountDate(req, res) {
-      var _req$query = req.query,
-          startDate = _req$query.startDate,
-          endDate = _req$query.endDate;
-
-      _transactions["default"].findTransactionByDate({
-        startDate: startDate,
-        endDate: endDate,
-        req: req
-      }, function (err, data) {
-        if (err) {
-          res.status(404).json({
-            status: 404,
-            message: err.message
-          });
-          return;
-        }
 
         res.status(200).json({
           status: 200,

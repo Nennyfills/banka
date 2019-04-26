@@ -31,7 +31,7 @@ describe("Transaction", () => {
 
   it("should not view a user transaction with wrong acount number", (done) => {
     chai.request(app)
-      .get(`/api/v1/${30089898976}/transactions`)
+      .get(`/api/v1/${30898976}/transactions`)
       .set("Authorization", token)
       .end((err, res) => {
         expect(res).to.have.status(400);
@@ -53,7 +53,7 @@ describe("Transaction", () => {
       .get(`/api/v1/transactions/${100000190}`)
       .set("Authorization", token)
       .end((err, res) => {
-        expect(res).to.have.status(400);
+        expect(res).to.have.status(404);
         done();
       });
   });

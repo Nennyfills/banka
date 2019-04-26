@@ -11,7 +11,7 @@ describe("Default controller", () => {
 
     it("should log in a user with correct email and password", (done) => {
       chai.request(app).post(endpoint)
-        .send({ email: "mark@hotmail.com", password: "love" })
+        .send({ email: "canny@gmail.com", password: "love" })
         .end((err, res) => {
           expect(res).to.have.status(200);
           expect(res.body).to.have.property("token");

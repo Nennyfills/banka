@@ -24,8 +24,8 @@ class AccountController {
 
     Account.getAcountByAccountNumber(userAccount, (err, data) => {
       if (err) {
-        res.status(err.code).json({
-          status: err.code,
+        res.status(404).json({
+          status: 404,
           message: err.message,
         });
         return;
@@ -61,8 +61,8 @@ class AccountController {
     const userId = Number(req.params.ownerid);
     Account.getAllAccountsByOwnerid({ userId, req }, (err, data) => {
       if (err) {
-        res.status(err.code).json({
-          status: err.code,
+        res.status(404).json({
+          status: 404,
           message: err.message,
         });
 
