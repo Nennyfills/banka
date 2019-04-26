@@ -6,8 +6,8 @@
   "scripts": {
     "build": "babel ./server -d build",
     "test": "nyc mocha build/unitTest/*.js --exit",
-    "devTest": "cross-env TEST_ENV=true nyc --require @babel/register  mocha server/unitTest --exit",
-    "singleTest": "cross-env NODE_ENV=test nyc --require @babel/register  mocha --exit",
+    "devTest": "cross-env TEST_ENV=true babel-node server/create_tables.js && cross-env TEST_ENV=true nyc --require @babel/register  mocha server/unitTest --timeout 10000 --exit",
+    "singleTest": "cross-env TEST_ENV=true babel-node server/create_tables.js && cross-env TEST_ENV=true nyc --require @babel/register  mocha --timeout 10000 --exit",
     "create": "node ./server/database/database.main.js",
     "fullTable": "node ./server/database/fullTable.js",
     "start": "babel ./server -d build && node build/app.js",

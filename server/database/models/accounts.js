@@ -1,8 +1,8 @@
 import databaseController from "../database";
 
 exports.DeleteAccount = async (data, callbck) => {
-  const account = await databaseController.findAccountByAccountNumber(data);
   try {
+    const account = await databaseController.findAccountByAccountNumber(data);
     if (!account) { callbck({ message: "Account not find", code: 404 }, null); return; }
     if (account.status === "active") { callbck({ message: "Active account can't be deleted", code: 400 }, null); return; }
     const accountNumber = account.accountnumber;
