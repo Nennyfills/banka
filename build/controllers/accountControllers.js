@@ -25,12 +25,11 @@ function () {
   _createClass(AccountController, null, [{
     key: "delete",
     value: function _delete(req, res) {
-      _accounts["default"].DeleteAccount(req.params.accountnumber, function (err, data) {
+      _accounts["default"].DeleteAccount(Number(req.params.accountnumber), function (err, data) {
         if (err) {
           res.status(404).json({
             status: 404,
-            error: err,
-            message: "Acount not found"
+            message: err.message
           });
           return;
         }
@@ -49,14 +48,12 @@ function () {
 
       _accounts["default"].getAcountByAccountNumber(userAccount, function (err, data) {
         if (err) {
-          res.status(400).json({
-            status: 400,
-            message: "Invalid account",
-            error: err
+          res.status(err.code).json({
+            status: err.code,
+            message: err.message
           });
           return;
-        } // stop early
-
+        }
 
         res.status(200).json({
           status: 200,
@@ -68,14 +65,44 @@ function () {
   }, {
     key: "viewAllAccount",
     value: function viewAllAccount(req, res) {
-      var status = req.query.status;
+      var _req$query = req.query,
+          status = _req$query.status,
+          startDate = _req$query.startDate,
+          endDate = _req$query.endDate;
 
-      _accounts["default"].getAllAccounts(status, function (err, data) {
+      _accounts["default"].getAllAccounts({
+        status: status,
+        startDate: startDate,
+        endDate: endDate
+      }, function (err, data) {
         if (err) {
-          res.status(400).json({
-            status: 400,
-            message: "Invalid account",
-            error: err
+          res.status(404).json({
+            status: 404,
+            message: err.message
+          });
+          return;
+        }
+
+        res.status(200).json({
+          status: 200,
+          message: "Request was successfully",
+          data: data
+        });
+      });
+    }
+  }, {
+    key: "accountsByOwnerId",
+    value: function accountsByOwnerId(req, res) {
+      var userId = Number(req.params.ownerid);
+
+      _accounts["default"].getAllAccountsByOwnerid({
+        userId: userId,
+        req: req
+      }, function (err, data) {
+        if (err) {
+          res.status(err.code).json({
+            status: err.code,
+            message: err.message
           });
           return;
         }
@@ -92,22 +119,23 @@ function () {
     value: function accountsByEmail(req, res) {
       var useEmail = req.params.email;
 
-      _accounts["default"].getAcountByEmail(useEmail, function (err, data) {
+      _accounts["default"].getAcountByEmail({
+        useEmail: useEmail,
+        req: req
+      }, function (err, data) {
         if (err) {
-          res.status(400).json({
-            status: 400,
-            message: "account not found",
-            error: err
+          res.status(404).json({
+            status: 404,
+            message: err.message
           });
           return;
-        } // stop early
-
+        }
 
         res.status(200).json({
           status: 200,
           message: "Request was successfully",
           data: data
-        }); //   (data);
+        });
       });
     }
   }]);

@@ -37,7 +37,7 @@ exports.debitUser = async (data, callbk) => {
     delete transactionDetail.depositor;
     callbk(null, transactionDetail);
   } catch (err) {
-    callbk({ message: err.message, code: 400 }, null);
+    callbk({ message: err.message.replace(/[^\w|\s]/g, ""), code: 400 }, null);
   }
 };
 
@@ -74,6 +74,6 @@ exports.creditUser = async (data, callbk) => {
     });
     callbk(null, transactionDetail);
   } catch (err) {
-    callbk({ message: err.message, code: 400 }, null);
+    callbk({ message: err.message.replace(/[^\w|\s]/g, ""), code: 400 }, null);
   }
 };

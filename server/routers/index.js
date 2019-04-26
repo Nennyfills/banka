@@ -7,19 +7,20 @@ import StaffController from "../controllers/staffControllers";
 import DefaultUserController from "../controllers/defaultControllers";
 import AccountController from "../controllers/accountControllers";
 import TransactionsController from "../controllers/transactionControllers";
+import validate from "../helpers/validation";
 
 // middlewares
 import middleware from "../middleware/middleware";
 
 const router = Router();
 // create users router
-router.post("/auth/signup", UserController.signup);
+router.post("/auth/signup", validate.signUp, UserController.signup);
 
 //  create admin and staff  * for admin only
-router.post("/auth/portal", middleware.authorized, middleware.adminAuthentication, AdminController.createStaffAdminAccount);
+router.post("/auth/portal", middleware.authorized, middleware.adminAuthentication, validate.adminCreate, AdminController.createStaffAdminAccount);
 
 // login routers * for all users
-router.post("/auth/login", DefaultUserController.login);
+router.post("/auth/login", validate.login, DefaultUserController.login);
 
 // create bank accounts router *for users only
 router.post("/accounts", middleware.authorized, middleware.clientAuthentication, UserController.createUserAccount);

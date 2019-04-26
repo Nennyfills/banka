@@ -5,7 +5,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports["default"] = void 0;
 
-var _defaultUsers = _interopRequireDefault(require("../database/models/defaultUsers"));
+var _defaultusers = _interopRequireDefault(require("../database/models/defaultusers"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
@@ -29,15 +29,14 @@ function () {
           email = _req$body.email,
           password = _req$body.password;
 
-      _defaultUsers["default"].userLogin({
+      _defaultusers["default"].userLogin({
         email: email,
         password: password
       }, function (err, data) {
         if (err) {
           res.status(400).json({
             status: 400,
-            error: err,
-            message: "Email and password incorrect"
+            message: err.message
           });
           return;
         }

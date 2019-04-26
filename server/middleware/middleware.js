@@ -12,7 +12,7 @@ module.exports = {
       const headerToken = req.headers.authorization.split(" ")[1];
       const encoded = jwt.verify(headerToken, process.env.SECRET_KEY);
       let currentUser = null;
-      currentUser = await databaseController.findUserByEmail(encoded.email);      
+      currentUser = await databaseController.findUserByEmail(encoded.email);
       req.currentUser = encoded;
       return next();
     } catch (err) {
@@ -20,43 +20,58 @@ module.exports = {
     }
   },
   adminAuthentication: async (req, res, next) => {
-    const headerToken = req.headers.authorization.split(" ")[1];
-    const encoded = jwt.verify(headerToken, process.env.SECRET_KEY);
-
-    if (req.currentUser.permission !== "ADMIN") {
-      return res.status(403).send("Forbidden");
+    try {
+      const headerToken = req.headers.authorization.split(" ")[1];
+      const encoded = jwt.verify(headerToken, process.env.SECRET_KEY);
+      if (req.currentUser.permission !== "ADMIN") {
+        return res.status(403).send("Forbidden");
+      }
+      req.currentUser = encoded;
+      return next();
+    } catch (err) {
+      return res.status(404).json({ message: err.message });
     }
-    req.currentUser = encoded;
-    return next();
   },
   staffAuthentication: async (req, res, next) => {
-    const headerToken = req.headers.authorization.split(" ")[1];
-    const encoded = jwt.verify(headerToken, process.env.SECRET_KEY);
+    try {
+      const headerToken = req.headers.authorization.split(" ")[1];
+      const encoded = jwt.verify(headerToken, process.env.SECRET_KEY);
 
-    if (req.currentUser.permission !== "STAFF") {
-      return res.status(403).send("Forbidden");
+      if (req.currentUser.permission !== "STAFF") {
+        return res.status(403).send("Forbidden");
+      }
+      req.currentUser = encoded;
+      return next();
+    } catch(err) {
+      return res.status(404).json({ message: err.message });
     }
-    req.currentUser = encoded;
-    return next();
   },
   isAdminAuthentication: async (req, res, next) => {
-    const headerToken = req.headers.authorization.split(" ")[1];
-    const encoded = jwt.verify(headerToken, process.env.SECRET_KEY);
-
-    if (req.currentUser.permission !== "ADMIN" || req.currentUser.permission !== "STAFF") {
-      return res.status(403).send("Forbidden");
+    try {
+      // const headerToken = req.headers.authorization.split(" ")[1];
+      // const encoded = jwt.verify(headerToken, process.env.SECRET_KEY);
+      console.log(req.currentUser);
+      
+      if (req.currentUser.permission !== "ADMIN" || req.currentUser.permission !== "STAFF") {
+        return res.status(403).send("Forbidden");
+      }
+      return next();
+    } catch (err) {
+      return res.status(404).json({ message: err.message });
     }
-    req.currentUser = encoded;
-    return next();
   },
   clientAuthentication: async (req, res, next) => {
-    const headerToken = req.headers.authorization.split(" ")[1];
-    const encoded = jwt.verify(headerToken, process.env.SECRET_KEY);
+    try {
+      const headerToken = req.headers.authorization.split(" ")[1];
+      const encoded = jwt.verify(headerToken, process.env.SECRET_KEY);
 
-    if (req.currentUser.permission !== "USER") {
-      return res.status(403).send("Forbidden");
+      if (req.currentUser.permission !== "USER") {
+        return res.status(403).send("Forbidden");
+      }
+      req.currentUser = encoded;
+      return next();
+    } catch (err) {
+      return res.status(404).json({ message: err.message });
     }
-    req.currentUser = encoded;
-    return next();
   },
 };

@@ -28,27 +28,28 @@ function () {
       var _req$body = req.body,
           email = _req$body.email,
           firstName = _req$body.firstName,
-          surName = _req$body.surName,
-          password = _req$body.password;
+          surname = _req$body.surname,
+          password = _req$body.password,
+          phonenumber = _req$body.phonenumber;
 
       _user["default"].create({
         email: email,
         firstName: firstName,
-        surName: surName,
-        password: password
+        surname: surname,
+        password: password,
+        phonenumber: phonenumber
       }, function (err, data) {
         if (err) {
-          res.status(400).json({
-            status: 400,
-            error: err,
-            message: "Signup not sucessful"
+          res.status(409).json({
+            status: 409,
+            message: err.message
           });
-          return; // stop early
+          return;
         }
 
         res.status(201).json({
           status: 201,
-          message: "User created",
+          message: "account created",
           data: data
         });
       });
@@ -57,26 +58,19 @@ function () {
     key: "createUserAccount",
     value: function createUserAccount(req, res) {
       var _req$body2 = req.body,
-          firstName = _req$body2.firstName,
-          surName = _req$body2.surName,
-          openingBalance = _req$body2.openingBalance,
-          phoneNumber = _req$body2.phoneNumber,
+          openingbalance = _req$body2.openingbalance,
           type = _req$body2.type;
       var email = req.currentUser.email;
 
       _user["default"].createUserAccount({
-        firstName: firstName,
-        surName: surName,
-        openingBalance: openingBalance,
-        phoneNumber: phoneNumber,
+        openingbalance: openingbalance,
         type: type,
         email: email
       }, function (err, data) {
         if (err) {
           res.status(400).json({
             status: 400,
-            message: "Account not sucessfully created",
-            error: err
+            message: err.message
           });
           return;
         } // stop early
