@@ -9,7 +9,7 @@ module.exports = {
       if (!req.headers.authorization) {
         return res.status(401).send("Missing Authorizations");
       }
-      const headerToken = req.headers.authorization.split(" ")[1];
+      const headerToken = req.headers.authorization.split(" ")[1];      
       const encoded = jwt.verify(headerToken, process.env.SECRET_KEY);
       req.currentUser = await databaseController.findUserByEmail(encoded.email);
       if (!req.currentUser) {
@@ -30,6 +30,8 @@ module.exports = {
     if (req.currentUser.permission !== "STAFF") {
       return res.status(403).send("Forbidden");
     }
+    console.log(req.currentUser);
+    
     return next();
   },
   isAdminAuthentication: (req, res, next) => {

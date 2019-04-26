@@ -1,20 +1,82 @@
 import jwt from "jsonwebtoken";
 import bcrypt from "bcryptjs";
+import env from "dotenv";
 import DbControllers from "../dbControllers";
 import databaseController from "../database";
 
-exports.create = async (data, callbk) => {
+env.config();
+
+
+exports.userLogin = async (data, callbck) => {
   try {
-    const requiredField = ["firstName", "surname", "password", "email", "phonenumber"];
-    const requiredError = requiredField.filter(key => data[key] === undefined).map(value => `${value} is required`);
-    if (requiredError.length !== 0) {
-      callbk({ message: requiredError }, null);
+    const user = await databaseController.findUserByEmail(data.email);
+    if (!user) {
+      callbck({ message: "User do not exist, Please signup" }, null);
       return;
     }
+    bcrypt.compare(data.password, user.password, (err, res) => {
+      if (!res) {
+        return callbck({ message: "Invalid email and password" }, null);
+      }
+      const token = `Bearer ${jwt.sign(
+        {
+          email: user.email,
+          permission: user.permission,
+          id: user.id,
+          isAdmin: user.isadmin,
+        },
+        process.env.SECRET_KEY,
+        {
+          expiresIn: "7d",
+        },
+      )}`;
+      callbck(null, token);
+    });
+  } catch (err) {
+    callbck({ message: err.message.replace(/[^\w|\s]/g, "") }, null);
+  }
+};
+exports.createStaffAdmin = async (data, callbk) => {
+  try {
+    // const requiredField = ["firstName", "surname", "password", "phonenumber", "email", "type"];
+    // const requiredError = requiredField.filter(key => data[key] === undefined).map(value => `${value} is required`);
+    // if (requiredError.length !== 0) {
+    //   callbk({ message: requiredError }, null);
+    //   return;
+    // }
+    const {
+      email, firstName, surname, phonenumber, type,
+    } = data;
+    const user = await databaseController.findUserByEmail(data.email);
+
+    if (user) {
+      callbk({ message: "email already exist" }, null);
+      return;
+    }
+
+    const hash = bcrypt.hashSync(data.password, 10);
+    const isAdmin = true;
+    const password = hash;
+    const values = [type, firstName, surname, phonenumber, email, password, isAdmin];
+    const newuser = await databaseController.addUser(values);
+    callbk(null, { newuser });
+  } catch (err) {
+    callbk({ message: err.message.replace(/[^\w|\s]/g, "") }, null);
+  }
+};
+
+
+exports.createSignup = async (data, callbk) => {
+  try {
+  //   // const requiredField = ["firstName", "surname", "password", "email", "phonenumber"];
+  //   // const requiredError = requiredField.filter(key => data[key] === undefined).map(value => `${value} is required`);
+  //   // if (requiredError.length !== 0) {
+  //   //   callbk({ message: requiredError }, null);
+  //   //   return;
+  //   // }
     const user = await databaseController.findUserByEmail(data.email);
     if (user) {
       callbk({ message: "email already exist" }, null);
-
       return;
     }
     const hash = bcrypt.hashSync(data.password, 10);
@@ -42,6 +104,7 @@ exports.create = async (data, callbk) => {
       },
     )}`;
     callbk(null, { token, ...newuser });
+    return;
   } catch (err) {
     callbk(err, null);
   }
@@ -69,7 +132,6 @@ exports.createUserAccount = async (data, callbk) => {
     }
     callbk(null, accountDetails);
   } catch (err) {
-    console.log(err);
     callbk(err, null);
   }
 };

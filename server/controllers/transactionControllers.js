@@ -3,8 +3,11 @@ import Transaction from "../database/models/transactions";
 
 
 /**
- * @params {obj}
- */
+  *
+  * @param {*} req
+  * @param {*} res
+  */
+
 
 class TransactionsController {
   static transactionByAccount(req, res) {
@@ -26,6 +29,12 @@ class TransactionsController {
     });
   }
 
+/**
+*
+* @param {*} req
+* @param {*} res
+*/
+
   static transactionById(req, res) {
     const transactionId = parseInt(req.params.transactionId);
     Transaction.findTransactionById({ transactionId, req }, (err, data) => {
@@ -44,6 +53,12 @@ class TransactionsController {
       });
     });
   }
+
+/**
+*
+* @param {*} req
+* @param {*} res
+*/
 
   static viewAccountDate(req, res) {
     const { startDate, endDate } = req.query;

@@ -2,64 +2,53 @@ import { Router } from "express";
 
 
 import UserController from "../controllers/userController";
-import AdminController from "../controllers/adminControllers";
-import StaffController from "../controllers/staffControllers";
-import DefaultUserController from "../controllers/defaultControllers";
 import AccountController from "../controllers/accountControllers";
 import TransactionsController from "../controllers/transactionControllers";
-import validate from "../helpers/validation";
 
 // middlewares
 import middleware from "../middleware/middleware";
+import Validation from "../middleware/validation";
 
 const router = Router();
+
+// users router
 // create users router
-router.post("/auth/signup", validate.signUp, UserController.signup);
-
+router.post("/auth/signup", UserController.signup);
 //  create admin and staff  * for admin only
-router.post("/auth/portal", middleware.authorized, middleware.adminAuthentication, validate.adminCreate, AdminController.createStaffAdminAccount);
-
+router.post("/auth/portal", middleware.authorized, middleware.adminAuthentication, UserController.createStaffAdminAccount);
 // login routers * for all users
-router.post("/auth/login", validate.login, DefaultUserController.login);
-
+router.post("/auth/login", UserController.login);
 // create bank accounts router *for users only
 router.post("/accounts", middleware.authorized, middleware.clientAuthentication, UserController.createUserAccount);
 
+
+// accounts routers
 //  deactivate and activate account router * for admins only
-router.patch("/:accountnumber", middleware.authorized, middleware.adminAuthentication, AdminController.toggleAccountStatus);
-
+router.patch("/:accountnumber", middleware.authorized, middleware.adminAuthentication, AccountController.toggleAccountStatus);
 // credit and debit user account routers *for staff only
-router.post("/:accountnumber/credit", middleware.authorized, middleware.staffAuthentication, StaffController.credit);
-router.post("/:accountnumber/debit", middleware.authorized, middleware.staffAuthentication, StaffController.debit);
-
+router.post("/:accountnumber/credit", middleware.authorized, middleware.staffAuthentication, AccountController.credit);
+router.post("/:accountnumber/debit", middleware.authorized, middleware.staffAuthentication, AccountController.debit);
 // delete account router * for both staff and admin
 router.delete("/accounts/:accountnumber", middleware.authorized, middleware.isAdminAuthentication, AccountController.delete);
-
 // get all account router * for both staff and admin
 router.get("/accounts", middleware.authorized, middleware.isAdminAuthentication, AccountController.viewAllAccount);
-
 //  get all account by status for both staff and admin
 router.get("/accounts?status", middleware.authorized, middleware.isAdminAuthentication, AccountController.viewAllAccount);
-
 // get all account date
 router.get("/accounts?startDate&endDate", middleware.authorized, middleware.isAdminAuthentication, AccountController.viewAllAccount);
-
 //  get account by account number
 router.get("/accounts/:accountnumber", middleware.authorized, middleware.isAdminAuthentication, AccountController.accountsByAccountNumber);
-
 //  get accounts by email
 router.get("/user/:email/accounts", middleware.authorized, AccountController.accountsByEmail);
-
-
 // account by owner id
-router.get("/user/:ownerid/accounts", middleware.authorized, AccountController.accountsByOwnerId);
+router.get("/user/accounts/:ownerId", middleware.authorized, AccountController.accountsByOwnerId);
 
+
+// transaction
 //  get transactions by account number * for both admin and staff
 router.get("/:accountnumber/transactions", middleware.authorized, middleware.isAdminAuthentication, TransactionsController.transactionByAccount);
-
 //  get transactions by id
 router.get("/transactions/:transactionId", middleware.authorized, TransactionsController.transactionById);
-
 //  get transactions by date
 router.get("/transactions?startDate&endDate", middleware.authorized, TransactionsController.viewAccountDate);
 
