@@ -13,7 +13,7 @@ export default {
   }),
   // eslint-disable-next-line arrow-parens
   GET_USER_BY_EMAIL: values => ({
-    text: "SELECT * FROM  users WHERE email = $1",
+    text: "SELECT * FROM users WHERE email = $1",
     values,
   }),
   GET_USER_BY_ID: values => ({

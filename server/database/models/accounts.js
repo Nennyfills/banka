@@ -1,38 +1,33 @@
-import {
-  getAllAccount, findAccountByEmail,
-  deleteAccount, findAccountByAccountNumber,
-  findAccountByOwnerid, findUserById,
-} from "../database";
-
+import databaseController from "../database";
 
 exports.DeleteAccount = async (data, callbck) => {
-  const account = await findAccountByAccountNumber(data);
   try {
+    const account = await databaseController.findAccountByAccountNumber(data);
     if (!account) { callbck({ message: "Account not find", code: 404 }, null); return; }
     if (account.status === "active") { callbck({ message: "Active account can't be deleted", code: 400 }, null); return; }
     const accountNumber = account.accountnumber;
-    const deletedAccount = await deleteAccount(accountNumber);
+    const deletedAccount = await databaseController.deleteAccount(accountNumber);
     callbck(null, { deletedAccount });
   } catch (err) {
-    callbck({ message: err.message }, null);
+    callbck({ message: err.message.replace(/[^\w|\s]/g, "") }, null);
   }
 };
 
 exports.getAcountByAccountNumber = async (data, callbk) => {
   try {
-    const account = await findAccountByAccountNumber(data);
+    const account = await databaseController.findAccountByAccountNumber(data);
     if (!account) { callbk({ message: "Account not find" }, null); return; }
     callbk(null, account);
   } catch (err) {
-    callbk({ message: err.message }, null);
+    callbk({ message: err.message.replace(/[^\w|\s]/g, "") }, null);
   }
 };
 
 exports.getAllAccountsByOwnerid = async (data, callbk) => {
   try {
     const { currentUser } = data.req;
-    const result = await findUserById(currentUser.id);
-    const accounts = await findAccountByOwnerid(data.userId);
+    const result = await databaseController.findUserById(currentUser.id);
+    const accounts = await databaseController.findAccountByOwnerid(data.userId);
     const account = accounts.find(value => value.ownerid === data.userId);
     if (result.isadmin || result.id === account.ownerid) {
       callbk(null, accounts);
@@ -41,26 +36,36 @@ exports.getAllAccountsByOwnerid = async (data, callbk) => {
     callbk({ message: "Forbidden", code: 403 }, null);
     return;
   } catch (err) {
-    callbk({ message: err.message }, null);
+    callbk({ message: err.message.replace(/[^\w|\s]/g, "") }, null);
   }
 };
 
 
 exports.getAllAccounts = async ({ startDate, endDate, status }, callbk) => {
   try {
-    const account = await getAllAccount([startDate, endDate, status]);
+    const account = await databaseController.getAllAccount([startDate, endDate, status]);
     callbk(null, account);
   } catch (err) {
-    callbk({ message: err.message }, null);
+    callbk({ message: err.message.replace(/[^\w|\s]/g, "") }, null);
   }
 };
 
 exports.getAcountByEmail = async (data, callbk) => {
-  const account = await findAccountByEmail(data);
   try {
-    if (!account) { callbk({ message: "Account not found" }, null); return; }
-    callbk(null, account);
+    const { currentUser } = data.req;
+    const result = await databaseController.findUserById(currentUser.id);
+    const accounts = await databaseController.findAccountByEmail(data.useEmail);
+    // const accounts = await databaseController.findAccountByOwnerid(data.userId);
+    const account = accounts.find(value => value.ownerid === data.userId);
+    if (result.isadmin || result.id === account.ownerid) {
+      callbk(null, accounts);
+      return;
+    }
+    callbk({ message: "Forbidden", code: 403 }, null);
+    return;
+    // if (!accounts) { callbk({ message: "Account not found" }, null); return; }
+    // callbk(null, account);
   } catch (err) {
-    callbk({ message: err.message }, null);
+    callbk({ message: err.message.replace(/[^\w|\s]/g, "") }, null);
   }
 };

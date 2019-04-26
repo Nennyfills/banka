@@ -70,20 +70,4 @@ describe("Accounts controller", function () {
       });
     });
   });
-  describe("Find account by email", function () {
-    var endpoint = "/api/v1/user/joy@westlife.com/accounts";
-    it("should get an account if the right email is given", function () {
-      _chai["default"].request(_app["default"]).get(endpoint).set("Authorization", token).end(function (err, res) {
-        (0, _chai.expect)(res).to.have.status(200);
-      });
-    });
-  });
-  describe("Find account by email", function () {
-    var endpoint = "/api/v1/user/jy@westlife.com/accounts";
-    it("should not get an account if the wrong account number is given", function () {
-      _chai["default"].request(_app["default"]).get(endpoint).set("Authorization", token).end(function (err, res) {
-        (0, _chai.expect)(res).to.have.status(400);
-      });
-    });
-  });
 });

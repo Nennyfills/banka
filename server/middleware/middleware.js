@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 import jwt from "jsonwebtoken";
-import { findUserByEmail } from "../database/database";
+import databaseController from "../database/database";
 
 
 module.exports = {
@@ -11,52 +11,37 @@ module.exports = {
       }
       const headerToken = req.headers.authorization.split(" ")[1];
       const encoded = jwt.verify(headerToken, process.env.SECRET_KEY);
-      let currentUser = null;
-      currentUser = await findUserByEmail(encoded.email);      
-      req.currentUser = encoded;
+      req.currentUser = await databaseController.findUserByEmail(encoded.email);
+      if (!req.currentUser) {
+        return res.status(400).send("Invalid Authorization");
+      }
       return next();
     } catch (err) {
       return res.status(404).json({ message: err.message });
     }
   },
-  adminAuthentication: async (req, res, next) => {
-    const headerToken = req.headers.authorization.split(" ")[1];
-    const encoded = jwt.verify(headerToken, process.env.SECRET_KEY);
-
+  adminAuthentication: (req, res, next) => {
     if (req.currentUser.permission !== "ADMIN") {
       return res.status(403).send("Forbidden");
     }
-    req.currentUser = encoded;
     return next();
   },
-  staffAuthentication: async (req, res, next) => {
-    const headerToken = req.headers.authorization.split(" ")[1];
-    const encoded = jwt.verify(headerToken, process.env.SECRET_KEY);
-
+  staffAuthentication: (req, res, next) => {
     if (req.currentUser.permission !== "STAFF") {
       return res.status(403).send("Forbidden");
     }
-    req.currentUser = encoded;
     return next();
   },
-  isAdminAuthentication: async (req, res, next) => {
-    const headerToken = req.headers.authorization.split(" ")[1];
-    const encoded = jwt.verify(headerToken, process.env.SECRET_KEY);
-
-    if (req.currentUser.permission !== "ADMIN" || req.currentUser.permission !== "STAFF") {
+  isAdminAuthentication: (req, res, next) => {
+    if (["ADMIN", "STAFF"].indexOf(req.currentUser.permission) === -1) {
       return res.status(403).send("Forbidden");
     }
-    req.currentUser = encoded;
     return next();
   },
-  clientAuthentication: async (req, res, next) => {
-    const headerToken = req.headers.authorization.split(" ")[1];
-    const encoded = jwt.verify(headerToken, process.env.SECRET_KEY);
-
+  clientAuthentication: (req, res, next) => {
     if (req.currentUser.permission !== "USER") {
       return res.status(403).send("Forbidden");
     }
-    req.currentUser = encoded;
     return next();
   },
 };

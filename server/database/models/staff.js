@@ -1,6 +1,4 @@
-import {
-  updateAccountbalance, saveTransaction, findAccountByAccountNumber,
-} from "../database";
+import databaseController from "../database";
 
 
 exports.debitUser = async (data, callbk) => {
@@ -15,7 +13,7 @@ exports.debitUser = async (data, callbk) => {
   } = data;
 
   try {
-    const account = await findAccountByAccountNumber(accountNumber);
+    const account = await databaseController.findAccountByAccountNumber(accountNumber);
 
     if (!cashierId) { callbk({ message: "Account Not Found", code: 404 }, null); return; }
     if (!account) { callbk({ message: "Account Not Found", code: 404 }, null); return; }
@@ -23,20 +21,23 @@ exports.debitUser = async (data, callbk) => {
     if (account.status === "dormant") { callbk({ message: "Account Dormant", code: 400 }, null); return; }
 
     const type = "debit";
+    const depositor = "N/A";
     const oldBalance = account.balance;
     const newBalance = oldBalance - Number(data.amount);
-    const updatedAccount = await updateAccountbalance({ accountNumber, newBalance });
-    const transactionDetail = await saveTransaction({
+    const updatedAccount = await databaseController.updateAccountbalance({ accountNumber, newBalance });
+    const transactionDetail = await databaseController.saveTransaction({
       accountNumber,
       amount: Number(amount),
       cashierId,
+      depositor,
       type,
       oldBalance,
       newBalance: updatedAccount.balance,
     });
+    delete transactionDetail.depositor;
     callbk(null, transactionDetail);
   } catch (err) {
-    callbk({ message: err.message, code: 400 }, null);
+    callbk({ message: err.message.replace(/[^\w|\s]/g, ""), code: 400 }, null);
   }
 };
 
@@ -52,17 +53,17 @@ exports.creditUser = async (data, callbk) => {
   } = data;
 
   try {
-    const account = await findAccountByAccountNumber(accountNumber);
-    
+    const account = await databaseController.findAccountByAccountNumber(accountNumber);
+
     if (!cashierId) { callbk({ message: "Account Not Found", code: 404 }, null); return; }
     if (!account) { callbk({ message: "Account Not Found", code: 404 }, null); return; }
-    if (account.status === "dormant") { callbk({ message: "Account Dormant", code: 400 }, null); return;}
+    if (account.status === "dormant") { callbk({ message: "Account Dormant", code: 400 }, null); return; }
 
     const type = "credit";
     const oldBalance = account.balance;
     const newBalance = oldBalance + Number(data.amount);
-    const updatedAccount = await updateAccountbalance({ accountNumber, newBalance });
-    const transactionDetail = await saveTransaction({
+    const updatedAccount = await databaseController.updateAccountbalance({ accountNumber, newBalance });
+    const transactionDetail = await databaseController.saveTransaction({
       accountNumber,
       amount: Number(amount),
       cashierId,
@@ -73,6 +74,6 @@ exports.creditUser = async (data, callbk) => {
     });
     callbk(null, transactionDetail);
   } catch (err) {
-    callbk({ message: err.message, code: 400 }, null);
+    callbk({ message: err.message.replace(/[^\w|\s]/g, ""), code: 400 }, null);
   }
 };

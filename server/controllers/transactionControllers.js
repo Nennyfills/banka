@@ -9,7 +9,7 @@ import Transaction from "../database/models/transactions";
 class TransactionsController {
   static transactionByAccount(req, res) {
     const accountNumber = Number(req.params.accountnumber);
-    Transaction.findTransactionByAccount(accountNumber, (err, data) => {
+    Transaction.findTransactionByAccount({ accountNumber, req }, (err, data) => {
       if (err) {
         res.status(404).json({
           status: 404,
@@ -28,7 +28,7 @@ class TransactionsController {
 
   static transactionById(req, res) {
     const transactionId = parseInt(req.params.transactionId);
-    Transaction.findTransactionById(transactionId, (err, data) => {
+    Transaction.findTransactionById({ transactionId, req }, (err, data) => {
       if (err) {
         res.status(404).json({
           status: 404,
@@ -47,7 +47,7 @@ class TransactionsController {
 
   static viewAccountDate(req, res) {
     const { startDate, endDate } = req.query;
-    Transaction.findTransactionByDate({ startDate, endDate }, (err, data) => {
+    Transaction.findTransactionByDate({ startDate, endDate, req }, (err, data) => {
       if (err) {
         res.status(404).json({
           status: 404,

@@ -7,24 +7,25 @@ import StaffController from "../controllers/staffControllers";
 import DefaultUserController from "../controllers/defaultControllers";
 import AccountController from "../controllers/accountControllers";
 import TransactionsController from "../controllers/transactionControllers";
+import validate from "../helpers/validation";
 
 // middlewares
 import middleware from "../middleware/middleware";
 
 const router = Router();
 // create users router
-router.post("/auth/signup", UserController.signup);
+router.post("/auth/signup", validate.signUp, UserController.signup);
 
 //  create admin and staff  * for admin only
-router.post("/auth/portal", middleware.authorized, middleware.adminAuthentication, AdminController.createStaffAdminAccount);
+router.post("/auth/portal", middleware.authorized, middleware.adminAuthentication, validate.adminCreate, AdminController.createStaffAdminAccount);
 
 // login routers * for all users
-router.post("/auth/login", DefaultUserController.login);
+router.post("/auth/login", validate.login, DefaultUserController.login);
 
 // create bank accounts router *for users only
 router.post("/accounts", middleware.authorized, middleware.clientAuthentication, UserController.createUserAccount);
 
-//  deactivate and active account router * for admins only
+//  deactivate and activate account router * for admins only
 router.patch("/:accountnumber", middleware.authorized, middleware.adminAuthentication, AdminController.toggleAccountStatus);
 
 // credit and debit user account routers *for staff only
@@ -44,7 +45,11 @@ router.get("/accounts?status", middleware.authorized, middleware.isAdminAuthenti
 router.get("/accounts?startDate&endDate", middleware.authorized, middleware.isAdminAuthentication, AccountController.viewAllAccount);
 
 //  get account by account number
-router.get("/accounts/:accountnumber", middleware.authorized, AccountController.accountsByAccountNumber);
+router.get("/accounts/:accountnumber", middleware.authorized, middleware.isAdminAuthentication, AccountController.accountsByAccountNumber);
+
+//  get accounts by email
+router.get("/user/:email/accounts", middleware.authorized, AccountController.accountsByEmail);
+
 
 // account by owner id
 router.get("/user/:ownerid/accounts", middleware.authorized, AccountController.accountsByOwnerId);
@@ -57,8 +62,5 @@ router.get("/transactions/:transactionId", middleware.authorized, TransactionsCo
 
 //  get transactions by date
 router.get("/transactions?startDate&endDate", middleware.authorized, TransactionsController.viewAccountDate);
-
-//  get accounts by email
-router.get("/user/:email/accounts", middleware.authorized, middleware.clientAuthentication, AccountController.accountsByEmail);
 
 export default router;
