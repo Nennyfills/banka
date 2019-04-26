@@ -28,28 +28,27 @@ function () {
       var _req$body = req.body,
           email = _req$body.email,
           firstName = _req$body.firstName,
-          surname = _req$body.surname,
-          password = _req$body.password,
-          phonenumber = _req$body.phonenumber;
+          surName = _req$body.surName,
+          password = _req$body.password;
 
       _user["default"].create({
         email: email,
         firstName: firstName,
-        surname: surname,
-        password: password,
-        phonenumber: phonenumber
+        surName: surName,
+        password: password
       }, function (err, data) {
         if (err) {
-          res.status(409).json({
-            status: 409,
-            message: err.message
+          res.status(400).json({
+            status: 400,
+            error: err,
+            message: "Signup not sucessful"
           });
-          return;
+          return; // stop early
         }
 
         res.status(201).json({
           status: 201,
-          message: "account created",
+          message: "User created",
           data: data
         });
       });
@@ -58,19 +57,26 @@ function () {
     key: "createUserAccount",
     value: function createUserAccount(req, res) {
       var _req$body2 = req.body,
-          openingbalance = _req$body2.openingbalance,
+          firstName = _req$body2.firstName,
+          surName = _req$body2.surName,
+          openingBalance = _req$body2.openingBalance,
+          phoneNumber = _req$body2.phoneNumber,
           type = _req$body2.type;
       var email = req.currentUser.email;
 
       _user["default"].createUserAccount({
-        openingbalance: openingbalance,
+        firstName: firstName,
+        surName: surName,
+        openingBalance: openingBalance,
+        phoneNumber: phoneNumber,
         type: type,
         email: email
       }, function (err, data) {
         if (err) {
           res.status(400).json({
             status: 400,
-            message: err.message
+            message: "Account not sucessfully created",
+            error: err
           });
           return;
         } // stop early

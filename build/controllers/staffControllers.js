@@ -26,17 +26,18 @@ function () {
     key: "debit",
     value: function debit(req, res) {
       var amount = req.body.amount;
-      var cashierId = req.currentUser.id;
+      var cashierEmail = req.currentUser.email;
       var accountNumber = Number(req.params.accountnumber);
 
       _staff["default"].debitUser({
         amount: amount,
-        cashierId: cashierId,
+        cashierEmail: cashierEmail,
         accountNumber: accountNumber
       }, function (err, data) {
         if (err) {
           res.status(err.code).json({
             status: err.code,
+            error: err,
             message: err.message
           });
           return;
@@ -52,22 +53,20 @@ function () {
   }, {
     key: "credit",
     value: function credit(req, res) {
-      var _req$body = req.body,
-          amount = _req$body.amount,
-          depositor = _req$body.depositor;
-      var cashierId = req.currentUser.id;
+      var amount = req.body.amount;
+      var cashierEmail = req.currentUser.email;
       var accountNumber = Number(req.params.accountnumber);
 
       _staff["default"].creditUser({
         amount: amount,
-        cashierId: cashierId,
-        accountNumber: accountNumber,
-        depositor: depositor
-      }, function (error, data) {
-        if (error) {
-          res.status(error.code).json({
-            status: error.code,
-            message: error.message
+        cashierEmail: cashierEmail,
+        accountNumber: accountNumber
+      }, function (err, data) {
+        if (err) {
+          res.status(err.code).json({
+            status: err.code,
+            error: err,
+            message: err.message
           });
           return;
         }

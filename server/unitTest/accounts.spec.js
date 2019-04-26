@@ -59,7 +59,7 @@ describe("Accounts controller", () => {
     });
   });
   describe("Find account by accountNumber", () => {
-    const endpoint = `/api/v1/accounts/${3007235940}`;
+    const endpoint = `/api/v1/accounts/${3001219111}`;
     it("should get an account if the right account number is given", (done) => {
       chai.request(app)
         .get(endpoint)
@@ -71,13 +71,13 @@ describe("Accounts controller", () => {
     });
   });
   describe("Find account by accountNumber", () => {
-    const endpoint = `/api/v1/accounts/${897898987}`;
+    const endpoint = `/api/v1/accounts/${89789898}`;
     it("should not get an account if the wrong account number is given", (done) => {
       chai.request(app)
         .get(endpoint)
         .set("Authorization", token)
         .end((err, res) => {
-          expect(res).to.have.status(400);
+          expect(res).to.have.status(404);
           done();
         });
     });
@@ -88,7 +88,7 @@ describe("Accounts controller", () => {
         .get("/api/v1/user/cnny@gmail.com/accounts")
         .set("Authorization", token)
         .end((err, res) => {
-          expect(res).to.have.status(404);
+          expect(res).to.have.status(200);
           done();
         });
     });

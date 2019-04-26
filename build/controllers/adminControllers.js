@@ -28,23 +28,22 @@ function () {
       var _req$body = req.body,
           email = _req$body.email,
           firstName = _req$body.firstName,
-          surname = _req$body.surname,
+          surName = _req$body.surName,
           password = _req$body.password,
-          phonenumber = _req$body.phonenumber,
           type = _req$body.type;
 
       _admin["default"].createStaffAdmin({
         email: email,
         firstName: firstName,
-        surname: surname,
+        surName: surName,
         password: password,
-        phonenumber: phonenumber,
         type: type
       }, function (err, data) {
         if (err) {
           res.status(400).json({
             status: 400,
-            message: err.message
+            error: err,
+            message: "Signup not sucessful"
           });
           return; // stop early
         }
@@ -59,13 +58,14 @@ function () {
   }, {
     key: "toggleAccountStatus",
     value: function toggleAccountStatus(req, res) {
-      var accountNumber = Number(req.params.accountnumber);
+      var userAccountNumber = parseInt(req.params.accountnumber);
 
-      _admin["default"].toggleAccountStatus(accountNumber, function (err, data) {
+      _admin["default"].toggleAccountStatus(userAccountNumber, function (err, data) {
         if (err) {
           res.status(404).json({
             status: 404,
-            message: err.message
+            error: err,
+            message: "Acount not founded"
           });
           return;
         }

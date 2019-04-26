@@ -28,9 +28,9 @@ describe("Post /auth/signup", () => {
           expect(res.body.data.surname).to.equal(payload.surname);
           expect(res.body.data.firstName).to.equal(payload.firstName);
           expect(res.body.data.phonenumber).to.equal(payload.phonenumber);
+          expect(res.body.data.type).to.equal(payload.type);
           expect(res.body.data.isAdmin).to.equal(false);
-          expect(res.body.data.status).to.equal("active");
-          expect(res.body.data).to.have.property("id");
+          expect(res.body.data).to.have.property("password");
         });
     });
   });
@@ -51,8 +51,7 @@ describe("Post /auth/signup", () => {
     const payload = {
       json: true,
       body: {
-        accountNumber: 300984857,
-        type: "current",
+        accountNumber: 3008622723,
       },
     };
     it("should create account once all the parameters are given", (done) => {
@@ -63,42 +62,43 @@ describe("Post /auth/signup", () => {
         .end((err, res) => {
           expect(res).to.have.status(201);
           expect(res.body.data.email).to.equal("danny@gmail.com");
-          expect(res.body.data.status).to.equal("active");
+          expect(res.body.data.accountnumber).to.equal(payload.body.accountNumber);
+          expect(res.body.data.status).to.have.property("status");
           expect(res.body.data).to.have.property("id");
           expect(res.body.data).to.have.property("openingbalance");
+          expect(res.body.data).to.have.property("type");
+          done();
+        });
+    });
+    it("should not create a new account when the parameters are not given", (done) => {
+      chai.request(app)
+        .post("/api/v1/accounts")
+        .set("Authorization", token)
+        .send({})
+        .end((err, res) => {
+          expect(res).to.have.status(400);
           done();
         });
     });
   });
-
-  it("should not create a new account when the parameters are not given", (done) => {
-    chai.request(app)
-      .post(endpoint)
-      .set("Authorization", token)
-      .send({})
-      .end((err, res) => {
-        expect(res).to.have.status(400);
-        done();
+  describe("Home page and invalid router", () => {
+    describe("Home page", () => {
+      it("Should show page on this route '/' ", () => {
+        chai.request(app)
+          .get("/")
+          .end((err, res) => {
+            expect(res).to.have.status(200);
+          });
       });
-  });
-});
-describe("Home page and invalid router", () => {
-  describe("Home page", () => {
-    it("Should show page on this route '/' ", () => {
+    });
+
+    it("Should show page on this route '*' ", (done) => {
       chai.request(app)
-        .get("/")
+        .get("/ap1/3")
         .end((err, res) => {
-          expect(res).to.have.status(200);
+          expect(res).to.have.status(404);
+          done();
         });
     });
-  });
-
-  it("Should show page on this route '*' ", (done) => {
-    chai.request(app)
-      .get("/ap1/3")
-      .end((err, res) => {
-        expect(res).to.have.status(404);
-        done();
-      });
   });
 });

@@ -19,15 +19,15 @@ describe("Staff controller", () => {
   });
 
   describe("Credit", () => {
-    const endpoint = "/api/v1/4008989879/credit";
+    const endpoint = `/api/v1/${3008180416}/credit`;
     const payload = {
       body: {
-        accountNumber: 4008989879,
-        amount: 1000,
+        accountNumber: 3008180416,
+        amount: 16896,
         depositor: "nenye",
       },
     };
-    it("should credit a  user once the right account number is given", (done) => {
+    it("should credit a user once the right account number is given", (done) => {
       chai.request(app)
         .post(endpoint)
         .set("Authorization", token)
@@ -43,24 +43,25 @@ describe("Staff controller", () => {
 
     it("should not credit a user once the wrong account number is given", (done) => {
       chai.request(app)
-        .post("/api/v1/30089898/credit")
+        .post(`/api/v1/${3008898}/credit`)
         .set("Authorization", token)
         .send({
-          amount: 1000,
+          amount: 16896,
         })
         .end((err, res) => {
-          expect(res).to.have.status(404);
+          expect(res).to.have.status(400);
           done();
         });
     });
   });
 
   describe("Debit", () => {
-    const endpoint = "/api/v1/3006993038/debit";
+    const endpoint = `/api/v1/${3008180416}/debit`;
     const payload = {
       json: true,
       body: {
         amount: 500,
+        depositor: "N/A",
       },
     };
     it("should debit a  user once the right account number is given", (done) => {
@@ -69,8 +70,10 @@ describe("Staff controller", () => {
         .set("Authorization", token)
         .send(payload.body)
         .end((err, res) => {
+          console.log(res.body);
           expect(res).to.have.status(200);
-          expect(res.body.data.accountNumber).to.equal(3006993038);
+          expect(res.body.data).to.have.property("depositor");
+          expect(res.body.data.accountNumber).to.equal(3008180416);
           expect(res.body.data.transactionType).to.equal("debit");
           done();
         });
@@ -78,13 +81,14 @@ describe("Staff controller", () => {
 
     it("should not Debit a  user once the wrong account number is given", (done) => {
       chai.request(app)
-        .post("/api/v1/300898987/credit")
+        .post(`/api/v1/${30089987}/credit`)
         .set("Authorization", token)
         .send({
           amount: 1000,
         })
         .end((err, res) => {
-          expect(res).to.have.status(404);
+          console.log(res.body);
+          expect(res).to.have.property(status);
           done();
         });
     });

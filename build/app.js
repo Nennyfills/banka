@@ -12,8 +12,6 @@ var _index = _interopRequireDefault(require("./routers/index"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
-// import { Client } from "pg";
-// import { Client } from "./database/power.db";
 _dotenv["default"].config();
 
 var app = (0, _express["default"])();
@@ -38,22 +36,7 @@ app.use("*", function (req, res) {
     status: 404,
     message: "Page not found"
   });
-}); // const client = new Client();
-// async function execute() {
-//   try {
-//     await client.connect();
-//     const users = await client.query("select * from users ");
-//     console.table(users.rows);
-//     const account = await client.query("select * from account ");
-//     console.table(account.rows);
-//     const transaction = await client.query("select * from transaction ");
-//     console.table(transaction.rows);
-//   } catch (ex) {
-//   } finally {
-//     await client.end();
-//   }
-// }
-// execute();
-
+});
 app.listen(portal);
 module.exports = app;
+console.log(portal)
