@@ -15,9 +15,15 @@ const router = Router();
 // create users router
 router.post("/auth/signup", Validation.signUp, UserController.signup);
 //  create admin and staff  * for admin only
-router.post("/auth/admin-portal", middleware.authorized, middleware.adminAuthentication, Validation.adminCreate, UserController.createStaffAdminAccount);
+router.post("/auth/portal", middleware.authorized, middleware.adminAuthentication, Validation.adminCreate, UserController.createStaffAdminAccount);
 // login routers * for all users
 router.post("/auth/login", Validation.login, UserController.login);
+// reset password routers for all users
+router.post("/resetpassword", UserController.resetPassword);
+// get user profile Image
+router.get("/profilepic", UserController.login);
+// update profile image
+router.put("/profilepic/save", UserController.login);
 // create bank accounts router *for users only
 router.post("/accounts", middleware.authorized, middleware.clientAuthentication, UserController.createUserAccount);
 

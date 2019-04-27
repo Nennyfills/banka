@@ -70,6 +70,13 @@ exports.login = (req, res, next) => {
   next();
 };
 
+exports.checkPassword = (password) => {
+  if ((/(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/).test(password)) {
+    return true;
+  }
+  return false;
+};
+
 exports.signUp = async (req, res, next) => {
   try {
     const Schema = Joi.object().keys({

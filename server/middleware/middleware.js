@@ -30,8 +30,6 @@ module.exports = {
     if (req.currentUser.permission !== "STAFF") {
       return res.status(403).send("Forbidden");
     }
-    console.log(req.currentUser);
-    
     return next();
   },
   isAdminAuthentication: (req, res, next) => {

@@ -2,8 +2,7 @@
 import User from "../database/models/user";
 
 class UserController {
-
-/**
+  /**
 *
 * @param {*} req
 * @param {*} res
@@ -69,7 +68,7 @@ class UserController {
   }
 
 
-/**
+  /**
 *
 * @param {*} req
 * @param {*} res
@@ -80,8 +79,6 @@ class UserController {
     const {
       email, firstName, surname, password, phonenumber, type,
     } = req.body;
-    console.log(type);
-    
     // type.toUpperCase();
     User.createStaffAdmin({
       email,
@@ -107,10 +104,10 @@ class UserController {
     });
   }
 
-/**
+  /**
 *
-* @param {*} req
-* @param {*} res
+*@param {object} req email and password from the body to check if user exist;
+* @param {object} res reponspond with an error message on failure exstatus code or return data on success;
 */
 
   static login(req, res) {
@@ -127,6 +124,31 @@ class UserController {
         status: 200,
         message: "Login successful",
         token: data,
+      });
+    });
+  }
+
+  /**
+*
+* @param {object} req email and password from the body to check user;
+* @param {object} res reponspond with an error message on failure or return data on success;
+
+*/
+
+  static resetPassword(req, res) {
+    const { email, password } = req.body;
+    User.Password({ email, password }, (err, data) => {
+      if (err) {
+        res.status(400).json({
+          status: 400,
+          message: err,
+        });
+        return;
+      }
+      res.status(200).json({
+        status: 200,
+        message: "Password successfully changed",
+        data,
       });
     });
   }

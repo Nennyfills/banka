@@ -2,9 +2,6 @@
 import database from "./database/database";
 
 const DBCLEANUP = `
-DROP TABLE IF EXISTS users CASCADE;
-DROP TABLE IF EXISTS account CASCADE;
-DROP TABLE IF EXISTS transaction CASCADE;
 
 CREATE TABLE IF NOT EXISTS
    users(
@@ -43,6 +40,10 @@ CREATE TABLE IF NOT EXISTS
         newBalance FLOAT, 
         createdAt TIMESTAMPTZ
 );
+
+DELETE FROM users;
+DELETE FROM account;
+DELETE FROM transaction;
 
 INSERT INTO  users(id, permission, firstName, surname, phonenumber, email, password, isAdmin)
 VALUES(1,	'USER',	'Danny',	'Dike',	'080787879697',	'danny@gmail.com',	'$2a$10$CIvipwNLDRvnCOj.SCRGcu5p82RoDJdImGGN / 65DHXx2 / YwEsgms2',	false),

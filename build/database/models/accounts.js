@@ -10,7 +10,7 @@ exports.DeleteAccount = function (data, callback) {
   var accounts = _database.database.ACCOUNT;
   var matchedAccount = accounts.find(function (accountData) {
     return accountData.accountNumber === Number(data);
-  }); // console.log(matchedAccount);
+  }); 
 
   if (!matchedAccount) {
     callback("".concat(data, ": not found"), null);

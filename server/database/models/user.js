@@ -3,6 +3,7 @@ import bcrypt from "bcryptjs";
 import env from "dotenv";
 import DbControllers from "../dbControllers";
 import databaseController from "../database";
+import Validation from "../../middleware/validation"
 
 env.config();
 
@@ -33,12 +34,10 @@ exports.userLogin = async (data, callbck) => {
       callbck(null, token);
     });
   } catch (err) {
-    console.log(err);
-    
     callbck({ message: err.message.replace(/[^\w|\s]/g, "") }, null);
   }
 };
-exports.createStaffAdmin = async (data, callbk) => { 
+exports.createStaffAdmin = async (data, callbk) => {
   try {
     const {
       email, firstName, surname, phonenumber, type,
@@ -123,5 +122,29 @@ exports.createUserAccount = async (data, callbk) => {
     callbk(null, accountDetails);
   } catch (err) {
     callbk(err, null);
+  }
+};
+
+exports.Password = async (data, callbk) => {
+  try {
+    const { password, email } = data;
+    console.log(email, password);
+
+    const user = await databaseController.findUserByEmail(email);
+    if (!user) {
+      callbk({ message: "User does not exist, Password can not be changed" }, null);
+      return;
+    }
+    const isValidated = Validation.checkPassword(password);
+    if (!isValidated) {
+      callbk("Password is required(should be longer than 8 character, Include UpperCase letter, Include a number/special charaters.)", null); return;}
+      console.log(isValidated);
+      
+    const hash = bcrypt.hashSync(password, 10);
+    const newPassword = hash;
+    await databaseController.updatePassword({ newPassword, email });
+    callbk(null, "password changed");
+  } catch (err) {
+    callbk({ message: err.message.replace(/[^\w|\s]/g, "") }, null);
   }
 };

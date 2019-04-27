@@ -125,14 +125,13 @@ describe("Staff controller", () => {
         id: 5,
       },
     };
-    it("should not credit account if account is dormant", (done) => {
+    it("should not credit account if depositor Required", (done) => {
       chai.request(app)
         .post(endpoint)
         .set("Authorization", token)
         .send(payload.body)
         .end((err, res) => {
-          expect(res).to.have.status(200);
-          console.log(res.body, "credit here")
+          expect(res).to.have.status(400);
           expect(res.body.message).to.equal("Account Dormant");
           done();
         });
@@ -171,7 +170,7 @@ describe("Staff controller", () => {
           done();
         });
     });
-    it("should not Debit a  user once the wrong account number is given", (done) => {
+    it("should not Debit a user if Depositor is Required", (done) => {
       chai.request(app)
         .post(`/api/v1/${30089987}/credit`)
         .set("Authorization", token)
@@ -179,9 +178,8 @@ describe("Staff controller", () => {
           amount: 1000,
         })
         .end((err, res) => {
-          console.log(res.body,"should not debit")
-          expect(res).to.have.status(404);
-          expect(res.body.message).to.equal("Account Not Found");
+          expect(res).to.have.status(400);
+          expect(res.body.message).to.equal("Depositor Required");
           done();
         });
     });

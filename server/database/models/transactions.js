@@ -7,7 +7,6 @@ exports.findTransactionByAccount = async (data, callbk) => {
     callbk(null, transaction);    
   } catch (err) {
     callbk({ message: err }, null);
-    console.log(err);
     
   }
 };

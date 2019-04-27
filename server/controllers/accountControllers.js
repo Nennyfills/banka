@@ -15,8 +15,6 @@ class AccountController {
       amount, cashierId, accountNumber,
     }, (err, data) => {
       if (err) {
-        console.log(err);
-        
         res.status(err.code).json({
           status: err.code,
           message: err.message,

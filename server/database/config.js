@@ -3,10 +3,9 @@ import env from "dotenv";
 
 env.config();
 
-const myconnection = process.env.TEST_ENV ? process.env.DBCONNECTIONTEST : process.env.DBCONNECTION;
-console.log(myconnection);
+const database = process.env.TEST_ENV ? process.env.DATABASETEST : process.env.PGDATABASE;
 const pool = new Pool({
-  connectionString: myconnection,
+  database,
 });
 
 export default pool;
