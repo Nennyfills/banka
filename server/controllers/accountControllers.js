@@ -15,6 +15,8 @@ class AccountController {
       amount, cashierId, accountNumber,
     }, (err, data) => {
       if (err) {
+        console.log(err);
+        
         res.status(err.code).json({
           status: err.code,
           message: err.message,
@@ -92,7 +94,7 @@ class AccountController {
 
 
   static accountsByAccountNumber(req, res) {
-    const userAccount = Number(req.params.accountnumber);
+    const userAccount = parseInt(req.params.accountnumber);
 
     Account.getAcountByAccountNumber(userAccount, (err, data) => {
       if (err) {
@@ -142,9 +144,6 @@ class AccountController {
 * @param {*} req
 * @param {*} res
 */
-  // static getAccountsByOwnerId(req, res) {
-  //   console.log(req, res.params);
-  // }
 
   static accountsByOwnerId(req, res) {
     const userId = parseInt(req.params.ownerId, 10);

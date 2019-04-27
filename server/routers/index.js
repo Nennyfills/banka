@@ -13,11 +13,11 @@ const router = Router();
 
 // users router
 // create users router
-router.post("/auth/signup", UserController.signup);
+router.post("/auth/signup", Validation.signUp, UserController.signup);
 //  create admin and staff  * for admin only
-router.post("/auth/portal", middleware.authorized, middleware.adminAuthentication, UserController.createStaffAdminAccount);
+router.post("/auth/admin-portal", middleware.authorized, middleware.adminAuthentication, Validation.adminCreate, UserController.createStaffAdminAccount);
 // login routers * for all users
-router.post("/auth/login", UserController.login);
+router.post("/auth/login", Validation.login, UserController.login);
 // create bank accounts router *for users only
 router.post("/accounts", middleware.authorized, middleware.clientAuthentication, UserController.createUserAccount);
 
@@ -26,8 +26,8 @@ router.post("/accounts", middleware.authorized, middleware.clientAuthentication,
 //  deactivate and activate account router * for admins only
 router.patch("/:accountnumber", middleware.authorized, middleware.adminAuthentication, AccountController.toggleAccountStatus);
 // credit and debit user account routers *for staff only
-router.post("/:accountnumber/credit", middleware.authorized, middleware.staffAuthentication, AccountController.credit);
-router.post("/:accountnumber/debit", middleware.authorized, middleware.staffAuthentication, AccountController.debit);
+router.post("/:accountnumber/credit", middleware.authorized, middleware.staffAuthentication, Validation.creditAndDebit, AccountController.credit);
+router.post("/:accountnumber/debit", middleware.authorized, middleware.staffAuthentication, Validation.creditAndDebit, AccountController.debit);
 // delete account router * for both staff and admin
 router.delete("/accounts/:accountnumber", middleware.authorized, middleware.isAdminAuthentication, AccountController.delete);
 // get all account router * for both staff and admin

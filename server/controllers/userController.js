@@ -80,8 +80,9 @@ class UserController {
     const {
       email, firstName, surname, password, phonenumber, type,
     } = req.body;
-
-
+    console.log(type);
+    
+    // type.toUpperCase();
     User.createStaffAdmin({
       email,
       firstName,

@@ -11,7 +11,7 @@ exports.userLogin = async (data, callbck) => {
   try {
     const user = await databaseController.findUserByEmail(data.email);
     if (!user) {
-      callbck({ message: "User do not exist, Please signup" }, null);
+      callbck({ message: "User does not exist, Please signup" }, null);
       return;
     }
     bcrypt.compare(data.password, user.password, (err, res) => {
@@ -33,22 +33,19 @@ exports.userLogin = async (data, callbck) => {
       callbck(null, token);
     });
   } catch (err) {
+    console.log(err);
+    
     callbck({ message: err.message.replace(/[^\w|\s]/g, "") }, null);
   }
 };
-exports.createStaffAdmin = async (data, callbk) => {
+exports.createStaffAdmin = async (data, callbk) => { 
   try {
-    // const requiredField = ["firstName", "surname", "password", "phonenumber", "email", "type"];
-    // const requiredError = requiredField.filter(key => data[key] === undefined).map(value => `${value} is required`);
-    // if (requiredError.length !== 0) {
-    //   callbk({ message: requiredError }, null);
-    //   return;
-    // }
     const {
       email, firstName, surname, phonenumber, type,
     } = data;
     const user = await databaseController.findUserByEmail(data.email);
-
+    const permission = "ADMIN" || "STAFF";
+    if (permission !== type) { callbk({ messag: "Wrong input, type must be STAFF or ADMIN" }, null); return; }
     if (user) {
       callbk({ message: "email already exist" }, null);
       return;
@@ -68,12 +65,10 @@ exports.createStaffAdmin = async (data, callbk) => {
 
 exports.createSignup = async (data, callbk) => {
   try {
-  //   // const requiredField = ["firstName", "surname", "password", "email", "phonenumber"];
-  //   // const requiredError = requiredField.filter(key => data[key] === undefined).map(value => `${value} is required`);
-  //   // if (requiredError.length !== 0) {
-  //   //   callbk({ message: requiredError }, null);
-  //   //   return;
-  //   // }
+    const {
+      email, firstName, surname, phonenumber,
+    } = data;
+
     const user = await databaseController.findUserByEmail(data.email);
     if (user) {
       callbk({ message: "email already exist" }, null);
@@ -83,10 +78,6 @@ exports.createSignup = async (data, callbk) => {
     const isAdmin = false;
     const type = "USER";
     const password = hash;
-    const {
-      email, firstName, surname, phonenumber,
-    } = data;
-
     const values = [type, firstName, surname, phonenumber, email, password, isAdmin];
     const newuser = await databaseController.addUser(values);
     const token = `Bearer ${jwt.sign(
@@ -103,6 +94,8 @@ exports.createSignup = async (data, callbk) => {
         expiresIn: "7h",
       },
     )}`;
+    delete newuser.password;
+
     callbk(null, { token, ...newuser });
     return;
   } catch (err) {
@@ -112,24 +105,21 @@ exports.createSignup = async (data, callbk) => {
 
 exports.createUserAccount = async (data, callbk) => {
   try {
-    const requiredField = ["openingbalance", "type", "email"];
-    const requiredError = requiredField.filter(key => data[key] === undefined).map(value => `${value} is required`);
-    if (requiredError.length !== 0) {
-      callbk({ message: requiredError }, null);
-
-      return;
-    }
-    const accountNumber = DbControllers.generateAccountNumber();
-    const status = "active";
     const {
       type, email, openingbalance,
     } = data;
+    const accountNumber = DbControllers.generateAccountNumber();
+    const status = "active";
+    const permission = "savings" || "current";
+    permission.toLowerCase();
+    if (permission !== type) { callbk({ messag: "Wrong input, type must be current or savings" }, null); return; }
     const accountDetails = await databaseController.saveAccount({
       accountNumber, email, openingbalance, type, status,
     });
     if (accountDetails.length > 8) {
       callbk({ message: "account not created" }, null);
     }
+    delete accountDetails.password;
     callbk(null, accountDetails);
   } catch (err) {
     callbk(err, null);

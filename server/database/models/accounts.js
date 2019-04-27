@@ -36,13 +36,13 @@ exports.debitUser = async (data, callbk) => {
 };
 
 exports.creditUser = async (data, callbk) => {
-  const {
-    amount, accountNumber, depositor, cashierId,
-  } = data;
-
   try {
-    const account = await databaseController.findAccountByAccountNumber(accountNumber);
+    const {
+      amount, accountNumber, depositor, cashierId,
+    } = data;
 
+    const account = await databaseController.findAccountByAccountNumber(accountNumber);
+    if (!depositor) { callbk({ message: "Depositor Required", code: 400 }, null); return; }
     if (!cashierId) { callbk({ message: "Account Not Found", code: 404 }, null); return; }
     if (!account) { callbk({ message: "Account Not Found", code: 404 }, null); return; }
     if (account.status === "dormant") { callbk({ message: "Account Dormant", code: 400 }, null); return; }
@@ -145,7 +145,6 @@ exports.toggleAccountStatus = async (data, callbk) => {
 
     const status = account.status === "active" ? "dormant" : "active";
     const { accountnumber } = account;
-
 
     const update = await databaseController.updateAccountStatus({ status, accountnumber });
     callbk(null, { update });
