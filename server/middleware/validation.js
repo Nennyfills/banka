@@ -1,7 +1,7 @@
 import Joi from "joi";
 
 const joyKeys = {
-  firstName: Joi.string().regex(/^[a-zA-Z]*$/).min(3).max(15)
+  firstName: Joi.string().trim().regex(/^[a-zA-Z]*$/).min(3).max(15)
     .required(),
   surname: Joi.string().regex(/^[a-zA-Z]*$/).min(3).max(15)
     .required(),
