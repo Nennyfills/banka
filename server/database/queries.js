@@ -52,6 +52,10 @@ export default {
     text: "UPDATE account SET balance=($1) WHERE accountNumber=($2) RETURNING *;",
     values,
   }),
+  UPDATE_PASSWORD: values => ({
+    text: "UPDATE users SET password=($1) WHERE email=($2) RETURNING *;",
+    values,
+  }),
   DELETE_ACCOUNT: values => ({
     text: "DELETE FROM account WHERE accountNumber=($1) RETURNING *;",
     values,

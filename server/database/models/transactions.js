@@ -2,29 +2,20 @@ import databaseController from "../database";
 
 exports.findTransactionByAccount = async (data, callbk) => {
   try {
-    const transaction = await databaseController.findTransactionByAccountNumber(data);
+    const transaction = await databaseController.findTransactionByAccountNumber(data.accountNumber);
     if (transaction.length === 0) { callbk(data, null); return; }
-    callbk(null, transaction);
+    callbk(null, transaction);    
   } catch (err) {
-    callbk({ message: err.message }, null);
+    callbk({ message: err }, null);
+    
   }
 };
 
 exports.findTransactionById = async (data, callbk) => {
   try {
-    const { currentUser } = data.req;
-    const result = await databaseController.findUserById(currentUser.id);
-    const transactions = await databaseController.findTransactionById(data.accountNumber);
-    // const accounts = await databaseController.findAccountByOwnerid(data.userId);
-    const transaction = transactions.find(value => value.accountNumber === data.accountNumber);
-    if (result.isadmin || result.id === transaction.accountNumber) {
-      callbk(null, transaction);
-      return;
-    }
-    callbk({ message: "Forbidden", code: 403 }, null);
+    const transaction = await databaseController.findTransactionById(data.transactionId);
+    callbk(null, transaction);
     return;
-    // if (transaction.length === 0) { callbk(data, null); return; }
-    // callbk(null, transaction);
   } catch (err) {
     callbk({ message: err.message.replace(/[^\w|\s]/g, "") }, null);
   }

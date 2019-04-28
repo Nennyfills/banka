@@ -87,6 +87,12 @@ class databaseController {
     return res.rows[0];
   }
 
+  static async updatePassword({ newPassword, email }) {
+    const res = await pool.query(QUERY.UPDATE_PASSWORD([newPassword, email]));
+    // console.log(res);
+    
+    return res.rows[0];
+  }
   // static async getAccountbalance(accountbalance) {
   //   const res = await pool.query(QUERY.GET_accountbalance([accountbalance]));
   //   return res.rows[0];
