@@ -31,12 +31,18 @@ exports.debitUser = async (data, callbk) => {
     delete transactionDetail.depositor;
     callbk(null, transactionDetail);
   } catch (err) {
-    callbk({ message: err.message.replace(/[^\w|\s]/g, ""), code: 400 }, null);
+    callbk({ message: err.message, code: 400 }, null);
   }
 };
 
 exports.creditUser = async (data, callbk) => {
   try {
+    const requiredField = ["amount", "depositor"];
+    const requiredError = requiredField.filter(key => data[key] === undefined).map(value => `${value} is required`);
+    if (requiredError.length !== 0) {
+      callbk(requiredError, null);
+      return;
+    }
     const {
       amount, accountNumber, depositor, cashierId,
     } = data;
@@ -106,7 +112,7 @@ exports.getAllAccountsByOwnerid = async (data, callbk) => {
     callbk({ message: "Forbidden", code: 403 }, null);
     return;
   } catch (err) {
-    callbk({ message: err.message.replace(/[^\w|\s]/g, "") }, null);
+    callbk({ message: err.message }, null);
   }
 };
 
@@ -116,7 +122,7 @@ exports.getAllAccounts = async ({ startDate, endDate, status }, callbk) => {
     const account = await databaseController.getAllAccount([startDate, endDate, status]);
     callbk(null, account);
   } catch (err) {
-    callbk({ message: err.message.replace(/[^\w|\s]/g, "") }, null);
+    callbk({ message: err.message }, null);
   }
 };
 

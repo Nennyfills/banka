@@ -1,8 +1,8 @@
-// import { nodemailer } from "nodemailer";
-const env = require("dotenv");
+import { nodemailer } from "nodemailer";
+// const env = require("dotenv");
 
-// import env from "dotenv";
-const nodemailer = require("nodemailer");
+import env from "dotenv";
+// const nodemailer = require("nodemailer");
 
 env.config();
 
@@ -15,10 +15,15 @@ const transporter = nodemailer.createTransport({
 });
 
 const mailOptions = {
-  from: "nennydike@gmail.com",
-  to: "nennyfills@yahoo.com, nennydike@gmail.com",
-  subject: "Sending Email using Node.js",
-  text: "hi",
+  from: "BANKA<noreply-banka>",
+  to: `${}`,
+  subject: "Alert",
+  text: `Acct: 300***${}
+         Date: ${}
+         Bal: ${}
+         ${}
+         `,
+  html: ``
 };
 
 transporter.sendMail(mailOptions, (error, info) => {

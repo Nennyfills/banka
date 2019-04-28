@@ -21,9 +21,9 @@ router.post("/auth/login", Validation.login, UserController.login);
 // reset password routers for all users
 router.post("/resetpassword", UserController.resetPassword);
 // get user profile Image
-router.get("/profilepic", UserController.login);
+router.get("/profileimage", middleware.authorized, UserController.getProfileImage);
 // update profile image
-router.put("/profilepic/save", UserController.login);
+router.put("/profileimage/save", middleware.authorized, UserController.login);
 // create bank accounts router *for users only
 router.post("/accounts", middleware.authorized, middleware.clientAuthentication, UserController.createUserAccount);
 
@@ -32,8 +32,8 @@ router.post("/accounts", middleware.authorized, middleware.clientAuthentication,
 //  deactivate and activate account router * for admins only
 router.patch("/:accountnumber", middleware.authorized, middleware.adminAuthentication, AccountController.toggleAccountStatus);
 // credit and debit user account routers *for staff only
-router.post("/:accountnumber/credit", middleware.authorized, middleware.staffAuthentication, Validation.creditAndDebit, AccountController.credit);
-router.post("/:accountnumber/debit", middleware.authorized, middleware.staffAuthentication, Validation.creditAndDebit, AccountController.debit);
+router.post("/:accountnumber/credit", middleware.authorized, middleware.staffAuthentication, Validation.credit, AccountController.credit);
+router.post("/:accountnumber/debit", middleware.authorized, middleware.staffAuthentication, Validation.debit, AccountController.debit);
 // delete account router * for both staff and admin
 router.delete("/accounts/:accountnumber", middleware.authorized, middleware.isAdminAuthentication, AccountController.delete);
 // get all account router * for both staff and admin
@@ -56,6 +56,6 @@ router.get("/:accountnumber/transactions", middleware.authorized, middleware.isA
 //  get transactions by id
 router.get("/transactions/:transactionId", middleware.authorized, TransactionsController.transactionById);
 //  get transactions by date
-router.get("/transactions?startDate&endDate", middleware.authorized, TransactionsController.viewAccountDate);
+// router.get("/transactions?startDate&endDate", middleware.authorized, TransactionsController.viewAllTransaction);
 
 export default router;

@@ -3,11 +3,10 @@ import Transaction from "../database/models/transactions";
 
 
 /**
-  *
-  * @param {*} req
-  * @param {*} res
-  */
-
+*
+* @param {bject} req.params get accountnumber from req.params to get all transaction on one account;
+* @param {bject} res reponspond with an error message on failure status code or return data on success;
+*/
 
 class TransactionsController {
   static transactionByAccount(req, res) {
@@ -20,7 +19,6 @@ class TransactionsController {
         });
         return;
       }
-      // stop early
       res.status(200).json({
         status: 200,
         message: "Request was successfully",
@@ -29,10 +27,10 @@ class TransactionsController {
     });
   }
 
-/**
+  /**
 *
-* @param {*} req
-* @param {*} res
+* @param {bject} req.params get transaction Id from req.params to get specify transaction by id;
+* @param {bject} res reponspond with an error message on failure status code or return data on success;
 */
 
   static transactionById(req, res) {
@@ -45,7 +43,6 @@ class TransactionsController {
         });
         return;
       }
-      // stop early
       res.status(200).json({
         status: 200,
         message: "Request was successfully",
@@ -54,15 +51,15 @@ class TransactionsController {
     });
   }
 
-/**
+  /**
 *
-* @param {*} req
-* @param {*} res
+* @param {bject} req.query get startDate, endDate, from req.query to aid serach transaction by date;
+* @param {bject} res reponspond with an error message on failure status code or return data on success;
 */
 
-  static viewAccountDate(req, res) {
+  static viewTransactionByDate(req, res) {
     const { startDate, endDate } = req.query;
-    Transaction.findTransactionByDate({ startDate, endDate, req }, (err, data) => {
+    Transaction.findTransactionByDate({ startDate, endDate }, (err, data) => {
       if (err) {
         res.status(404).json({
           status: 404,

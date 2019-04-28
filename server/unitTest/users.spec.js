@@ -7,15 +7,15 @@ import app from "../app";
 chai.use(chaiHttp);
 
 describe("User signup", () => {
-  it("should not register a new user with duplicate key value", (done) => {
+  it("should register a new user if email already exist", (done) => {
     const payload = {
       email: "dannyoy@gmail.com",
       firstName: "Joy",
       surname: "Fills",
-      password: "love",
+      password: "Love4@me",
       isAdmin: "false",
       type: "USER",
-      phonenumber: "08065834323",
+      phonenumber: "080695834323",
     };
 
     chai.request(app)
@@ -24,12 +24,6 @@ describe("User signup", () => {
       .end((err, res) => {
         expect(res).to.have.status(400);
         done();
-        // expect(res.body.data.surname).to.equal(payload.surname);
-        // expect(res.body.data.firstName).to.equal(payload.firstName);
-        // expect(res.body.data.phonenumber).to.equal(payload.phonenumber);
-        // expect(res.body.data.type).to.equal(payload.type);
-        // expect(res.body.data.isAdmin).to.equal(false);
-        // expect(res.body.data).to.have.property("password");
       });
   });
   it("should not register a new user once required parameters are missing", (done) => {
@@ -79,12 +73,6 @@ describe("User signup", () => {
         .end((err, res) => {
           expect(res).to.have.status(400);
           done();
-          // expect(res.body.data.email).to.equal("danny@gmail.com");
-          // expect(res.body.data.accountnumber).to.equal(payload.body.accountNumber);
-          // expect(res.body.data.status).to.have.property("status");
-          // expect(res.body.data).to.have.property("id");
-          // expect(res.body.data).to.have.property("openingbalance");
-          // expect(res.body.data).to.have.property("type");        });
         });
     });
     it("should not create a new account when the parameters are not given", (done) => {
@@ -120,6 +108,7 @@ describe("User signup", () => {
   });
   describe("Admin controller", () => {
     let token;
+    let payload;
     beforeEach(() => {
       token = `Bearer ${jwt.sign({
         type: "ADMIN",
@@ -127,49 +116,69 @@ describe("User signup", () => {
       },
       process.env.SECRET_KEY,
       { expiresIn: "7d" })}`;
-    });
-    it("should not create staff or admin if required parameter are missing", (done) => {
-      const payload = {
+
+      payload = {
         email: "strip@gmail.com",
         firstName: "Joy",
         surname: "dills",
-        password: "love",
+        password: "Love12$3",
         isAdmin: "true",
         type: "STAFF",
         phonenumber: "0908767546",
       };
-
+    });
+    it("should not create staff or admin if required parameter are missing", (done) => {
       chai.request(app)
-        .post("/api/v1/auth/admin-portal")
+        .post("/api/v1/auth/portal")
         .set("Authorization", token)
         .send(payload)
         .end((err, res) => {
           expect(res).to.have.status(400);
-          // expect(res.body.email).to.equal(payload.email);
-          // expect(res.body.surname).to.equal(payload.surname);
-          // expect(res.body.firstName).to.equal(payload.firstName);
-          // expect(res.body.phonenumber).to.equal(payload.phonenumber);
-          // expect(res.body.type).to.equal(payload.type);
-          // expect(res.body.isAdmin).to.equal(true);
-          // expect(res.body).to.have.property("id");
           done();
         });
-      it(" Should not create account with duplicate key value", () => {
-        chai.request(app)
-          .post("/api/v1/auth/admin-portal")
-          .set("Authorization", token)
-          .send(payload)
-          .end((err, res) => {
-            expect(res).to.have.status(400);
-            expect(res.body.message).to.equal("duplicate key value violates unique constraint users_pkey");
-            done();
-          });
-      });
+    });
+    it(" Should get authorized if user not admin", (done) => {
+      token = `Bearer ${jwt.sign({
+        type: "STAFF",
+        email: "admin01@gmail.com",
+      },
+      process.env.SECRET_KEY,
+      { expiresIn: "7d" })}`;
+
+      chai.request(app)
+        .post("/api/v1/auth/portal")
+        .set("Authorization", token)
+        .send(payload)
+        .end((err, res) => {
+          expect(res).to.have.status(400);
+          done();
+        });
+    });
+    it("should get not found if current user not admin", (done) => {
+      chai.request(app)
+        .post("/api/v1/auth/portal")
+        .set("Authorization", null)
+        .send({})
+        .end((err, res) => {
+          expect(res).to.have.status(404);
+          done();
+        });
+    });
+    it(" Should not create account with duplicate key value", (done) => {
+      chai.request(app)
+        .post("/api/v1/auth/portal")
+        .set("Authorization", token)
+        .send(payload)
+        .end((err, res) => {
+          expect(res).to.have.status(400);
+          done();
+        });
     });
     it("should not create account if duplicated key value are found", (done) => {
+      const wrongToken = "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkbWluMDJAZ21haWwuY29tIiwicGVybWlzc2lvbiI6IkFETUlOIiwiaWQiOjEzLCJpc0FkbWluIjp0cnVlLCJpYXQiOjE1NTY0MzQ3NjIsImV4cCI6MTU1NzAzOTU2Mn0.tgSQiQ4swbF0Ih0NH5G3lJoJ-1FLJf_eR6JJbV_5ASs";
       chai.request(app)
-        .post("/api/v1/auth/admin-portal")
-        .set("Authorization", token)
+        .post("/api/v1/auth/portal")
+        .set("Authorization", wrongToken)
         .send()
         .end((err, res) => {
           expect(res).to.have.status(400);
@@ -183,7 +192,7 @@ describe("User signup", () => {
 
       it("should log in a user with correct email and password", (done) => {
         chai.request(app).post(endpoint)
-          .send({ email: "canny@gmail.com", password: "love" })
+          .send({ email: "danny@gmail.com", password: "love" })
           .end((err, res) => {
             expect(res).to.have.status(200);
             expect(res.body).to.have.property("token");
@@ -194,12 +203,21 @@ describe("User signup", () => {
       it("should not login a user with wrong email and password", (done) => {
         chai.request(app)
           .post(endpoint)
-          .send({ email: "mark@hotmail.com", password: "love2" })
+          .send({ email: "danny0@gmil.com", password: "love56" })
           .end((err, res) => {
             expect(res).to.have.status(400);
             done();
           });
       });
+    });
+    it("should not change password if not an exiting users", (done) => {
+      chai.request(app)
+        .get("/api/v1/profileimage")
+        .send({ email: "danny56@gmil.com", password: "loO(8ve56" })
+        .end((err, res) => {
+          expect(res).to.have.status(401);
+          done();
+        });
     });
   });
 });

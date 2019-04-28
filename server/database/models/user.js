@@ -1,15 +1,20 @@
 import jwt from "jsonwebtoken";
 import bcrypt from "bcryptjs";
 import env from "dotenv";
-import DbControllers from "../dbControllers";
 import databaseController from "../database";
-import Validation from "../../middleware/validation"
+import Validation from "../../middleware/validation";
 
 env.config();
 
 
 exports.userLogin = async (data, callbck) => {
   try {
+    const requiredField = ["email", "password"];
+    const requiredError = requiredField.filter(key => data[key] === undefined).map(value => `${value} is required`);
+    if (requiredError.length !== 0) {
+      callbck(requiredError, null);
+      return;
+    }
     const user = await databaseController.findUserByEmail(data.email);
     if (!user) {
       callbck({ message: "User does not exist, Please signup" }, null);
@@ -34,9 +39,10 @@ exports.userLogin = async (data, callbck) => {
       callbck(null, token);
     });
   } catch (err) {
-    callbck({ message: err.message.replace(/[^\w|\s]/g, "") }, null);
+    callbck({ message: err.message }, null);
   }
 };
+
 exports.createStaffAdmin = async (data, callbk) => {
   try {
     const {
@@ -57,7 +63,7 @@ exports.createStaffAdmin = async (data, callbk) => {
     const newuser = await databaseController.addUser(values);
     callbk(null, { newuser });
   } catch (err) {
-    callbk({ message: err.message.replace(/[^\w|\s]/g, "") }, null);
+    callbk({ message: err.message }, null);
   }
 };
 
@@ -104,10 +110,16 @@ exports.createSignup = async (data, callbk) => {
 
 exports.createUserAccount = async (data, callbk) => {
   try {
+    const requiredField = ["openingbalance", "email", "type"];
+    const requiredError = requiredField.filter(key => data[key] === undefined).map(value => `${value} is required`);
+    if (requiredError.length !== 0) {
+      callbk(requiredError, null);
+      return;
+    }
     const {
       type, email, openingbalance,
     } = data;
-    const accountNumber = DbControllers.generateAccountNumber();
+    const accountNumber = databaseController.generateAccountNumber();
     const status = "active";
     const permission = "savings" || "current";
     permission.toLowerCase();
@@ -127,9 +139,13 @@ exports.createUserAccount = async (data, callbk) => {
 
 exports.Password = async (data, callbk) => {
   try {
+    const requiredField = ["password", "email"];
+    const requiredError = requiredField.filter(key => data[key] === undefined).map(value => `${value} is required`);
+    if (requiredError.length !== 0) {
+      callbk(requiredError, null);
+      return;
+    }
     const { password, email } = data;
-    console.log(email, password);
-
     const user = await databaseController.findUserByEmail(email);
     if (!user) {
       callbk({ message: "User does not exist, Password can not be changed" }, null);
@@ -137,14 +153,37 @@ exports.Password = async (data, callbk) => {
     }
     const isValidated = Validation.checkPassword(password);
     if (!isValidated) {
-      callbk("Password is required(should be longer than 8 character, Include UpperCase letter, Include a number/special charaters.)", null); return;}
-      console.log(isValidated);
-      
+      callbk("Password should be more than 8 character, Include UpperCase letter, Include a number/special charaters.", null); return;
+    }
     const hash = bcrypt.hashSync(password, 10);
     const newPassword = hash;
     await databaseController.updatePassword({ newPassword, email });
     callbk(null, "password changed");
   } catch (err) {
-    callbk({ message: err.message.replace(/[^\w|\s]/g, "") }, null);
+    callbk({ message: err.message }, null);
+  }
+};
+
+exports.GetImage = async (data, callbk) => {
+  try {
+    const { currentUser } = data;
+    if (!currentUser) { callbk({ message: "Forbidden", err: 403 }, null); return; }
+    const user = await databaseController.findUserByEmail(currentUser.email);
+    const result = await databaseController.getImage(user.imageurl);
+    callbk(null, { data: result });
+  } catch (err) {
+    callbk({ message: err.message }, null);
+  }
+};
+
+exports.UpdateImage = async (data, callbk) => {
+  try {
+    const { currentUser, imageurl } = data;
+    if (!currentUser) { callbk({ message: "Forbidden", err: 403 }, null); return; }
+    const user = await databaseController.findUserByEmail(currentUser.email);
+    const result = await databaseController.updateImgurl(user.imageurl);
+    callbk(null, { data: result });
+  } catch (err) {
+    callbk({ message: err.message }, null);
   }
 };

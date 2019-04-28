@@ -2,10 +2,10 @@
 import User from "../database/models/user";
 
 class UserController {
-  /**
+/**
 *
-* @param {*} req
-* @param {*} res
+* @param {bject} req email, firstName, surname, password, phonenumber, type, from the body for user signup;
+* @param {bject} res reponspond with an error message on failure exstatus code or return data on success;
 */
   static signup(req, res) {
     const {
@@ -19,13 +19,12 @@ class UserController {
       phonenumber,
     }, (err, data) => {
       if (err) {
-        res.status(409).json({
-          status: 409,
+        return res.status(400).json({
+          status: 400,
           message: err.message,
         });
-        return;
       }
-      res.status(201).json({
+      return res.status(201).json({
         status: 201,
         message: "account created",
         data,
@@ -33,11 +32,12 @@ class UserController {
     });
   }
 
+
   /**
-   *
-   * @param {*} req
-   * @param {*} res
-   */
+*
+* @param {bject} req email, type, openingbalance from the body for ctreating bank account;
+* @param {bject} res reponspond with an error message on failure exstatus code or return data on success;
+*/
 
   static createUserAccount(req, res) {
     const {
@@ -52,14 +52,12 @@ class UserController {
       email,
     }, (err, data) => {
       if (err) {
-        res.status(400).json({
+        return res.status(400).json({
           status: 400,
-          message: err.message,
+          message: err,
         });
-        return;
       }
-      // stop early
-      res.status(201).json({
+      return res.status(201).json({
         status: 201,
         message: "Account created",
         data,
@@ -70,8 +68,8 @@ class UserController {
 
   /**
 *
-* @param {*} req
-* @param {*} res
+* @param {bject} req email, firstName, surname, password, phonenumber, type, from the body for ctreating admin account;
+* @param {bject} res reponspond with an error message on failure exstatus code or return data on success;
 */
 
 
@@ -79,7 +77,7 @@ class UserController {
     const {
       email, firstName, surname, password, phonenumber, type,
     } = req.body;
-    // type.toUpperCase();
+    type.toUpperCase();
     User.createStaffAdmin({
       email,
       firstName,
@@ -91,9 +89,9 @@ class UserController {
       if (err) {
         res.status(400).json({
           status: 400,
-          message: err.message,
+          message: "Bad request",
         });
-        return; // stop early
+        return;
       }
 
       res.status(201).json({
@@ -112,6 +110,7 @@ class UserController {
 
   static login(req, res) {
     const { email, password } = req.body;
+
     User.userLogin({ email, password }, (err, data) => {
       if (err) {
         res.status(400).json({
@@ -149,6 +148,56 @@ class UserController {
         status: 200,
         message: "Password successfully changed",
         data,
+      });
+    });
+  }
+
+
+  /**
+*
+* @param {object} req to get the current user;
+* @param {object} res reponspond with an error message on failure or return data on success;
+
+*/
+
+  static getProfileImage(req, res) {
+    User.GetImage(req, (err, data) => {
+      if (err) {
+        res.status(400).json({
+          status: 400,
+          message: err,
+        });
+        return;
+      }
+      res.status(200).json({
+        status: 200,
+        message: "Request successful",
+        data: data.data,
+      });
+    });
+  }
+
+  /**
+*
+* @param {object} req imageurl to update the user and req to get the current user;
+* @param {object} res reponspond with an error message on failure or return data on success;
+
+*/
+
+  static UpdateProfileImage(req, res) {
+    const { imageurl } = req.body;
+    User.UpdateImage({ req, imageurl }, (err, data) => {
+      if (err) {
+        res.status(400).json({
+          status: 400,
+          message: err,
+        });
+        return;
+      }
+      res.status(200).json({
+        status: 200,
+        message: "Request successful",
+        data: data.data,
       });
     });
   }

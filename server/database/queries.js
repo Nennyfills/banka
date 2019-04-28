@@ -20,6 +20,10 @@ export default {
     text: "SELECT * FROM  users WHERE id = $1",
     values,
   }),
+  GET_IMAGE: values => ({
+    text: "SELECT * FROM  users WHERE imageurl = $1",
+    values,
+  }),
   GET_ACCOUNT_BY_OWNERID: values => ({
     text: "SELECT * FROM  account WHERE ownerid = $1",
     values,
@@ -56,12 +60,16 @@ export default {
     text: "UPDATE users SET password=($1) WHERE email=($2) RETURNING *;",
     values,
   }),
+  UPDATE_IMAGE: values => ({
+    text: "UPDATE users SET imageurl=($1) WHERE email=($2) RETURNING *;",
+    values,
+  }),
   DELETE_ACCOUNT: values => ({
     text: "DELETE FROM account WHERE accountNumber=($1) RETURNING *;",
     values,
   }),
   SEARCH_BY_TRANSACTION_DATE: values => ({
-    text: "SELECT * FROM transaction WHERE (createdat >= $1::date or $1 is null) AND (createdat <= $2::date  + '1 day'::interval or $2 is null);",
+    text: "SELECT * FROM transaction WHERE (createdat >= $1::date or $1 is null) AND (createdat <= $2::date  + '1 day'::interval or $2 is null)",
     values,
   }),
 
