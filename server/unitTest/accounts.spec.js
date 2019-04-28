@@ -131,7 +131,7 @@ describe("Staff controller", () => {
         .set("Authorization", token)
         .send(payload.body)
         .end((err, res) => {
-          expect(res).to.have.status(409);
+          expect(res).to.have.status(400);
           done();
         });
     });
@@ -140,9 +140,7 @@ describe("Staff controller", () => {
       chai.request(app)
         .post(`/api/v1/${3008898}/credit`)
         .set("Authorization", token)
-        .send({
-          amount: 16896,
-        })
+        .send(payload.body)
         .end((err, res) => {
           expect(res).to.have.status(400);
           done();
@@ -176,7 +174,7 @@ describe("Staff controller", () => {
           .set("Authorization", token)
           .send(payload.body)
           .end((err, res) => {
-            expect(res).to.have.status(403);
+            expect(res).to.have.status(401);
             done();
           });
       });
@@ -185,9 +183,7 @@ describe("Staff controller", () => {
         chai.request(app)
           .post(`/api/v1/${3008898}/credit`)
           .set("Authorization", null)
-          .send({
-            amount: 16896,
-          })
+          .send(payload.body)
           .end((err, res) => {
             expect(res).to.have.status(404);
             done();
@@ -196,6 +192,14 @@ describe("Staff controller", () => {
     });
 
     describe("Debit", () => {
+      beforeEach(() => {
+        token = `Bearer ${jwt.sign({
+          type: "STAFF",
+          email: "staff01@gmail.com",
+        },
+        process.env.SECRET_KEY,
+        { expiresIn: "7d" })}`;
+      });
       const endpoint = `/api/v1/${3008180416}/debit`;
       const payload = {
         json: true,
@@ -210,20 +214,20 @@ describe("Staff controller", () => {
           .set("Authorization", token)
           .send(payload.body)
           .end((err, res) => {
-            expect(res.body.message).to.equal(undefined);
+            expect(res.body.message).to.equal("Account Dormant");
             done();
           });
       });
-      it("should Debit a user if Depositor is Required", (done) => {
+
+      it("should debit a user if all parameters are correct", (done) => {
         chai.request(app)
-          .post(`/api/v1/${30089987}/credit`)
+          .post(`/api/v1/${3008622723}/debit`)
           .set("Authorization", token)
           .send({
-            amount: 1000,
+            amount: 500,
           })
           .end((err, res) => {
-            expect(res).to.have.status(403);
-            expect(res.body.message).to.equal(undefined);
+            expect(res).to.have.status(200);
             done();
           });
       });
