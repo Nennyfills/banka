@@ -2,10 +2,10 @@ import Account from "../database/models/accounts";
 
 
 class AccountController {
-  /**
-*
-* @param {*} req
-* @param {*} res
+/**
+ * @param {bject} req.params get accountnumber from params and cashierId from currentUser;
+* @param {bject} req.body get amount from req.body to debit a client
+* @param {bject} res reponspond with an error message on failure status code or return data on success;
 */
   static debit(req, res) {
     const { amount } = req.body;
@@ -31,9 +31,9 @@ class AccountController {
 
 
   /**
-*
-* @param {*} req
-* @param {*} res
+ * @param {bject} req.params get accountnumber from params, cashierId from currentUser;
+* @param {bject} req.body get amount and depositor  from req.body to credit a client
+* @param {bject} res reponspond with an error message on failure status code or return data on success;
 */
 
 
@@ -45,8 +45,8 @@ class AccountController {
       amount, cashierId, accountNumber, depositor,
     }, (error, data) => {
       if (error) {
-        res.status(error.code).json({
-          status: error.code,
+        res.status(400).json({
+          status: 400,
           message: error.message,
         });
         return;
@@ -61,8 +61,8 @@ class AccountController {
 
   /**
 *
-* @param {*} req
-* @param {*} res
+* @param {bject} req.params get accountnumber from params and return all deleted account;
+* @param {bject} res reponspond with an error message on failure status code or return data on success;
 */
 
 
@@ -86,8 +86,8 @@ class AccountController {
 
   /**
 *
-* @param {*} req
-* @param {*} res
+* @param {bject} req.params get accountnumber from params and return all specific account;
+* @param {bject} res reponspond with an error message on failure status code or return data on success;
 */
 
 
@@ -112,10 +112,9 @@ class AccountController {
 
   /**
 *
-* @param {*} req
-* @param {*} res
+* @param {object} req.query get all accounts, get account by status, startDate, endDate, from req.query;
+* @param {object} res reponspond with an error message on failure status code or return data on success;
 */
-
 
   static viewAllAccount(req, res) {
     const { status, startDate, endDate } = req.query;
@@ -139,10 +138,9 @@ class AccountController {
 
   /**
 *
-* @param {*} req
-* @param {*} res
+* @param {bject} req.params get all accounts by ower id;
+* @param {bject} res reponspond with an error message on failure status code or return data on success;
 */
-
   static accountsByOwnerId(req, res) {
     const userId = parseInt(req.params.ownerId, 10);
     Account.getAllAccountsByOwnerid({ userId, req }, (err, data) => {
@@ -165,10 +163,9 @@ class AccountController {
 
   /**
 *
-* @param {*} req
-* @param {*} res
+* @param {bject} req.params active and deactive all specific accounts by account number;
+* @param {bject} res reponspond with an error message on failure status code or return data on success;
 */
-
 
   static toggleAccountStatus(req, res) {
     const accountNumber = Number(req.params.accountnumber);
@@ -191,8 +188,8 @@ class AccountController {
 
   /**
 *
-* @param {*} req
-* @param {*} res
+* @param {bject} req.params get specific account by email;
+* @param {bject} res reponspond with an error message on failure status code or return data on success;
 */
 
 

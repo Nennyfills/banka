@@ -5,7 +5,7 @@ import pool from "./config";
 /**
  * @param s — A string to convert into a number.
     @param radix —
- *  @param {*} values
+ *  @param {Array} values from the query object.
  */
 ptype.setTypeParser(1700, val => parseInt(val, 10));
 
@@ -19,8 +19,19 @@ class databaseController {
     await pool.query(query);
   }
 
+  static generateAccountNumber() {
+    this.uniqueNumber = 300;
+    this.randomDigit = Math.ceil(Math.random() * 8879789);
+    return Number(`${this.uniqueNumber}${this.randomDigit}`);
+  }
+
   static async addUser(values) {
     const res = await pool.query(QUERY.ADD_USER(values));
+    return res.rows[0];
+  }
+
+  static async getImage(imageurl) {
+    const res = await pool.query(QUERY.GET_IMAGE([imageurl]));
     return res.rows[0];
   }
 
@@ -87,16 +98,15 @@ class databaseController {
     return res.rows[0];
   }
 
-  static async updatePassword({ newPassword, email }) {
-    const res = await pool.query(QUERY.UPDATE_PASSWORD([newPassword, email]));
-    // console.log(res);
-    
+  static async updateImgurl({ imageurl, email }) {
+    const res = await pool.query(QUERY.UPDATE_IMAGE([imageurl, email]));
     return res.rows[0];
   }
-  // static async getAccountbalance(accountbalance) {
-  //   const res = await pool.query(QUERY.GET_accountbalance([accountbalance]));
-  //   return res.rows[0];
-  // }
+
+  static async updatePassword({ newPassword, email }) {
+    const res = await pool.query(QUERY.UPDATE_PASSWORD([newPassword, email]));
+    return res.rows[0];
+  }
 
   static async saveAccount({
     accountNumber, email, openingbalance, type, status,
@@ -121,8 +131,8 @@ class databaseController {
     return res.rows[0];
   }
 
-  static async searchTansactionByDate({ from, to }) {
-    const res = await pool.query(QUERY.GET_ACCOUNT_BY_STATUS([from, to]));
+  static async getAllTansaction(values) {
+    const res = await pool.query(QUERY.GET_ALL_ACCOUNT(values));
     return res.rows;
   }
 }

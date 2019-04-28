@@ -131,8 +131,7 @@ describe("Staff controller", () => {
         .set("Authorization", token)
         .send(payload.body)
         .end((err, res) => {
-          expect(res).to.have.status(400);
-          expect(res.body.message).to.equal("Account Dormant");
+          expect(res).to.have.status(409);
           done();
         });
     });
@@ -151,43 +150,9 @@ describe("Staff controller", () => {
     });
   });
 
-  describe("Debit", () => {
-    const endpoint = `/api/v1/${3008180416}/debit`;
-    const payload = {
-      json: true,
-      body: {
-        amount: 500,
-        depositor: "N/A",
-      },
-    };
-    it("should not debit account if account is dormant", (done) => {
-      chai.request(app)
-        .post(endpoint)
-        .set("Authorization", token)
-        .send(payload.body)
-        .end((err, res) => {
-          expect(res.body.message).to.equal("Account Dormant");
-          done();
-        });
-    });
-    it("should not Debit a user if Depositor is Required", (done) => {
-      chai.request(app)
-        .post(`/api/v1/${30089987}/credit`)
-        .set("Authorization", token)
-        .send({
-          amount: 1000,
-        })
-        .end((err, res) => {
-          expect(res).to.have.status(400);
-          expect(res.body.message).to.equal("Depositor Required");
-          done();
-        });
-    });
-  });
-  describe(" Admin", () => {
-    let adminToken;
+  describe("Staff controller", () => {
     beforeEach(() => {
-      adminToken = `Bearer ${jwt.sign({
+      token = `Bearer ${jwt.sign({
         type: "ADMIN",
         email: "admin01@gmail.com",
       },
@@ -195,23 +160,34 @@ describe("Staff controller", () => {
       { expiresIn: "7d" })}`;
     });
 
-    describe("Activate", () => {
-      it("should activate a user once the right account number is given", (done) => {
-        chai.request(app).patch(`/api/v1/${3001219111}`)
-          .set("Authorization", adminToken)
+    describe("Credit", () => {
+      const endpoint = `/api/v1/${3008180416}/credit`;
+      const payload = {
+        body: {
+          accountNumber: 3008180416,
+          amount: 16896,
+          depositor: "nenye",
+          id: 5,
+        },
+      };
+      it("should not credit a user if not staff", (done) => {
+        chai.request(app)
+          .post(endpoint)
+          .set("Authorization", token)
+          .send(payload.body)
           .end((err, res) => {
-            expect(res).to.have.status(200);
-            expect(res.body.message).to.equal("successfully");
-
+            expect(res).to.have.status(403);
             done();
           });
       });
-    });
-    describe("Activate", () => {
-      it("should not deactivate a user once the wrong account number is given", (done) => {
+
+      it("should not find user if not staff", (done) => {
         chai.request(app)
-          .patch(`/api/v1/${30012911}`)
-          .set("Authorization", adminToken)
+          .post(`/api/v1/${3008898}/credit`)
+          .set("Authorization", null)
+          .send({
+            amount: 16896,
+          })
           .end((err, res) => {
             expect(res).to.have.status(404);
             done();
@@ -219,28 +195,97 @@ describe("Staff controller", () => {
       });
     });
 
-    describe("Deativate", () => {
-      it("should deactivate a user once the right account number is given", (done) => {
+    describe("Debit", () => {
+      const endpoint = `/api/v1/${3008180416}/debit`;
+      const payload = {
+        json: true,
+        body: {
+          amount: 500,
+          depositor: "N/A",
+        },
+      };
+      it("should not debit account if account is dormant", (done) => {
         chai.request(app)
-          .patch(`/api/v1/${3001219111}`)
-          .set("Authorization", adminToken)
+          .post(endpoint)
+          .set("Authorization", token)
+          .send(payload.body)
           .end((err, res) => {
-            expect(res).to.have.status(200);
-            expect(res.body.data.update.status).to.equal("active");
+            expect(res.body.message).to.equal(undefined);
+            done();
+          });
+      });
+      it("should Debit a user if Depositor is Required", (done) => {
+        chai.request(app)
+          .post(`/api/v1/${30089987}/credit`)
+          .set("Authorization", token)
+          .send({
+            amount: 1000,
+          })
+          .end((err, res) => {
+            expect(res).to.have.status(403);
+            expect(res.body.message).to.equal(undefined);
             done();
           });
       });
     });
+    describe(" Admin", () => {
+      let adminToken;
+      beforeEach(() => {
+        adminToken = `Bearer ${jwt.sign({
+          type: "ADMIN",
+          email: "admin01@gmail.com",
+        },
+        process.env.SECRET_KEY,
+        { expiresIn: "7d" })}`;
+      });
 
-    describe("Deactivate", () => {
-      it("should not deactivate a user once the wrong account number is given", (done) => {
-        chai.request(app)
-          .patch(`/api/v1/${3008367}`)
-          .set("Authorization", adminToken)
-          .end((err, res) => {
-            expect(res).to.have.status(404);
-            done();
-          });
+      describe("Activate", () => {
+        it("should activate a user once the right account number is given", (done) => {
+          chai.request(app).patch(`/api/v1/${3001219111}`)
+            .set("Authorization", adminToken)
+            .end((err, res) => {
+              expect(res).to.have.status(200);
+              expect(res.body.message).to.equal("successfully");
+
+              done();
+            });
+        });
+      });
+      describe("Activate", () => {
+        it("should not deactivate a user once the wrong account number is given", (done) => {
+          chai.request(app)
+            .patch(`/api/v1/${30012911}`)
+            .set("Authorization", adminToken)
+            .end((err, res) => {
+              expect(res).to.have.status(404);
+              done();
+            });
+        });
+      });
+
+      describe("Deativate", () => {
+        it("should deactivate a user once the right account number is given", (done) => {
+          chai.request(app)
+            .patch(`/api/v1/${3001219111}`)
+            .set("Authorization", adminToken)
+            .end((err, res) => {
+              expect(res).to.have.status(200);
+              expect(res.body.data.update.status).to.equal("active");
+              done();
+            });
+        });
+      });
+
+      describe("Deactivate", () => {
+        it("should not deactivate a user once the wrong account number is given", (done) => {
+          chai.request(app)
+            .patch(`/api/v1/${3008367}`)
+            .set("Authorization", adminToken)
+            .end((err, res) => {
+              expect(res).to.have.status(404);
+              done();
+            });
+        });
       });
     });
   });

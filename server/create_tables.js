@@ -28,28 +28,15 @@ CREATE TABLE IF NOT EXISTS
          );
 
 
-CREATE TABLE IF NOT EXISTS
-     transaction(
-        id SERIAL PRIMARY KEY,
-        accountNumber BIGINT REFERENCES account(accountNumber) ON DELETE CASCADE,
-        amount FLOAT NOT NULL,
-        cashier INTEGER  NOT NULL REFERENCES  users(id) ON DELETE CASCADE,
-        depositor VARCHAR(10),
-        type VARCHAR(10) NOT NULL,
-        oldBalance FLOAT, 
-        newBalance FLOAT, 
-        createdAt TIMESTAMPTZ
-);
-
 DELETE FROM users;
 DELETE FROM account;
 DELETE FROM transaction;
 
-INSERT INTO  users(id, permission, firstName, surname, phonenumber, email, password, isAdmin)
-VALUES(1,	'USER',	'Danny',	'Dike',	'080787879697',	'danny@gmail.com',	'$2a$10$CIvipwNLDRvnCOj.SCRGcu5p82RoDJdImGGN / 65DHXx2 / YwEsgms2',	false),
-(3,	'USER',	'Canny',	'Rike',	'080787879695',	'canny@gmail.com',	'$2a$10$3uK5se63KpaqyvbLWIbsBuobZP6IuqgmsHn5MVxtJkZ04LAy2J1Ja',	false),
-(4,	'ADMIN',	'Panny',	'Sunday',	'080787879690',	'admin01@gmail.com',	'$2a$10$Cu6AEdxxfuDQqH6.MF / M1OKIlxYFWL2BIon.xZut7jkEIyosAef7K',	true),
-(5,	'STAFF',	'Rose',	'Peter',	'080787877690',	'staff01@gmail.com',	'$2a$10$1lj4R1R.YPCORSQWXbonI.aIGoHEZbvt1xuQLqsL64Dw7Z / 1uOQhm',	true);
+INSERT INTO users(id, permission, firstName, surname, phonenumber, email, password, isAdmin)
+VALUES(1, 'USER','Danny','Dike','080787879697', 'danny@gmail.com', '$2a$10$3uK5se63KpaqyvbLWIbsBuobZP6IuqgmsHn5MVxtJkZ04LAy2J1Ja', false), 
+(3, 'USER', 'Canny', 'Rike', '080787879695', 'canny@gmail.com', '$2a$10$3uK5se63KpaqyvbLWIbsBuobZP6IuqgmsHn5MVxtJkZ04LAy2J1Ja', false),
+(4, 'ADMIN', 'Panny', 'Sunday', '080787879690', 'admin01@gmail.com', '$2a$10$Cu6AEdxxfuDQqH6.MF / M1OKIlxYFWL2BIon.xZut7jkEIyosAef7K', true), 
+(5, 'STAFF', 'Rose', 'Peter', '080787877690', 'staff01@gmail.com', '$2a$10$1lj4R1R.YPCORSQWXbonI.aIGoHEZbvt1xuQLqsL64Dw7Z / 1uOQhm', true);
 
 INSERT INTO account(id, ownerId, accountNumber, email, balance, type, status, createdAt)
 VALUES(3,1,3007405577,'danny@gmail.com',215690.09,'savings','dormant','2019-04-25 12:58:47 +0000'),

@@ -21,9 +21,9 @@ router.post("/auth/login", Validation.login, UserController.login);
 // reset password routers for all users
 router.post("/resetpassword", UserController.resetPassword);
 // get user profile Image
-router.get("/profilepic", UserController.login);
+router.get("/profileimage", middleware.authorized, UserController.getProfileImage);
 // update profile image
-router.put("/profilepic/save", UserController.login);
+router.put("/profileimage/save", middleware.authorized, UserController.login);
 // create bank accounts router *for users only
 router.post("/accounts", middleware.authorized, middleware.clientAuthentication, UserController.createUserAccount);
 
@@ -56,6 +56,6 @@ router.get("/:accountnumber/transactions", middleware.authorized, middleware.isA
 //  get transactions by id
 router.get("/transactions/:transactionId", middleware.authorized, TransactionsController.transactionById);
 //  get transactions by date
-router.get("/transactions?startDate&endDate", middleware.authorized, TransactionsController.viewAccountDate);
+// router.get("/transactions?startDate&endDate", middleware.authorized, TransactionsController.viewAllTransaction);
 
 export default router;
