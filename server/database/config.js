@@ -5,6 +5,7 @@ env.config();
 
 let pool = null;
 
+
 // if (process.env.NODE_ENV === "test") {
 //   pool = new Pool({
 //     database: process.env.DATABASETEST,
