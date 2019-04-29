@@ -212,7 +212,7 @@ describe("User signup", () => {
     });
     it("should not change password if not an exiting users", (done) => {
       chai.request(app)
-        .get("/api/v1/profileimage")
+        .get("/api/v1/resetpassword")
         .send({ email: "danny56@gmil.com", password: "loO(8ve56" })
         .end((err, res) => {
           expect(res).to.have.status(401);

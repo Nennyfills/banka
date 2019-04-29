@@ -17,8 +17,8 @@ CREATE TABLE IF NOT EXISTS
         email VARCHAR(20) NOT NULL UNIQUE,
         password VARCHAR(300) NOT NULL,
         isAdmin BOOLEAN NOT NULL,
-        imageurl VARCHAR(350)
-      );
+        imageurl VARCHAR(450)
+         );
 
 CREATE TABLE IF NOT EXISTS
      account(

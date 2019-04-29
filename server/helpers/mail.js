@@ -4,27 +4,28 @@
 // import env from "dotenv";
 // // const nodemailer = require("nodemailer");
 
-// env.config();
+env.config();
+class Email(){
 
-// const transporter = nodemailer.createTransport({
-//   service: "gmail",
-//   auth: {
-//     user: process.env.GMAILERUSERNAME,
-//     pass: process.env.GMAILPASSWORD,
-//   },
-// });
+  static transporter = nodemailer.createTransport({
+    service: "gmail",
+    auth: {
+      user: process.env.GMAILERUSERNAME,
+      pass: process.env.GMAILPASSWORD,
+    },
+  });
+  
+  static mailOptions(){
+    
+    Email.transporter().sendMail(message,(err, info)=>{
+      if(err){
+        return err;
+      }
+      return "success";
+    })
+  };
+}
 
-// const mailOptions = {
-//   from: "BANKA<noreply-banka>",
-//   to: "nenny@gmail.com",
-//   subject: "Alert",
-//   text: `Acct: 300***${}
-//          Date: ${}
-//          Bal: ${}
-//          ${}
-//          `,
-//   html: ``
-// };
 
 // transporter.sendMail(mailOptions, (error, info) => {
 //   if (error) {

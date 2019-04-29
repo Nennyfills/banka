@@ -3,9 +3,21 @@ import env from "dotenv";
 
 env.config();
 
-const database = process.env.NODE_ENV === "test" ? process.env.DATABASETEST : process.env.PGDATABASE;
-const pool = new Pool({
-  database,
-});
+let pool = null;
+
+if (process.env.NODE_ENV === "test") {
+  pool = new Pool({
+    database: process.env.DATABASETEST,
+  });
+} else {
+  pool = new Pool({
+    database: process.env.HEROKUDB,
+    user: process.env.HEROKUUSER,
+    password: process.env.HEROKUPASSWORD,
+    port: process.env.HEROKUPORT,
+    host: process.env.HEROKUHOST,
+    ssl: true,
+  });
+}
 
 export default pool;
