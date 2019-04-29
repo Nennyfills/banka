@@ -112,7 +112,7 @@ exports.debit = (req, res, next) => {
 
 exports.credit = (req, res, next) => {
   const Schema = Joi.object().keys({
-    depositor: Joi.string().min(4).max(30).required(),
+    depositor: Joi.string().trim().min(4).max(30).required(),
     amount: Joi.number().positive().required(),
   });
   const response = Joi.validate(req.body, Schema, { allowUnknown: true });
