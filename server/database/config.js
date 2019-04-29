@@ -9,6 +9,11 @@ if (process.env.NODE_ENV === "test") {
   pool = new Pool({
     database: process.env.DATABASETEST,
   });
+  if (process.env.NODE_ENV === "production") {
+    pool = new Pool({
+      connectionString: process.env.DATABASE_URL,
+    });
+  }
 } else {
   pool = new Pool({
     database: process.env.DATABASE_URL,
