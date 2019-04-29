@@ -2,11 +2,11 @@
 import User from "../database/models/user";
 
 class UserController {
-/**
-*
-* @param {bject} req email, firstName, surname, password, phonenumber, type, from the body for user signup;
-* @param {bject} res reponspond with an error message on failure exstatus code or return data on success;
-*/
+  /**
+  *
+  * @param {bject} req email, firstName, surname, password, phonenumber, type, from the body for user signup;
+  * @param {bject} res reponspond with an error message on failure exstatus code or return data on success;
+  */
   static signup(req, res) {
     const {
       email, firstName, surname, password, phonenumber,
@@ -77,7 +77,6 @@ class UserController {
     const {
       email, firstName, surname, password, phonenumber, type,
     } = req.body;
-    type.toUpperCase();
     User.createStaffAdmin({
       email,
       firstName,
@@ -111,7 +110,8 @@ class UserController {
   static login(req, res) {
     const { email, password } = req.body;
 
-    User.userLogin({ email, password }, (err, { token, user }) => {
+    User.userLogin({ email, password }, (err, data ) => {
+
       if (err) {
         res.status(400).json({
           status: 400,
@@ -122,8 +122,8 @@ class UserController {
       res.status(200).json({
         status: 200,
         message: "Login successful",
-        token,
-        user,
+        data,
+
       });
     });
   }
