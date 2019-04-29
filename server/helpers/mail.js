@@ -1,34 +1,35 @@
 import { nodemailer } from "nodemailer";
-// const env = require("dotenv");
 
 import env from "dotenv";
-// const nodemailer = require("nodemailer");
 
 env.config();
 
-const transporter = nodemailer.createTransport({
-  service: "gmail",
-  auth: {
-    user: process.env.GMAILERUSERNAME,
-    pass: process.env.GMAILPASSWORD,
-  },
-});
-
-const mailOptions = {
-  from: "BANKA<noreply-banka>",
-  to: `${}`,
-  subject: "Alert",
-  text: `Acct: 300***${}
-         Date: ${}
-         Bal: ${}
-         ${}
-         `,
-  html: ``
-};
-
-transporter.sendMail(mailOptions, (error, info) => {
-  if (error) {
-    return error;
+class Email {
+  static transporter() {
+    return nodemailer.createTransport({
+      service: "gmail",
+      auth: {
+        user: process.env.GMAILERUSERNAME,
+        pass: process.env.GMAILPASSWORD,
+      },
+    });
   }
-  return (`Email sent: ${info.response}`);
-});
+
+  static mailOptions(message) {
+    Email.transporter().sendMail(message, (err, info) => {
+      if (err) {
+        return err;
+      }
+      return "success";
+    });
+  }
+}
+
+
+// transporter.sendMail(mailOptions, (error, info) => {
+//   if (error) {
+//     return error;
+//   }
+//   return (`Email sent: ${info.response}`);
+// });
+export default Email;
