@@ -2,11 +2,11 @@
 import User from "../database/models/user";
 
 class UserController {
-/**
-*
-* @param {bject} req email, firstName, surname, password, phonenumber, type, from the body for user signup;
-* @param {bject} res reponspond with an error message on failure exstatus code or return data on success;
-*/
+  /**
+  *
+  * @param {bject} req email, firstName, surname, password, phonenumber, type, from the body for user signup;
+  * @param {bject} res reponspond with an error message on failure exstatus code or return data on success;
+  */
   static signup(req, res) {
     const {
       email, firstName, surname, password, phonenumber,
