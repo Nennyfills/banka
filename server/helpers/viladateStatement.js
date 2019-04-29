@@ -36,7 +36,7 @@
 //       status,
 //       message: "Type is required and should not be longer than 6 character",
 //     });
-    
+
 //   }
 //   if (key === "firstName" || key === "surname") {
 //     return res.status(status).json({

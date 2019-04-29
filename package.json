@@ -6,10 +6,10 @@
   "scripts": {
     "build": "babel ./server -d build",
     "test": "nyc mocha build/unitTest/*.js --exit",
-    "devTest": "cross-env TEST_ENV=true babel-node server/create_tables.js && cross-env TEST_ENV=true nyc --require @babel/register  mocha server/unitTest --timeout 10000 --exit",
-    "singleTest": "cross-env TEST_ENV=true babel-node server/create_tables.js && cross-env TEST_ENV=true nyc --require @babel/register  mocha --timeout 10000 --exit",
+    "devTest": "cross-env NODE_ENV=test babel-node server/create_tables.js && cross-env NODE_ENV=test nyc mocha server/unitTest --timeout 10000 --exit",
+    "singleTest": "cross-env NODE_ENV=test babel-node server/create_tables.js && cross-env NODE_ENV=test nyc --reporter=html --reporter=lcov mocha --timeout 10000 --exit",
     "create": "node ./server/database/database.main.js",
-    "start":"rimraf dist/ && babel  ./server -d dist && node dist/app.js",
+    "start": "rimraf dist/ && babel  ./server -d dist && node dist/app.js",
     "start-node": "node ./build/app.js",
     "dev": "nodemon --exec babel-node server/app.js",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
@@ -19,7 +19,8 @@
     "require": [
       "@babel/register"
     ],
-    "sourceMap": false
+    "sourceMap": false,
+    "instrument": false
   },
   "engines": {
     "node": "v11.8.0"
@@ -52,6 +53,7 @@
     "request": "^2.88.0"
   },
   "devDependencies": {
+    "babel-plugin-istanbul": "^5.1.3",
     "coveralls": "^3.0.3",
     "eslint": "^5.16.0",
     "eslint-config-airbnb-base": "^13.1.0",

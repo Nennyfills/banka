@@ -111,7 +111,7 @@ class UserController {
   static login(req, res) {
     const { email, password } = req.body;
 
-    User.userLogin({ email, password }, (err, data) => {
+    User.userLogin({ email, password }, (err, { token, user }) => {
       if (err) {
         res.status(400).json({
           status: 400,
@@ -122,7 +122,8 @@ class UserController {
       res.status(200).json({
         status: 200,
         message: "Login successful",
-        token: data,
+        token,
+        user,
       });
     });
   }

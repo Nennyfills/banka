@@ -7,7 +7,7 @@ import app from "../app";
 chai.use(chaiHttp);
 
 describe("User signup", () => {
-  it("should register a new user withput duplicate key value", (done) => {
+  it("should register a new user if email already exist", (done) => {
     const payload = {
       email: "dannyoy@gmail.com",
       firstName: "Joy",
@@ -22,12 +22,7 @@ describe("User signup", () => {
       .post("/api/v1/auth/signup")
       .send(payload)
       .end((err, res) => {
-        console.log(res.body.data)
-        expect(res).to.have.status(201);
-        expect(res.body.data.surname).to.equal(payload.surname);
-        expect(res.body.data.firstname).to.equal(payload.firstName);
-        expect(res.body.data.phonenumber).to.equal(payload.phonenumber);
-        expect(res.body.data.isadmin).to.equal(false);
+        expect(res).to.have.status(400);
         done();
       });
   });
@@ -45,8 +40,7 @@ describe("User signup", () => {
       .post("/api/v1/auth/signup")
       .send(payload)
       .end((err, res) => {
-        console.log(res.body.data);
-        expect(res).to.have.status(409);
+        expect(res).to.have.status(400);
         done();
       });
   });
@@ -77,7 +71,6 @@ describe("User signup", () => {
         .set("Authorization", token)
         .send(payload.body)
         .end((err, res) => {
-          console.log(res.body.data);
           expect(res).to.have.status(400);
           done();
         });
@@ -88,7 +81,6 @@ describe("User signup", () => {
         .set("Authorization", token)
         .send({})
         .end((err, res) => {
-          console.log(res.body.data);     
           expect(res).to.have.status(400);
           done();
         });
@@ -116,6 +108,7 @@ describe("User signup", () => {
   });
   describe("Admin controller", () => {
     let token;
+    let payload;
     beforeEach(() => {
       token = `Bearer ${jwt.sign({
         type: "ADMIN",
@@ -123,48 +116,43 @@ describe("User signup", () => {
       },
       process.env.SECRET_KEY,
       { expiresIn: "7d" })}`;
-    });
-    it("should not create staff or admin if required parameter are missing", (done) => {
-      const payload = {
+
+      payload = {
         email: "strip@gmail.com",
         firstName: "Joy",
         surname: "dills",
-        password: "love",
+        password: "Love12$3",
         isAdmin: "true",
         type: "STAFF",
         phonenumber: "0908767546",
       };
+    });
+    it("should not create staff or admin if required parameter are missing", (done) => {
+      chai.request(app)
+        .post("/api/v1/auth/portal")
+        .set("Authorization", token)
+        .send(payload)
+        .end((err, res) => {
+          expect(res).to.have.status(400);
+          done();
+        });
+    });
+    it(" Should get authorized if user not admin", (done) => {
+      token = `Bearer ${jwt.sign({
+        type: "STAFF",
+        email: "admin01@gmail.com",
+      },
+      process.env.SECRET_KEY,
+      { expiresIn: "7d" })}`;
 
       chai.request(app)
         .post("/api/v1/auth/portal")
         .set("Authorization", token)
         .send(payload)
         .end((err, res) => {
-          console.log(res.body.data);
-          expect(res).to.have.status(409);
+          expect(res).to.have.status(400);
           done();
         });
-      let header;
-      beforeEach(() => {
-        header = `Bearer ${jwt.sign({
-          type: "STAFF",
-          email: "strip@gmail.com",
-        },
-        process.env.SECRET_KEY,
-          { expiresIn: "7d" })}`;
-      });
-      it.only(" Should get authorized if user not admin", () => {
-        chai.request(app)
-          .post("/api/v1/auth/portal")
-          .set("Authorization", header)
-          .send(payload)
-          .end((err, res) => {
-            console.log(res.body.data)
-            expect(res).to.have.status(400);
-            expect(res.body.message).to.equal("Firstname and surname is required  and must be an alphabet");
-            done();
-          });
-      });
     });
     it("should get not found if current user not admin", (done) => {
       chai.request(app)
@@ -172,32 +160,27 @@ describe("User signup", () => {
         .set("Authorization", null)
         .send({})
         .end((err, res) => {
-          console.log(res.body.data);
           expect(res).to.have.status(404);
           done();
         });
-      it(" Should not create account with duplicate key value", (done) => {
-        chai.request(app)
-          .post("/api/v1/auth/portal")
-          .set("Authorization", token)
-          .send(payload)
-          .end((err, res) => {
-            console.log(res.body.data)
-            expect(res).to.have.status(409);
-            expect(res.body.message).to.equal("Firstname and surname is required  and must be an alphabet");
-            done();
-          });
-      });
+    });
+    it(" Should not create account with duplicate key value", (done) => {
+      chai.request(app)
+        .post("/api/v1/auth/portal")
+        .set("Authorization", token)
+        .send(payload)
+        .end((err, res) => {
+          expect(res).to.have.status(400);
+          done();
+        });
     });
     it("should not create account if duplicated key value are found", (done) => {
-      const wrongToken = "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkbWluMDJAZ21haWwuY29tIiwicGVybWlzc2lvbiI6IkFETUlOIiwiaWQiOjEzLCJpc0FkbWluIjp0cnVlLCJpYXQiOjE1NTY0MzQ3NjIsImV4cCI6MTU1NzAzOTU2Mn0.tgSQiQ4swbF0Ih0NH5G3lJoJ-1FLJf_eR6JJbV_5ASs"
+      const wrongToken = "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkbWluMDJAZ21haWwuY29tIiwicGVybWlzc2lvbiI6IkFETUlOIiwiaWQiOjEzLCJpc0FkbWluIjp0cnVlLCJpYXQiOjE1NTY0MzQ3NjIsImV4cCI6MTU1NzAzOTU2Mn0.tgSQiQ4swbF0Ih0NH5G3lJoJ-1FLJf_eR6JJbV_5ASs";
       chai.request(app)
         .post("/api/v1/auth/portal")
         .set("Authorization", wrongToken)
         .send()
         .end((err, res) => {
-          console.log(res.body, err);
-          
           expect(res).to.have.status(400);
           done();
         });
@@ -211,7 +194,6 @@ describe("User signup", () => {
         chai.request(app).post(endpoint)
           .send({ email: "danny@gmail.com", password: "love" })
           .end((err, res) => {
-            console.log(res.body.data);
             expect(res).to.have.status(200);
             expect(res.body).to.have.property("token");
             done();
@@ -233,7 +215,6 @@ describe("User signup", () => {
         .get("/api/v1/profileimage")
         .send({ email: "danny56@gmil.com", password: "loO(8ve56" })
         .end((err, res) => {
-          console.log(res.body.data);
           expect(res).to.have.status(401);
           done();
         });

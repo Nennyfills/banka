@@ -46,7 +46,7 @@ const errorResponse = (response, res) => {
     },
   ];
   const { key } = response.error.details[0].context;
-  const status = 409;
+  const status = 400;
   const { message } = requiredFields.filter(item => item.key === key)[0];
 
   res.status(status).json({
@@ -77,7 +77,7 @@ exports.checkPassword = (password) => {
   return false;
 };
 
-exports.signUp = async (req, res, next) => {
+exports.signUp = (req, res, next) => {
   const Schema = Joi.object().keys(joyKeys);
   const response = Joi.validate(req.body, Schema, { allowUnknown: true });
   if (response.error) {
@@ -86,7 +86,7 @@ exports.signUp = async (req, res, next) => {
   next();
 };
 
-exports.adminCreate = async (req, res, next) => {
+exports.adminCreate = (req, res, next) => {
   const Schema = Joi.object().keys({
     ...joyKeys,
     type: Joi.string().regex(/^[a-zA-Z]*$/).min(3).max(6)
@@ -99,9 +99,20 @@ exports.adminCreate = async (req, res, next) => {
   next();
 };
 
-exports.creditAndDebit = async (req, res, next) => {
+exports.debit = (req, res, next) => {
   const Schema = Joi.object().keys({
-    depositor: Joi.string().min(7).max(30),
+    amount: Joi.number().positive().required(),
+  });
+  const response = Joi.validate(req.body, Schema, { allowUnknown: true });
+  if (response.error) {
+    return errorResponse(response, res);
+  }
+  next();
+};
+
+exports.credit = (req, res, next) => {
+  const Schema = Joi.object().keys({
+    depositor: Joi.string().min(4).max(30).required(),
     amount: Joi.number().positive().required(),
   });
   const response = Joi.validate(req.body, Schema, { allowUnknown: true });

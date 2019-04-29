@@ -3,7 +3,7 @@ import env from "dotenv";
 
 env.config();
 
-const database = process.env.TEST_ENV ? process.env.DATABASETEST : process.env.PGDATABASE;
+const database = process.env.NODE_ENV === "test" ? process.env.DATABASETEST : process.env.PGDATABASE;
 const pool = new Pool({
   database,
 });

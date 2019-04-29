@@ -32,8 +32,8 @@ router.post("/accounts", middleware.authorized, middleware.clientAuthentication,
 //  deactivate and activate account router * for admins only
 router.patch("/:accountnumber", middleware.authorized, middleware.adminAuthentication, AccountController.toggleAccountStatus);
 // credit and debit user account routers *for staff only
-router.post("/:accountnumber/credit", middleware.authorized, middleware.staffAuthentication, Validation.creditAndDebit, AccountController.credit);
-router.post("/:accountnumber/debit", middleware.authorized, middleware.staffAuthentication, Validation.creditAndDebit, AccountController.debit);
+router.post("/:accountnumber/credit", middleware.authorized, middleware.staffAuthentication, Validation.credit, AccountController.credit);
+router.post("/:accountnumber/debit", middleware.authorized, middleware.staffAuthentication, Validation.debit, AccountController.debit);
 // delete account router * for both staff and admin
 router.delete("/accounts/:accountnumber", middleware.authorized, middleware.isAdminAuthentication, AccountController.delete);
 // get all account router * for both staff and admin

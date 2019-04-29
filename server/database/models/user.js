@@ -36,7 +36,7 @@ exports.userLogin = async (data, callbck) => {
           expiresIn: "7d",
         },
       )}`;
-      callbck(null, token);
+      callbck(null, { token, user });
     });
   } catch (err) {
     callbck({ message: err.message }, null);
@@ -139,7 +139,7 @@ exports.createUserAccount = async (data, callbk) => {
 
 exports.Password = async (data, callbk) => {
   try {
-    const requiredField = [ "password", "email"];
+    const requiredField = ["password", "email"];
     const requiredError = requiredField.filter(key => data[key] === undefined).map(value => `${value} is required`);
     if (requiredError.length !== 0) {
       callbk(requiredError, null);

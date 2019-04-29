@@ -31,5 +31,6 @@ app.use("*", (req, res) => {
 
 
 app.listen(portal);
-module.exports = app;
+console.log(portal);
 
+module.exports = app;

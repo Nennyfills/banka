@@ -27,7 +27,7 @@ class TransactionsController {
     });
   }
 
-/**
+  /**
 *
 * @param {bject} req.params get transaction Id from req.params to get specify transaction by id;
 * @param {bject} res reponspond with an error message on failure status code or return data on success;
@@ -51,7 +51,7 @@ class TransactionsController {
     });
   }
 
-/**
+  /**
 *
 * @param {bject} req.query get startDate, endDate, from req.query to aid serach transaction by date;
 * @param {bject} res reponspond with an error message on failure status code or return data on success;
