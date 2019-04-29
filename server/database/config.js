@@ -11,7 +11,7 @@ if (process.env.NODE_ENV === "test") {
   });
 } else {
   pool = new Pool({
-    database: process.env.HEROKUDB,
+    database: process.env.DATABASE_URL,
     user: process.env.HEROKUUSER,
     password: process.env.HEROKUPASSWORD,
     port: process.env.HEROKUPORT,
