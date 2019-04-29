@@ -106,7 +106,7 @@ $ npm install or npm i will Start your node server and run the command below
 
 <th class="tg-yw4l">**Endpoints**</th>
 
-<th class="tg-yw4l">**Fruits**</th>
+<th class="tg-yw4l">**CRUD**</th>
 
 </tr>
 
