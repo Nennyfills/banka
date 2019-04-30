@@ -308,7 +308,7 @@ Test
 
 Authors
 
-    *Dike Chinenye 
+    Dike Chinenye 
 
 License
 
