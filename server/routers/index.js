@@ -20,8 +20,6 @@ router.post("/auth/portal", middleware.authorized, Validation.adminCreate, UserC
 router.post("/auth/login", Validation.login, UserController.login);
 // reset password routers for all users
 router.post("/resetpassword", UserController.resetPassword);
-// get user profile Image
-router.get("/profileimage", middleware.authorized, UserController.getProfileImage);
 // update profile image
 router.put("/profileimage/save", middleware.authorized, UserController.login);
 // create bank accounts router *for users only

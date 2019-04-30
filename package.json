@@ -5,8 +5,8 @@
   "main": "app.js",
   "scripts": {
     "build": "babel ./server -d build",
-    "test": "cross-env NODE_ENV=test babel-node server/create_tables.js && cross-env NODE_ENV=test nyc mocha build/unitTest/*.js --exit",
-    "devTest": "cross-env NODE_ENV=test babel-node server/create_tables.js && cross-env NODE_ENV=test nyc mocha server/unitTest --timeout 10000 --exit",
+    "devTest": "cross-env NODE_ENV=test babel-node server/create_tables.js && cross-env NODE_ENV=test nyc mocha build/unitTest/*.js --exit",
+    "test": "cross-env NODE_ENV=test babel-node server/create_tables.js && cross-env NODE_ENV=test nyc mocha server/unitTest --timeout 10000 --exit",
     "singleTest": "cross-env NODE_ENV=test babel-node server/create_tables.js && cross-env NODE_ENV=test nyc --reporter=html --reporter=lcov mocha --timeout 10000 --exit",
     "create": "node ./server/database/database.main.js",
     "start": "rimraf dist/ && babel  ./server -d dist && node dist/app.js",
@@ -30,10 +30,10 @@
   "dependencies": {
     "@babel/cli": "^7.4.3",
     "@babel/core": "^7.4.3",
+    "@babel/node": "^7.2.2",
     "@babel/polyfill": "^7.4.3",
     "@babel/preset-env": "^7.4.3",
     "babel-register": "^6.26.0",
-    "@babel/node": "^7.2.2",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.18.3",
     "chai": "^4.2.0",
@@ -50,7 +50,9 @@
     "nodemailer": "^6.1.1",
     "pg": "^7.10.0",
     "pg-types": "^2.0.1",
-    "request": "^2.88.0"
+    "request": "^2.88.0",
+    "swagger-jsdoc": "^3.2.9",
+    "swagger-ui-express": "^4.0.2"
   },
   "devDependencies": {
     "babel-plugin-istanbul": "^5.1.3",

@@ -151,31 +151,6 @@ class UserController {
     });
   }
 
-
-  /**
-*
-* @param {object} req to get the current user;
-* @param {object} res reponspond with an error message on failure or return data on success;
-
-*/
-
-  static getProfileImage(req, res) {
-    User.GetImage(req, (err, data) => {
-      if (err) {
-        res.status(400).json({
-          status: 400,
-          message: err,
-        });
-        return;
-      }
-      res.status(200).json({
-        status: 200,
-        message: "Request successful",
-        data: data.data,
-      });
-    });
-  }
-
   /**
 *
 * @param {object} req imageurl to update the user and req to get the current user;

@@ -164,17 +164,6 @@ exports.Password = async (data, callbk) => {
   }
 };
 
-exports.GetImage = async (data, callbk) => {
-  try {
-    const { currentUser } = data;
-    if (!currentUser) { callbk({ message: "Forbidden", err: 403 }, null); return; }
-    const user = await databaseController.findUserByEmail(currentUser.email);
-    const result = await databaseController.getImage(user.imageurl);
-    callbk(null, { data: result });
-  } catch (err) {
-    callbk({ message: err.message }, null);
-  }
-};
 
 exports.UpdateImage = async (data, callbk) => {
   try {

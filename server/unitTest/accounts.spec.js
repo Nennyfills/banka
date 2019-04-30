@@ -135,6 +135,16 @@ describe("Staff controller", () => {
           done();
         });
     });
+    it("should credit account if account not dormant Required", (done) => {
+      chai.request(app)
+        .post(endpoint)
+        .set("Authorization", token)
+        .send(3001219111)
+        .end((err, res) => {
+          expect(res).to.have.status(200);
+          done();
+        });
+    });
 
     it("should not credit a user once the wrong account number is given", (done) => {
       chai.request(app)
