@@ -154,14 +154,35 @@ describe("User signup", () => {
           done();
         });
     });
-    it("should get not found if current user not admin", (done) => {
-      const wrongToken = "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkbWluMDJAZ21haWwuY29tIiwicGVybWlzc2lvbiI6IkFETUlOIiwiaWQiOjEzLCJpc0FkbWluIjp0cnVlLCJpYXQiOjE1NTY0MzQ3NjIsImV4cCI6MTU1NzAzOTU2Mn0.tgSQiQ4swbF0Ih0NH5G3lJoJ-1FLJf_eR6JJbV_5ASs";
+    it("should not create account if required keys are not found", (done) => {
+      token = `Bearer ${jwt.sign({
+        type: "ADMIN",
+        email: "admin01@gmail.com",
+      },
+      process.env.SECRET_KEY,
+      { expiresIn: "7d" })}`;
       chai.request(app)
         .post("/api/v1/auth/portal")
-        .set("Authorization", wrongToken)
+        .set("Authorization", token)
         .send({})
         .end((err, res) => {
           expect(res).to.have.status(400);
+          done();
+        });
+    });
+    it("should not create account if currentuser is not an admin", (done) => {
+      token = `Bearer ${jwt.sign({
+        type: "STAFF",
+        email: "staff01@gmail.com",
+      },
+      process.env.SECRET_KEY,
+      { expiresIn: "7d" })}`;
+      chai.request(app)
+        .post("/api/v1/auth/portal")
+        .set("Authorization", token)
+        .send({})
+        .end((err, res) => {
+          expect(res).to.have.status(403);
           done();
         });
     });
@@ -170,17 +191,6 @@ describe("User signup", () => {
         .post("/api/v1/auth/portal")
         .set("Authorization", token)
         .send(payload)
-        .end((err, res) => {
-          expect(res).to.have.status(400);
-          done();
-        });
-    });
-    it("should not create account if duplicated key value are found", (done) => {
-      const wrongToken = "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkbWluMDJAZ21haWwuY29tIiwicGVybWlzc2lvbiI6IkFETUlOIiwiaWQiOjEzLCJpc0FkbWluIjp0cnVlLCJpYXQiOjE1NTY0MzQ3NjIsImV4cCI6MTU1NzAzOTU2Mn0.tgSQiQ4swbF0Ih0NH5G3lJoJ-1FLJf_eR6JJbV_5ASs";
-      chai.request(app)
-        .post("/api/v1/auth/portal")
-        .set("Authorization", wrongToken)
-        .send()
         .end((err, res) => {
           expect(res).to.have.status(400);
           done();
