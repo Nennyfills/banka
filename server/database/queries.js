@@ -1,6 +1,6 @@
 export default {
   ADD_USER: values => ({
-    text: "INSERT INTO  users(permission,  firstName,  surname, phonenumber, email, password, isAdmin) VALUES($1,$2,$3,$4,$5,$6,$7) RETURNING *",
+    text: "INSERT INTO  users(permission,  firstName,  surname, phonenumber, email, password, isAdmin) VALUES($1,$2,$3,$4,$5,$6,$7,$8) RETURNING *",
     values,
   }),
   ADD_ACCOUNT: values => ({

@@ -36,7 +36,7 @@ exports.userLogin = async (data, callbck) => {
           expiresIn: "7d",
         },
       )}`;
-      callbck(null, token);
+      callbck(null, { token, user });
     });
   } catch (err) {
     callbck({ message: err.message }, null);
