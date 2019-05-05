@@ -1,11 +1,11 @@
-[![Build Status](https://travis-ci.org/Nennyfills/banka.svg?branch=develop)](https://travis-ci.org/Nennyfills/banka) [![Coverage Status](https://coveralls.io/repos/github/Nennyfills/banka/badge.svg?branch=develop&service=github)](https://coveralls.io/github/Nennyfills/banka?branch=develop) [![Maintainability](https://api.codeclimate.com/v1/badges/5ff27e94e53e0f0c3fd7/maintainability)](https://codeclimate.com/github/Nennyfills/banka/maintainability) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Build Status](https://travis-ci.org/Nennyfills/banka.svg?branch=develop)](https://travis-ci.org/Nennyfills/banka)
+[![Coverage Status](https://coveralls.io/repos/github/Nennyfills/banka/badge.svg?branch=develop&service=github)](https://coveralls.io/github/Nennyfills/banka?branch=develop) [![Maintainability](https://api.codeclimate.com/v1/badges/5ff27e94e53e0f0c3fd7/maintainability)](https://codeclimate.com/github/Nennyfills/banka/maintainability) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 # Banka
 
-    Banka is a light-weight financial system that was bulit from the scrtach with vanilla 
-    JavaScript on the frontend which is also powered by Express server at the backend side.
-    this light-weight system allows a client to create their own account and also view their
-    transaction whenever they want but must visit a branch to withdraw or make any deposit.
+    Banka is a light-weight financial system that was bulit from the scrtach with vanilla JavaScript on the frontend which is
+    also powered by Express server at the backend side.this light-weight system allows a client to create their own account and 
+    also view theirtransaction whenever they want but must visit a branch to withdraw or make any deposit.
 
 ## Website
 
@@ -29,13 +29,13 @@
 
 # Links
 
-UI Template for the application can be found here Github[pages](https://nennyfills.github.io/banka/).
+UI Template for the application can be found here Github [pages](https://nennyfills.github.io/banka/).
 
 Pivotal Tracker Stories can found here Pivotal [tracker](https://www.pivotaltracker.com/n/projects/2320187)
 
 Application was deployed to Heroku. Use public URL with API [endpoints](https://banka-nenny.herokuapp.com/).
 
-API Documenttion was generated with <a href="">swagger</a>.
+API Documenttion was generated with <a href="https://app.swaggerhub.com/apis-docs/Nennyfills/banka/1.0.0">swagger</a>.
 
 # Technologies
 

@@ -11,7 +11,6 @@ export default {
     text: "INSERT INTO transaction(accountNumber, amount, cashier, depositor, type, oldBalance, newBalance, createdAt) VALUES($1,$2,$3,$4,$5,$6,$7,$8) RETURNING *",
     values,
   }),
-  // eslint-disable-next-line arrow-parens
   GET_USER_BY_EMAIL: values => ({
     text: "SELECT * FROM users WHERE email = $1",
     values,
@@ -44,10 +43,6 @@ export default {
     text: "SELECT * FROM transaction WHERE (accountNumber=$1 or $1 is null) AND (createdat >= $2::date or $2 is null) AND (createdat <= $3::date  + '1 day'::interval or $3 is null);",
     values,
   }),
-  // GET_TRANSACTION_BY_DATE: values => ({
-  //   text: "SELECT * FROM transaction WHERE (createdat >= $1::date) AND (createdat <= $1::date  + '1 day'::interval);",
-  //   values,
-  // }),
   GET_TRANSACTION_BY_ID: values => ({
     text: "SELECT * FROM  transaction WHERE id = ($1);",
     values,
