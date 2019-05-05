@@ -111,7 +111,6 @@ class UserController {
     const { email, password } = req.body;
 
     User.userLogin({ email, password }, (err, data ) => {
-
       if (err) {
         res.status(400).json({
           status: 400,
@@ -123,7 +122,6 @@ class UserController {
         status: 200,
         message: "Login successful",
         data,
-
       });
     });
   }
@@ -149,31 +147,6 @@ class UserController {
         status: 200,
         message: "Password successfully changed",
         data,
-      });
-    });
-  }
-
-
-  /**
-*
-* @param {object} req to get the current user;
-* @param {object} res reponspond with an error message on failure or return data on success;
-
-*/
-
-  static getProfileImage(req, res) {
-    User.GetImage(req, (err, data) => {
-      if (err) {
-        res.status(400).json({
-          status: 400,
-          message: err,
-        });
-        return;
-      }
-      res.status(200).json({
-        status: 200,
-        message: "Request successful",
-        data: data.data,
       });
     });
   }

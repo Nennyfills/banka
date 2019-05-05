@@ -135,7 +135,6 @@ describe("Staff controller", () => {
           done();
         });
     });
-
     it("should not credit a user once the wrong account number is given", (done) => {
       chai.request(app)
         .post(`/api/v1/${3008898}/credit`)

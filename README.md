@@ -1,4 +1,3 @@
-
 [![Build Status](https://travis-ci.org/Nennyfills/banka.svg?branch=develop)](https://travis-ci.org/Nennyfills/banka)
 [![Coverage Status](https://coveralls.io/repos/github/Nennyfills/banka/badge.svg?branch=develop&service=github)](https://coveralls.io/github/Nennyfills/banka?branch=develop) [![Maintainability](https://api.codeclimate.com/v1/badges/5ff27e94e53e0f0c3fd7/maintainability)](https://codeclimate.com/github/Nennyfills/banka/maintainability) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
@@ -30,7 +29,7 @@
 
 # Links
 
-UI Template for the application can be found here Github[pages](https://nennyfills.github.io/banka/).
+UI Template for the application can be found here Github [pages](https://nennyfills.github.io/banka/).
 
 Pivotal Tracker Stories can found here Pivotal [tracker](https://www.pivotaltracker.com/n/projects/2320187)
 
