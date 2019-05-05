@@ -60,5 +60,4 @@ VALUES(3,1,3007405577,'danny@gmail.com',215690.09,'savings','dormant','2019-04-2
 `;
 
 database.executeQuery(DBCLEANUP).catch((error) => {
-  console.log(error);
 });
