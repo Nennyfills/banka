@@ -33,7 +33,7 @@ exports.userLogin = async (data, callbck) => {
         },
         process.env.SECRET_KEY,
         {
-          expiresIn: "1h",
+          expiresIn: "2h",
         },
       )}`;
       callbck(null, { token, user });
@@ -96,7 +96,7 @@ exports.createSignup = async (data, callbk) => {
       },
       process.env.SECRET_KEY,
       {
-        expiresIn: "1h",
+        expiresIn: "2h",
       },
     )}`;
     delete newuser.password;
