@@ -6,6 +6,7 @@ node_js:
  services:
   - postgresql
   env:
+   - DB=postgres
   global:
   - PGPORT=5433
 
