@@ -206,11 +206,9 @@ describe("User signup", () => {
           .send({ email: "canny@gmail.com", password: "love" })
           .end((err, res) => {
             expect(res).to.have.status(200);
-            // expect(res.body).to.have.property("token");
             done();
           });
       });
-
       it("should not login a user with wrong email and password", (done) => {
         chai.request(app)
           .post("/api/v1/resetpassword")
@@ -227,6 +225,38 @@ describe("User signup", () => {
         .send({ email: "danny56@gmil.com", password: "loO(8ve56" })
         .end((err, res) => {
           expect(res).to.have.status(404);
+          done();
+        });
+    });
+    it("should upload image if is an exiting user", (done) => {
+      const token = `Bearer ${jwt.sign({
+        type: "USER",
+        email: "canny@gmail.com",
+      },
+      process.env.SECRET_KEY,
+      { expiresIn: "7d" })}`;
+      chai.request(app)
+        .put("/api/v1/profileimage/save")
+        .set("Authorization", token)
+        .send({ email: "canny@gmail.com", password: "love" })
+        .end((err, res) => {
+          expect(res).to.have.status(200);
+          done();
+        });
+    });
+    it("should not upload image if is not exiting user", (done) => {
+      const token = `Bearer ${jwt.sign({
+        type: "USER",
+        email: "canny@gmail.com",
+      },
+      process.env.SECRET_KEY,
+      { expiresIn: "7d" })}`;
+      chai.request(app)
+        .put("/api/v1/profileimage/save")
+        .set("Authorization", token)
+        .send({ email: "canny09@gmail.com", password: "liove" })
+        .end((err, res) => {
+          expect(res).to.have.status(400);
           done();
         });
     });
