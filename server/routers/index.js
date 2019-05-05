@@ -15,7 +15,7 @@ const router = Router();
 // create users router
 router.post("/auth/signup", Validation.signUp, UserController.signup);
 //  create admin and staff  * for admin only
-router.post("/auth/portal", middleware.authorized, Validation.adminCreate, UserController.createStaffAdminAccount);
+router.post("/auth/portal", middleware.authorized, middleware.adminAuthentication, Validation.adminCreate, UserController.createStaffAdminAccount);
 // login routers * for all users
 router.post("/auth/login", Validation.login, UserController.login);
 // reset password routers for all users
@@ -54,5 +54,4 @@ router.get("/:accountnumber/transactions", middleware.authorized, TransactionsCo
 router.get("/:accountnumber/transactions?startDate&endDate", middleware.authorized, TransactionsController.transactionByAccountnumber);
 //  get transactions by id
 router.get("/transactions/:transactionId", middleware.authorized, TransactionsController.transactionById);
-
 export default router;
