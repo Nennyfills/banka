@@ -220,7 +220,6 @@ $ npm install or npm i will Start your node server and run the command below
 <td class="tg-yw4l">get</td>
 
 </tr>
-
 <tr>
 
 <td class="tg-yw4l">acconut by accountumber</td>
