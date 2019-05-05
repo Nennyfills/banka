@@ -19,7 +19,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 _dotenv["default"].config();
 
 exports.create = function (data, callbk) {
-  var requiredField = ["firstName", "surName", "password", "email"];
+  var requiredField = ["firstname", "surName", "password", "email"];
   var requiredError = requiredField.filter(function (key) {
     return data[key] === undefined;
   }).map(function (value) {
@@ -47,7 +47,7 @@ exports.create = function (data, callbk) {
   var type = "USER";
   var password = hash;
   var email = data.email,
-      firstName = data.firstName,
+      firstname = data.firstname,
       surName = data.surName;
 
   var token = "Bearer " + _jsonwebtoken["default"].sign({
@@ -64,7 +64,7 @@ exports.create = function (data, callbk) {
     type: type,
     password: password,
     email: email,
-    firstName: firstName,
+    firstname: firstname,
     surName: surName
   };
 
@@ -75,7 +75,7 @@ exports.create = function (data, callbk) {
 };
 
 exports.createUserAccount = function (data, callbk) {
-  var requiredField = ["firstName", "surName", "openingBalance", "type", "email", "phoneNumber"];
+  var requiredField = ["firstname", "surName", "openingBalance", "type", "email", "phoneNumber"];
   var requiredError = requiredField.filter(function (key) {
     return data[key] === undefined;
   }).map(function (value) {
@@ -100,13 +100,13 @@ exports.createUserAccount = function (data, callbk) {
   var status = "active";
   var type = data.type,
       email = data.email,
-      firstName = data.firstName,
+      firstname = data.firstname,
       surName = data.surName,
       openingBalance = data.openingBalance,
       phoneNumber = data.phoneNumber;
   var allData = {
     key: key,
-    firstName: firstName,
+    firstname: firstname,
     surName: surName,
     ownerId: ownerId,
     accountNumber: accountNumber,

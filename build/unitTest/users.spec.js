@@ -21,7 +21,7 @@ describe("Post /auth/signup", function () {
     it("should register a new user once all the parameters are given", function () {
       var payload = {
         email: "joy2@westlife.com",
-        firstName: "Joy",
+        firstname: "Joy",
         surName: "Fills",
         password: "love",
         isAdmin: "false",
@@ -32,7 +32,7 @@ describe("Post /auth/signup", function () {
         (0, _chai.expect)(res).to.have.status(201);
         (0, _chai.expect)(res.body.data.email).to.equal(payload.email);
         (0, _chai.expect)(res.body.data.surName).to.equal(payload.surName);
-        (0, _chai.expect)(res.body.data.firstName).to.equal(payload.firstName);
+        (0, _chai.expect)(res.body.data.firstname).to.equal(payload.firstname);
         (0, _chai.expect)(res.body.data.isAdmin).to.equal(false);
         (0, _chai.expect)(res.body.data.status).to.equal("active");
         (0, _chai.expect)(res.body.data).to.have.property("id");
@@ -55,7 +55,7 @@ describe("Post /auth/signup", function () {
       var payload = {
         json: true,
         body: {
-          firstName: "Joy",
+          firstname: "Joy",
           surName: "Fills",
           accountNumber: 300984857,
           type: "current",
@@ -68,7 +68,7 @@ describe("Post /auth/signup", function () {
           (0, _chai.expect)(res).to.have.status(201);
           (0, _chai.expect)(res.body.data.email).to.equal("joy@westlife.com");
           (0, _chai.expect)(res.body.data.surName).to.equal(payload.body.surName);
-          (0, _chai.expect)(res.body.data.firstName).to.equal(payload.body.firstName);
+          (0, _chai.expect)(res.body.data.firstname).to.equal(payload.body.firstname);
           (0, _chai.expect)(res.body.data.status).to.equal("active");
           (0, _chai.expect)(res.body.data).to.have.property("id");
         });

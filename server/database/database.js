@@ -60,18 +60,23 @@ class databaseController {
     return res.rows[0];
   }
 
-  static async findTransactionByAccountNumber(accountNumber) {
-    const res = await pool.query(QUERY.GET_TRANSACTION_BY_ACCOUNTNUMBER([accountNumber]));
+  static async findTransactionByAccountNumber(values) {
+    const res = await pool.query(QUERY.GET_TRANSACTION_BY_ACCOUNTNUMBER(values));
     return res.rows;
   }
+
+  // static async findTransactionByDate(values) {
+  //   const res = await pool.query(QUERY.GET_TRANSACTION_BY_DATE(values));
+  //   return res.rows;
+  // }
 
   static async findTransactionById(id) {
     const res = await pool.query(QUERY.GET_TRANSACTION_BY_ID([id]));
     return res.rows;
   }
 
-  static async getAllAccountByAccountNumber(accountNumber) {
-    const res = await pool.query(QUERY.GET_ACCOUNT_BY_ACCOUNTNUMBER([accountNumber]));
+  static async getAllAccountByAccountNumber(values) {
+    const res = await pool.query(QUERY.GET_ACCOUNT_BY_ACCOUNTNUMBER([values]));
     return res.rows;
   }
 
@@ -126,14 +131,10 @@ class databaseController {
     return res.rows;
   }
 
-  static async updateAccountStatus({ accountnumber, status }) {
-    const res = await pool.query(QUERY.GET_ACCOUNT_BY_STATUS([status, accountnumber]));
-    return res.rows[0];
-  }
 
-  static async getAllTansaction(values) {
-    const res = await pool.query(QUERY.GET_ALL_ACCOUNT(values));
-    return res.rows;
+  static async updateAccountStatus({ accountnumber, status }) {
+    const res = await pool.query(QUERY.UPDATE_ACCOUNT_BY_STATUS([status, accountnumber]));
+    return res.rows[0];
   }
 }
 

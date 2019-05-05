@@ -1,12 +1,24 @@
 import databaseController from "../database";
 
-exports.findTransactionByAccount = async (data, callbk) => {
+// exports.findTransactionByAccountnumber = async (accountNumber, callbk) => {
+//   // const { accountNumber } = data;
+//   try {
+//     const transaction = await databaseController.findTransactionByAccountNumber(accountNumber);
+//     // if (transaction.length === 0) { callbk(transaction, null); return; }
+//     callbk(null, transaction);
+//   } catch (err) {
+//     callbk({ message: err.message.replace(/[^\w|\s]/g, "") }, null);
+//   }
+// };
+
+exports.findTransactionByAccountnumber = async ({ accountNumber, startDate, endDate }, callbk) => {
   try {
-    const transaction = await databaseController.findTransactionByAccountNumber(data.accountNumber);
-    if (transaction.length === 0) { callbk(data, null); return; }
-    callbk(null, transaction);
+    const transaction = await databaseController.findTransactionByAccountNumber([accountNumber, startDate, endDate]);
+    const eachAcountTransaction = transaction.filter(eachAccount => eachAccount.accountnumber === accountNumber.toString());
+    callbk(null, eachAcountTransaction);
+    return;
   } catch (err) {
-    callbk({ message: err }, null);
+    callbk({ message: err.message.replace(/[^\w|\s]/g, "") }, null);
   }
 };
 
@@ -17,15 +29,5 @@ exports.findTransactionById = async (data, callbk) => {
     return;
   } catch (err) {
     callbk({ message: err.message.replace(/[^\w|\s]/g, "") }, null);
-  }
-};
-
-exports.viewAllTransaction = async ({ startDate, endDate }, callbk) => {
-  try {
-    const transaction = await databaseController.getAllTansaction([startDate, endDate]);
-    callbk(null, transaction);
-    return;
-  } catch (err) {
-    callbk({ message: err.message }, null);
   }
 };

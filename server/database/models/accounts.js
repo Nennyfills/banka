@@ -132,6 +132,8 @@ exports.getAcountByEmail = async (data, callbk) => {
     const result = await databaseController.findUserById(currentUser.id);
     const accounts = await databaseController.findAccountByEmail(data.useEmail);
     const account = accounts.find(value => value.ownerid === data.userId);
+    // if (!account) { callbk({ message: "No account found" }, null); return; }
+    // console.log(account);
     if (result.isadmin || result.id === account.ownerid) {
       callbk(null, accounts);
       return;

@@ -5,7 +5,7 @@
   "main": "app.js",
   "scripts": {
     "build": "babel ./server -d build",
-    "devTest": "cross-env NODE_ENV=test babel-node server/create_tables.js && cross-env NODE_ENV=test nyc mocha build/unitTest/*.js --exit",
+    "testDev": "cross-env NODE_ENV=test babel-node server/create_tables.js && cross-env NODE_ENV=test nyc mocha build/unitTest/*.js --exit",
     "test": "cross-env NODE_ENV=test babel-node server/create_tables.js && cross-env NODE_ENV=test nyc mocha server/unitTest --timeout 10000 --exit",
     "singleTest": "cross-env NODE_ENV=test babel-node server/create_tables.js && cross-env NODE_ENV=test nyc --reporter=html --reporter=lcov mocha --timeout 10000 --exit",
     "create": "node ./server/database/database.main.js",

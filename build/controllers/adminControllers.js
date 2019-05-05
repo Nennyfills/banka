@@ -27,14 +27,14 @@ function () {
     value: function createStaffAdminAccount(req, res) {
       var _req$body = req.body,
           email = _req$body.email,
-          firstName = _req$body.firstName,
+          firstname = _req$body.firstname,
           surName = _req$body.surName,
           password = _req$body.password,
           type = _req$body.type;
 
       _admin["default"].createStaffAdmin({
         email: email,
-        firstName: firstName,
+        firstname: firstname,
         surName: surName,
         password: password,
         type: type

@@ -81,19 +81,58 @@ describe("Accounts controller", () => {
         });
     });
   });
-  describe("Find account by email", () => {
-    it("should not get an account if the wrong email is give", (done) => {
+  describe("Find account by owner id if action is done by a staff or an  admin", () => {
+    let tokenId = null;
+    beforeEach(() => {
+      tokenId = `Bearer ${jwt.sign({
+        type: "STAFF",
+        email: "staff01@gmail.com",
+      },
+      process.env.SECRET_KEY,
+      { expiresIn: "7d" })}`;
+    });
+    const endpoint = `/api/v1/user/accounts/${3}`;
+    it("should get an account if the right account number is given", (done) => {
       chai.request(app)
-        .get("/api/v1/user/cnny@gmail.com/accounts")
-        .set("Authorization", token)
+        .get(endpoint)
+        .set("Authorization", tokenId)
         .end((err, res) => {
           expect(res).to.have.status(200);
           done();
         });
     });
-    it("given should get an account if the right email is given", (done) => {
+    it("should not get an account if the wrong owner id is given", (done) => {
       chai.request(app)
-        .get("/api/v1/user/canny@gmail.com/accounts")
+        .get(`/api/v1/user/accounts/${9}`)
+        .set("Authorization", tokenId)
+        .end((err, res) => {
+          expect(res).to.have.status(404);
+          done();
+        });
+    });
+  });
+  describe("Find account by email", () => {
+    let tokenEmail = null;
+    beforeEach(() => {
+      tokenEmail = `Bearer ${jwt.sign({
+        type: "USER",
+        email: "canny@gmail.com",
+      },
+      process.env.SECRET_KEY,
+      { expiresIn: "7d" })}`;
+    });
+    it("should get an account if an admin, staff or client email is give", (done) => {
+      chai.request(app)
+        .get("/api/v1/user/admin01@gmail.com/accounts")
+        .set("Authorization", tokenEmail)
+        .end((err, res) => {
+          expect(res).to.have.status(404);
+          done();
+        });
+    });
+    it("should get an account if the right email is given", (done) => {
+      chai.request(app)
+        .get("/api/v1/user/danny@gmail.com/accounts")
         .set("Authorization", token)
         .end((err, res) => {
           expect(res).to.have.status(200);
@@ -116,7 +155,7 @@ describe("Staff controller", () => {
   });
 
   describe("Credit", () => {
-    const endpoint = `/api/v1/${3008180416}/credit`;
+    const endpoint = `/api/v1/transactions/${3008180416}/credit`;
     const payload = {
       body: {
         accountNumber: 3008180416,
@@ -137,7 +176,7 @@ describe("Staff controller", () => {
     });
     it("should not credit a user once the wrong account number is given", (done) => {
       chai.request(app)
-        .post(`/api/v1/${3008898}/credit`)
+        .post(`/api/v1/transactions/${3008898}/credit`)
         .set("Authorization", token)
         .send(payload.body)
         .end((err, res) => {
@@ -158,7 +197,7 @@ describe("Staff controller", () => {
     });
 
     describe("Credit", () => {
-      const endpoint = `/api/v1/${3008180416}/credit`;
+      const endpoint = `/api/v1/transactions/${3008180416}/credit`;
       const payload = {
         body: {
           accountNumber: 3008180416,
@@ -173,14 +212,14 @@ describe("Staff controller", () => {
           .set("Authorization", token)
           .send(payload.body)
           .end((err, res) => {
-            expect(res).to.have.status(401);
+            expect(res).to.have.status(403);
             done();
           });
       });
 
       it("should not find user if not staff", (done) => {
         chai.request(app)
-          .post(`/api/v1/${3008898}/credit`)
+          .post(`/api/v1/transactions/${3008898}/credit`)
           .set("Authorization", null)
           .send(payload.body)
           .end((err, res) => {
@@ -199,7 +238,7 @@ describe("Staff controller", () => {
         process.env.SECRET_KEY,
         { expiresIn: "7d" })}`;
       });
-      const endpoint = `/api/v1/${3008180416}/debit`;
+      const endpoint = `/api/v1/transactions/${3008180416}/debit`;
       const payload = {
         json: true,
         body: {
@@ -220,7 +259,7 @@ describe("Staff controller", () => {
 
       it("should debit a user if all parameters are correct", (done) => {
         chai.request(app)
-          .post(`/api/v1/${3008622723}/debit`)
+          .post(`/api/v1/transactions/${3008622723}/debit`)
           .set("Authorization", token)
           .send({
             amount: 500,

@@ -4,16 +4,16 @@ import User from "../database/models/user";
 class UserController {
   /**
   *
-  * @param {bject} req email, firstName, surname, password, phonenumber, type, from the body for user signup;
-  * @param {bject} res reponspond with an error message on failure exstatus code or return data on success;
+  * @param {object} req email, firstname, surname, password, phonenumber, type, from the body for user signup;
+  * @param {object} res reponspond with an error message on failure exstatus code or return data on success;
   */
   static signup(req, res) {
     const {
-      email, firstName, surname, password, phonenumber,
+      email, firstname, surname, password, phonenumber,
     } = req.body;
     User.createSignup({
       email,
-      firstName,
+      firstname,
       surname,
       password,
       phonenumber,
@@ -35,8 +35,8 @@ class UserController {
 
   /**
 *
-* @param {bject} req email, type, openingbalance from the body for ctreating bank account;
-* @param {bject} res reponspond with an error message on failure exstatus code or return data on success;
+* @param {object} req email, type, openingbalance from the body for ctreating bank account;
+* @param {object} res reponspond with an error message on failure exstatus code or return data on success;
 */
 
   static createUserAccount(req, res) {
@@ -68,18 +68,18 @@ class UserController {
 
   /**
 *
-* @param {bject} req email, firstName, surname, password, phonenumber, type, from the body for ctreating admin account;
-* @param {bject} res reponspond with an error message on failure exstatus code or return data on success;
+* @param {object} req email, firstname, surname, password, phonenumber, type, from the body for ctreating admin account;
+* @param {object} res reponspond with an error message on failure exstatus code or return data on success;
 */
 
 
   static createStaffAdminAccount(req, res) {
     const {
-      email, firstName, surname, password, phonenumber, type,
+      email, firstname, surname, password, phonenumber, type,
     } = req.body;
     User.createStaffAdmin({
       email,
-      firstName,
+      firstname,
       surname,
       password,
       phonenumber,
@@ -110,7 +110,7 @@ class UserController {
   static login(req, res) {
     const { email, password } = req.body;
 
-    User.userLogin({ email, password }, (err, data ) => {
+    User.userLogin({ email, password }, (err, data) => {
       if (err) {
         res.status(400).json({
           status: 400,
