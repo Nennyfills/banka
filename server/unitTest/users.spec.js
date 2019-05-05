@@ -10,7 +10,7 @@ describe("User signup", () => {
   it("should register a new user if email already exist", (done) => {
     const payload = {
       email: "dannyoy@gmail.com",
-      firstName: "Joy",
+      firstname: "Joy",
       surname: "Fills",
       password: "Love4@me",
       isAdmin: "false",
@@ -29,7 +29,7 @@ describe("User signup", () => {
   it("should not register a new user once required parameters are missing", (done) => {
     const payload = {
       email: "dannyboy@gmail.com",
-      firstName: "Joy",
+      firstname: "Joy",
       surname: "Fills",
       password: "love",
       isAdmin: "false",
@@ -119,7 +119,7 @@ describe("User signup", () => {
 
       payload = {
         email: "strip@gmail.com",
-        firstName: "Joy",
+        firstname: "Joy",
         surname: "dills",
         password: "Love12$3",
         isAdmin: "true",

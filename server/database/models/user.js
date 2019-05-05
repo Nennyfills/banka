@@ -46,7 +46,7 @@ exports.userLogin = async (data, callbck) => {
 exports.createStaffAdmin = async (data, callbk) => {
   try {
     const {
-      email, firstName, surname, phonenumber, type,
+      email, firstname, surname, phonenumber, type,
     } = data;
     const user = await databaseController.findUserByEmail(data.email);
     const permission = "ADMIN" || "STAFF";
@@ -59,7 +59,7 @@ exports.createStaffAdmin = async (data, callbk) => {
     const hash = bcrypt.hashSync(data.password, 10);
     const isAdmin = true;
     const password = hash;
-    const values = [type, firstName, surname, phonenumber, email, password, isAdmin];
+    const values = [type, firstname, surname, phonenumber, email, password, isAdmin];
     const newuser = await databaseController.addUser(values);
     callbk(null, { newuser });
   } catch (err) {
@@ -71,7 +71,7 @@ exports.createStaffAdmin = async (data, callbk) => {
 exports.createSignup = async (data, callbk) => {
   try {
     const {
-      email, firstName, surname, phonenumber,
+      email, firstname, surname, phonenumber,
     } = data;
 
     const user = await databaseController.findUserByEmail(data.email);
@@ -83,7 +83,7 @@ exports.createSignup = async (data, callbk) => {
     const isAdmin = false;
     const type = "USER";
     const password = hash;
-    const values = [type, firstName, surname, phonenumber, email, password, isAdmin];
+    const values = [type, firstname, surname, phonenumber, email, password, isAdmin];
     const newuser = await databaseController.addUser(values);
     const token = `Bearer ${jwt.sign(
       {

@@ -11,14 +11,14 @@ CREATE TABLE IF NOT EXISTS
    users(
         id SERIAL PRIMARY KEY,
         permission VARCHAR(10) NOT NULL,
-        firstName VARCHAR(20) NOT NULL,
+        firstname VARCHAR(20) NOT NULL,
         surname VARCHAR(20) NOT NULL,
         phonenumber VARCHAR(15) NOT NULL UNIQUE,
         email VARCHAR(20) NOT NULL UNIQUE,
         password VARCHAR(300) NOT NULL,
         isAdmin BOOLEAN NOT NULL,
         imageurl VARCHAR(450)
-         );
+        );
 
 CREATE TABLE IF NOT EXISTS
      account(
@@ -45,7 +45,7 @@ CREATE TABLE IF NOT EXISTS
       createdAt TIMESTAMPTZ
       );
 
-INSERT INTO users(id, permission, firstName, surname, phonenumber, email, password, isAdmin)
+INSERT INTO users(id, permission, firstname, surname, phonenumber, email, password, isAdmin)
 VALUES(1, 'USER','Danny','Dike','080787879697', 'danny@gmail.com', '$2a$10$3uK5se63KpaqyvbLWIbsBuobZP6IuqgmsHn5MVxtJkZ04LAy2J1Ja', false), 
 (3, 'USER', 'Canny', 'Rike', '080787879695', 'canny@gmail.com', '$2a$10$3uK5se63KpaqyvbLWIbsBuobZP6IuqgmsHn5MVxtJkZ04LAy2J1Ja', false),
 (4, 'ADMIN', 'Panny', 'Sunday', '080787879690', 'admin01@gmail.com', '$2a$10$Cu6AEdxxfuDQqH6.MF / M1OKIlxYFWL2BIon.xZut7jkEIyosAef7K', true), 

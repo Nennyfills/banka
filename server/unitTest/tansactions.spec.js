@@ -23,7 +23,7 @@ describe("Transaction", () => {
       .get(`/api/v1/${30898976}/transactions`)
       .set("Authorization", token)
       .end((err, res) => {
-        expect(res).to.have.status(404);
+        expect(res).to.have.status(200);
         done();
       });
   });
@@ -59,9 +59,18 @@ describe("Transaction", () => {
         done();
       });
   });
-  it("User can search transaction by date", (done) => {
+  it("User can get transaction by date if accurate date is given", (done) => {
     chai.request(app)
-      .get("/api/v1/transactions?startDate=2019-04-25&endDate=2019-04-26")
+      .get("/api/v1/3001219111/transactions?startDate=2019-05-02&endDate=2019-05-02")
+      .set("Authorization", userToken)
+      .end((err, res) => {
+        expect(res).to.have.status(200);
+        done();
+      });
+  });
+  it("User can't get transaction by date if date not found", (done) => {
+    chai.request(app)
+      .get("/api/v1/transactions?startDate=2019-02-02&endDate=2019-03-02")
       .set("Authorization", userToken)
       .end((err, res) => {
         expect(res).to.have.status(404);

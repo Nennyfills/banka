@@ -27,13 +27,13 @@ function () {
     value: function signup(req, res) {
       var _req$body = req.body,
           email = _req$body.email,
-          firstName = _req$body.firstName,
+          firstname = _req$body.firstname,
           surName = _req$body.surName,
           password = _req$body.password;
 
       _user["default"].create({
         email: email,
-        firstName: firstName,
+        firstname: firstname,
         surName: surName,
         password: password
       }, function (err, data) {
@@ -57,7 +57,7 @@ function () {
     key: "createUserAccount",
     value: function createUserAccount(req, res) {
       var _req$body2 = req.body,
-          firstName = _req$body2.firstName,
+          firstname = _req$body2.firstname,
           surName = _req$body2.surName,
           openingBalance = _req$body2.openingBalance,
           phoneNumber = _req$body2.phoneNumber,
@@ -65,7 +65,7 @@ function () {
       var email = req.currentUser.email;
 
       _user["default"].createUserAccount({
-        firstName: firstName,
+        firstname: firstname,
         surName: surName,
         openingBalance: openingBalance,
         phoneNumber: phoneNumber,

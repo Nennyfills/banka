@@ -29,7 +29,7 @@ describe("Admin controller", function () {
   it("should create staff or admin once all the parameters are given", function () {
     var payload = {
       email: "staff2@FileList.com",
-      firstName: "Joy",
+      firstname: "Joy",
       surName: "dills",
       password: "love",
       isAdmin: "true",
@@ -40,7 +40,7 @@ describe("Admin controller", function () {
       (0, _chai.expect)(res).to.have.status(201);
       (0, _chai.expect)(res.body.data.email).to.equal(payload.email);
       (0, _chai.expect)(res.body.data.surName).to.equal(payload.surName);
-      (0, _chai.expect)(res.body.data.firstName).to.equal(payload.firstName);
+      (0, _chai.expect)(res.body.data.firstname).to.equal(payload.firstname);
       (0, _chai.expect)(res.body.data.isAdmin).to.equal(true);
       (0, _chai.expect)(res.body.data).to.have.property("id");
     });

@@ -1,7 +1,7 @@
 import Joi from "joi";
 
 const joyKeys = {
-  firstName: Joi.string().trim().regex(/^[a-zA-Z]*$/).min(3).max(15)
+  firstname: Joi.string().trim().regex(/^[a-zA-Z]*$/).min(3).max(15)
     .required(),
   surname: Joi.string().regex(/^[a-zA-Z]*$/).min(3).max(15)
     .required(),
@@ -37,8 +37,8 @@ const errorResponse = (response, res) => {
       message: "Type is required and should not be longer than 6 character",
     },
     {
-      key: "firstName",
-      message: "Firstname is required  and must be an alphabet",
+      key: "firstname",
+      message: "firstname is required  and must be an alphabet",
     },
     {
       key: "surname",

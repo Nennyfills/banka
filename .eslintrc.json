@@ -18,7 +18,8 @@
       2,
       "double"
     ],
-    " no-duplicate-imports": "0",
+    "max-len":0,
+    " no-duplicate-imports": 0,
     "no-var":2,
     "no-useless-constructor": 2,
     "newline-before-return": 0,

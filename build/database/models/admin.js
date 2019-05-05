@@ -13,7 +13,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "d
 _dotenv["default"].config();
 
 exports.createStaffAdmin = function (data, callbk) {
-  var requiredField = ["firstName", "surName", "password", "email", "type"];
+  var requiredField = ["firstname", "surName", "password", "email", "type"];
   var requiredError = requiredField.filter(function (key) {
     return data[key] === undefined;
   }).map(function (value) {
@@ -44,7 +44,7 @@ exports.createStaffAdmin = function (data, callbk) {
   var isAdmin = true;
   var password = hash;
   var email = data.email,
-      firstName = data.firstName,
+      firstname = data.firstname,
       surName = data.surName,
       type = data.type;
   var allData = {
@@ -52,7 +52,7 @@ exports.createStaffAdmin = function (data, callbk) {
     type: type,
     password: password,
     email: email,
-    firstName: firstName,
+    firstname: firstname,
     surName: surName
   };
 

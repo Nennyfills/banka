@@ -38,10 +38,10 @@
 //     });
 
 //   }
-//   if (key === "firstName" || key === "surname") {
+//   if (key === "firstname" || key === "surname") {
 //     return res.status(status).json({
 //       status,
-//       message: "Firstname and surname is required  and must be an alphabet",
+//       message: "firstname and surname is required  and must be an alphabet",
 //     });
 //   }
 //   return res.status(status).json({
