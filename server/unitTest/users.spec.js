@@ -2,6 +2,7 @@ import chai, { expect } from "chai";
 import chaiHttp from "chai-http";
 import "@babel/polyfill";
 import jwt from "jsonwebtoken";
+import { log } from "core-js";
 import app from "../app";
 
 chai.use(chaiHttp);
@@ -82,6 +83,21 @@ describe("User signup", () => {
         .send({})
         .end((err, res) => {
           expect(res).to.have.status(400);
+          done();
+        });
+    });
+    it("should not allow a staff or admin create an account", (done) => {
+      const tokenS = `Bearer ${jwt.sign({
+        type: "STAFF",
+        email: "staff01@gmail.com",
+      },
+      process.env.SECRET_KEY,
+      { expiresIn: "7d" })}`;
+      chai.request(app).post("/api/v1/accounts")
+        .set("Authorization", tokenS)
+        .end((err, res) => {
+          console.log(res.body);
+          expect(res).to.have.status(403);
           done();
         });
     });
@@ -221,10 +237,36 @@ describe("User signup", () => {
     });
     it("should not change password if not an exiting users", (done) => {
       chai.request(app)
-        .get("/api/v1/resetpassword")
+        .post("/api/v1/resetpassword")
         .send({ email: "danny56@gmil.com", password: "loO(8ve56" })
         .end((err, res) => {
-          expect(res).to.have.status(404);
+          expect(res).to.have.status(400);
+          done();
+        });
+    });
+    it("should not change password if password dont meet the password standard", (done) => {
+      const token = `Bearer ${jwt.sign({
+        type: "USER",
+        email: "danny@gmil.com",
+      },
+      process.env.SECRET_KEY,
+      { expiresIn: "7d" })}`;
+      chai.request(app)
+        .post("/api/v1/resetpassword")
+        .set("Authorization", token)
+        .send({ email: "danny@gmil.com" })
+        .end((err, res) => {
+          expect(res).to.have.status(400);
+          done();
+        });
+    });
+    it("should not change password if password dont meet the password standard", (done) => {
+      chai.request(app)
+        .post("/api/v1/resetpassword")
+        .send({ email: "Wills@gmail.com", password: "love" })
+        .end((err, res) => {
+          console.log(res.body);
+          expect(res).to.have.status(400);
           done();
         });
     });
@@ -257,6 +299,15 @@ describe("User signup", () => {
         .send({ email: "canny09@gmail.com", password: "liove" })
         .end((err, res) => {
           expect(res).to.have.status(400);
+          done();
+        });
+    });
+    it("should not upload image if is not exiting user", (done) => {
+      chai.request(app)
+        .put("/api/v1/profileimage/save")
+        .send({ email: "canny@gmail.com", password: "love" })
+        .end((err, res) => {
+          expect(res).to.have.status(401);
           done();
         });
     });

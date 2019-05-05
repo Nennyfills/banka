@@ -41,6 +41,21 @@ describe("Accounts controller", () => {
             done();
           });
       });
+      it("should not allow a user delete an account", (done) => {
+        const tokenS = `Bearer ${jwt.sign({
+          type: "USER",
+          email: "canny@gmail.com",
+        },
+        process.env.SECRET_KEY,
+        { expiresIn: "7d" })}`;
+        chai.request(app).delete(endpoint)
+          .set("Authorization", tokenS)
+          .end((err, res) => {
+            console.log(res.body);
+            expect(res).to.have.status(403);
+            done();
+          });
+      });
     });
   });
 
