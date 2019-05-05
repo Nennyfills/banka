@@ -1,21 +1,15 @@
 language: node_js
-
-node_js:
- - "11.8.0"
-
- services:
+node_js: "11.8.0"
+services:
   - postgresql
-  env:
-   - DB=postgres
-  global:
+env:
+  - DB=postgres
+global:
   - PGPORT=5433
-
 cache:
-directories:
+  directories:
   - "node_modules"
-
 script:
   - npm run test
-
 after_script:
   - npm run coverage
