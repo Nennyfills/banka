@@ -1,12 +1,14 @@
 [![Build Status](https://travis-ci.org/Nennyfills/banka.svg?branch=develop)](https://travis-ci.org/Nennyfills/banka)
-[![Coverage Status](https://coveralls.io/repos/github/Nennyfills/banka/badge.svg?branch=develop)](https://coveralls.io/github/Nennyfills/banka?branch=develop&service=github)
+[![Coverage Status](https://coveralls.io/repos/github/Nennyfills/banka/badge.svg?branch=develop)
+https://coveralls.io/repos/github/TheFlow0360/criteria_operator/badge.svg?branch=master
+
 [![Maintainability](https://api.codeclimate.com/v1/badges/5ff27e94e53e0f0c3fd7/maintainability)](https://codeclimate.com/github/Nennyfills/banka/maintainability) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 # Banka
 
-    Banka is a light-weight financial system that was bulit from the scrtach with vanilla JavaScript on the frontend which is
-    also powered by Express server at the backend side.this light-weight system allows a client to create their own account and 
-    also view theirtransaction whenever they want but must visit a branch to withdraw or make any deposit.
+    Banka is a light-weight financial system that was bulit from the scrtach with vanilla JavaScript on the frontend 
+    which is also powered by Express server at the backend side.this light-weight system allows a client to create their
+    own account and also view theirtransaction whenever they want but must visit a branch to withdraw or make any deposit.
 
 ## Website
 
